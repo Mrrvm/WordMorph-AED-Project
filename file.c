@@ -1,10 +1,11 @@
-/**************************************
+/***************************************************************
 * Wordmorph @ AED-Project 2016-2017
 * by
 * Madalena Muller & Mariana Martins
 *
 * file.c
-***************************************/
+* All functions related to reading/creating/managing files.
+***************************************************************/
 
 #include "file.h"
 

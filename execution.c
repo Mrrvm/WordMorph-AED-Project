@@ -3,14 +3,8 @@
 * by
 * Madalena Muller & Mariana Martins
 *
-* file.h
-* All functions related to reading/creating/managing files.
+* execution.c
+* All functions that directly allow the wordmorphism to happen
 ***************************************************************/
 
-#ifndef fileHeader
-#define fileHeader
-
-#include "defs.h"
-
-	
-#endif
+#include "execution.h"

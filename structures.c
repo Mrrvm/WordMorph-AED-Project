@@ -3,14 +3,8 @@
 * by
 * Madalena Muller & Mariana Martins
 *
-* file.h
-* All functions related to reading/creating/managing files.
+* structures.c
+* All functions that create/append/add/free/get/set structures.
 ***************************************************************/
 
-#ifndef fileHeader
-#define fileHeader
-
-#include "defs.h"
-
-	
-#endif
+#include "structures.h"
