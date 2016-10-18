@@ -12,7 +12,8 @@
 int main(int argc, char **argv) {
 
 	FILE *dic_file, *pal_file, *output_file;
-	char *line_data[3];
+	char first_word[1000], second_word[1000];
+	int typeof_exe;
 
 	if(argc != 3 || strcmp(get_filename_ext(argv[1]), "dic") || strcmp(get_filename_ext(argv[2]), "pal"))
 		file_error("Missing arguments or wrong extension specified on file input");
@@ -24,16 +25,18 @@ int main(int argc, char **argv) {
 		file_error("Unable to open specified file");
 
 	/*read and store dictionary data*/
+	manage_dic_file(dic_file);
 
 	pal_file = fopen(argv[2], "r");
 	if(pal_file == NULL)
 		file_error("Unable to open specified file");
 
-	/*while(read_pal_file(pal_file, line_data) != 0) {
-		decide which execution based on line_data[2]
+	while(read_pal_file(pal_file, first_word, second_word, &typeof_exe)) {
+		/*decide which execution based on line_data[2]
 		do the execution
-		create output for that line
-	}*/
+		create output for that line*/
+		printf("%s %s %d\n", first_word, second_word, typeof_exe);
+	}
 
 	/*free data structures*/
 
