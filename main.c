@@ -12,7 +12,7 @@
 int main(int argc, char **argv) {
 
 	FILE *dic_file, *pal_file, *output_file;
-	char *line_data[3];
+	char *line_data[3], *nome;
 
 	if(argc != 3 || strcmp(get_filename_ext(argv[1]), "dic") || strcmp(get_filename_ext(argv[2]), "pal"))
 		file_error("Missing arguments or wrong extension specified on file input");
@@ -36,6 +36,17 @@ int main(int argc, char **argv) {
 	}*/
 
 	/*free data structures*/
+
+          nome=(char*)malloc(strlen(argv[2])+strlen(".stat")+1)*sizeof(char);
+          
+	  strcpy ( nome, argv[2] /*mas sem o .pal que nao sei como se retira*/ );
+          strcat ( nome, ".stat" );
+
+          outputfile = fopen( nome , "w"); 
+          fprintf(outputfile, 
+
+          fclose(outputfile);
+          free(nome);
 
 	exit(0);
 
