@@ -21,7 +21,7 @@ void file_error(char *msg)
     fprintf(stderr, KRED"Msg: %s\n",msg);
     fprintf(stderr, KRED"Exit Program due to unmanaged error.\n"KNRM);
 
-    exit(1);
+    exit(0);
 }
 
 void memory_error(char *msg)
@@ -30,5 +30,5 @@ void memory_error(char *msg)
     fprintf(stderr, KRED"Msg: %s\n",msg);
     fprintf(stderr, KRED"Exit Program due to unmanaged error.\n"KNRM);
 
-    exit(1);
+    exit(0);
 }
