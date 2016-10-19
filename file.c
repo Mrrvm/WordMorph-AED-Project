@@ -15,7 +15,7 @@ void manage_dic_file(FILE *dic_file/*, void* store_dic_data */) {
 
 	/*reads word and stores it in data structure*/
 	while(fscanf(dic_file, "%999s", word) == 1) {
-		printf("%s\n", word);
+		spam(("%s\n", word));
 		/*store_dic_data()*/
 	}
 	return;
