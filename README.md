@@ -1,21 +1,30 @@
 # WordMorph - AED Project
 
-To compile: 
+* Simply do:
 
-    $ make
+
+        $ git clone https://github.com/Mrrvm/WordMorph---AED-Project/
+
+* To compile: 
+
+   
+        $ make
     
-To execute:
+* To execute:
 
-    $ ./wordmorph res/test_file.dic res/test_file.pal
     
-Execute with valgrind:
+        $ ./wordmorph res/test_file.dic res/test_file.pal
+    
+* Execute with valgrind:
 
-    $ valgrind --leak-check=full -v ./wordmorph res/test_file.dic res/test_file.pal
+    
+        $ valgrind --leak-check=full -v ./wordmorph res/test_file.dic res/test_file.pal
 
-To clear out printfs change 
+* To clear out printfs change 
 
-    #define DEBUG_ON 
+    
+        #define DEBUG_ON 
 to
 
-    #define DEBUG OFF
+        #define DEBUG OFF
     
