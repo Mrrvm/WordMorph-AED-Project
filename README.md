@@ -27,5 +27,5 @@
 to
 
         #define DEBUG_OFF
-    
-And use spam((a)) instead of printf(a).
+
+in defs.h, and use spam((a)) instead of printf(a).
