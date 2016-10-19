@@ -11,3 +11,11 @@ To execute:
 Execute with valgrind:
 
     $ valgrind --leak-check=full -v ./wordmorph res/test_file.dic res/test_file.pal
+
+To clear out printfs change 
+
+    #define DEBUG_ON 
+to
+
+    #define DEBUG OFF
+    
