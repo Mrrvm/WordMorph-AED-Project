@@ -24,6 +24,22 @@
 #define KWHT  "\x1B[37m"
 #define RESET "\033[0m"
 
+/*change this to DEBUG_OFF to clear out the printfs*/
+#define DEBUG_ON
+
+#ifdef DEBUG_ON
+  #define spam(a) printf a
+#else
+  #define spam(a) (void)0
+#endif
+
+typedef void *item;
+typedef enum
+{
+    FALSE=0,
+    TRUE=1
+} bool;
+
 char *get_filename_ext(char *filename);
 void file_error(char *msg);
 void memory_error(char *msg);
