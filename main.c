@@ -37,7 +37,7 @@ int main(int argc, char **argv) {
 		/*decide which execution based on line_data[2]
 		do the execution
 		create output for that line*/
-		printf("%s %s %d\n", first_word, second_word, typeof_exe);
+		spam(("%s %s %d\n", first_word, second_word, typeof_exe));
 	}
 
 	/*free data structures*/
