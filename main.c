@@ -29,7 +29,10 @@ int main(int argc, char **argv) {
 	manage_pal_file(argv[2], indexing_vector);
 	/*Read dictionary file once to get the number of words 
 		for each different number of letters*/
-	manage_dic_file(argv[1], print_none, indexing_vector);
+	manage_dic_file(argv[1], manage_dic_data1, indexing_vector);
+	/*Create the rest of the vector with the number of word of each number
+		of letters*/
+	
 	/*Read dictionary file again to put all the words in the dictionary*/
 	manage_dic_file(argv[1], print_none, indexing_vector);
 

@@ -51,8 +51,10 @@ void manage_pal_file(char *file, vector *indexing_vector) {
 	return;
 }
 
-void manage_dic_data1(char *word, vector *indexing_vector) {
+void manage_dic_data1(item got_char, item got_vector) {
 	
+	char *word = (char *)got_char;
+	vector *indexing_vector = (vector *)got_vector;
 	int word_len;
 	element *got_element = NULL;
 	
