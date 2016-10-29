@@ -14,6 +14,8 @@
 
 typedef struct _node node;
 typedef struct _list list;
+typedef struct _element element;
+typedef struct _vector vector;
 
 node *create_node(item new_item, node *next_node);
 item get_node_item(node *got_node);

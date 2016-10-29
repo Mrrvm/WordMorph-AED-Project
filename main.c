@@ -12,10 +12,9 @@
 int main(int argc, char **argv) {
 
 	FILE *dic_file, *pal_file, *outputfile;
-	char first_word[1000], second_word[1000];
+	char first_word[100], second_word[100];
 	int typeof_exe;
 	char *nome;
-
 
 	if(argc != 3 || strcmp(get_filename_ext(argv[1]), "dic") || strcmp(get_filename_ext(argv[2]), "pal"))
 		file_error("Missing arguments or wrong extension specified on file input");
@@ -34,9 +33,9 @@ int main(int argc, char **argv) {
 		file_error("Unable to open specified file");
 
 	while(read_pal_file(pal_file, first_word, second_word, &typeof_exe)) {
-		/*decide which execution based on line_data[2]
-		do the execution
-		create output for that line*/
+		/*decide which execution based on typeof_exe*/
+		/*do the execution*/
+		/*create output for that line*/
 		spam(("%s %s %d\n", first_word, second_word, typeof_exe));
 	}
 
