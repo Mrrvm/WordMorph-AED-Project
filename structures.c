@@ -4,8 +4,8 @@
 * Madalena Muller & Mariana Martins
 *
 * structures.c
-* All functions that create/append/add/free/get/set structures.
-***************************************************************/
+* All functions that create/append/add/free/get/set abstract structures.
+************************************************************************/
 
 #include "structures.h"
 
@@ -20,13 +20,9 @@ struct _list {
     node *head;
 };
 
-struct _element {
-    item this;
-};
-
 struct _vector {
+    item *data;
     size_t size;
-    element data;
 };
 
 /*****************************NODE*****************************/
@@ -171,11 +167,12 @@ vector *create_vector(int n_elements) {
     if(new_vector == NULL)
         memory_error("Unable to reserve vector memory");
 
-    new_vector->data = (element *)malloc(sizeof(element)*n_elements);
+    /*an array of void pointers*/
+    new_vector->data = (item *)calloc(n_elements, sizeof(item));
     if(new_vector->data == NULL)
          memory_error("Unable to reserve vector memory");
 
-     vector->size = n_elements;
+    new_vector->size = n_elements;
 
      return new_vector;
 }
@@ -184,35 +181,23 @@ size_t get_vector_size(vector *got_vector) {
     return got_vector->size;
 }
 
-element *get_vector_element(int index, vector *got_vector) {
-    if(index >= got_vector->size || index < 0) {
+item get_vector_item(int index, vector *got_vector) {
+    if(index >= (int)got_vector->size || index < 0) {
         memory_error("Unable to reach element memory");
         exit(0);
     }
     return got_vector->data[index];
 }
 
-void set_element_to_vector(int index, vector *got_vector, item new_item) {
+void set_item_to_vector(int index, vector *got_vector, item new_item) {
 
-    if(index >= got_vector->size || index < 0) {
+    if(index >= (int)got_vector->size || index < 0) {
         memory_error("Unable to reach element memory");
         exit(0);
     }
-    
-    element *new_element =  NULL;
-    new_element->this = new_item;
    
-    vector->data[index] = new_element;
+    got_vector->data[index] = new_item;
     return;
-}
-
-void realloc_vector(vector *got_vector, int n_elements) {
-
-    got_vector->data = realloc(got_vector->data, sizeof(element)*n_elements);
-    if(got_vector->data == NULL)
-        memory_error("Unable to reserve vector memory");
-
-    got_vector->size = n_elements;
 }
 
 void free_vector(vector *got_vector, void (*free_item)(item)) {
@@ -221,11 +206,11 @@ void free_vector(vector *got_vector, void (*free_item)(item)) {
     int i = 0;
 
     while(i < size) {
-        free_item(got_element->this);
+        free_item(get_vector_item(i, got_vector));
         i++;
     }
 
-    free(got_vector->data)
+    free(got_vector->data);
     free(got_vector);
     return;
 }
@@ -237,7 +222,7 @@ void print_vector(vector *got_vector, void (*print_item)(item)) {
 
     while(i < size) {
         spam((KGRN "\n[Element = %d]:\n" RESET, i));
-        print_item(got_vector->data[i]->this);
+        print_item(got_vector->data[i]);
         spam(("\n"));
         i++;
     }

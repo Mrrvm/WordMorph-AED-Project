@@ -11,23 +11,33 @@
 
 int main(int argc, char **argv) {
 
-	FILE *dic_file, *pal_file, *outputfile;
+	FILE *pal_file, *outputfile;
 	char first_word[100], second_word[100];
-	int typeof_exe;
 	char *nome;
+	int typeof_exe;
+	vector *indexing_vector = NULL;
 
 	if(argc != 3 || strcmp(get_filename_ext(argv[1]), "dic") || strcmp(get_filename_ext(argv[2]), "pal"))
 		file_error("Missing arguments or wrong extension specified on file input");
 
-	/*create vector or list???????????*/
+	/*Alloc vector with each index as the number 
+		of letters of a word. The maximum number of letters is 100*/
+	indexing_vector = create_vector(101);
+	/*Read pal file once, to get the maximum number of comutations for
+		each different number of letters, and to know which number of 
+		letters	is a problem to solve*/
+	manage_pal_file(argv[2], indexing_vector);
+	/*Read dictionary file once to get the number of words 
+		for each different number of letters*/
+	manage_dic_file(argv[1], print_none, indexing_vector);
+	/*Read dictionary file again to put all the words in the dictionary*/
+	manage_dic_file(argv[1], print_none, indexing_vector);
 
-	dic_file = fopen(argv[1], "r");
-	if(dic_file == NULL)
-		file_error("Unable to open specified file");
+	/*Print the dicitonary already organized*/
+	print_vector(indexing_vector, print_element);
 
-	/*read and store dictionary data*/
-	manage_dic_file(dic_file);
-
+	/*Read pal file again and leave it open till all the 
+		problems are solved*/
 	pal_file = fopen(argv[2], "r");
 	if(pal_file == NULL)
 		file_error("Unable to open specified file");
@@ -41,16 +51,18 @@ int main(int argc, char **argv) {
 
 	/*free data structures*/
 
-    nome=(char*)malloc(strlen(argv[2])+strlen(".stat")+1)*sizeof(char);
+	/*
+	    nome=(char*)malloc(strlen(argv[2])+strlen(".stat")+1)*sizeof(char);
           
-	strcpy ( nome, argv[2] /*mas sem o .pal que nao sei como se retira*/ );
+	strcpy ( nome, argv[2] );
     strcat ( nome, ".stat" );
 
 	outputfile = fopen( nome , "w"); 
 	fprintf(outputfile, 
 
 	fclose(outputfile);
-	free(nome);
+free(nome);
+*/
 
 	exit(0);
 
