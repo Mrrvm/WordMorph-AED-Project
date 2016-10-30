@@ -126,4 +126,42 @@ void manage_dic_file(char *file, void (*manage_dic_data)(item, item), vector *in
 	return;
 }
 
+/********************* OUTPUT FILE FUNCTIONS ***********************/
 
+char *create_output_filename(char *pal_filename) {
+
+	char *output_filename;
+	int len = 0;
+
+    len = strlen(pal_filename);
+	output_filename = (char*)malloc((len-4+strlen(".stat"))*sizeof(char));
+	strcpy(output_filename, pal_filename);
+    
+    while(len) {
+        if(output_filename[len] == '.') {
+            output_filename[len] = '\0';
+            break;
+        }
+        len --;
+    }
+
+    strcat(output_filename, ".stat");
+
+    return output_filename;
+}
+
+void write_to_file1(vector *indexing_vector, pal_problem *new_problem, FILE *output_file) {
+
+	element *got_element = NULL;
+	int n_words = 0;
+	int word_len = 0;
+	char *word;
+
+	word = get_problem_word1(new_problem);
+	word_len = strlen(word);
+	got_element = get_vector_item(word_len, indexing_vector);
+	n_words = get_element_n_words(got_element);
+
+	fprintf(output_file, "%s %d\n\n", word, n_words);
+	return;
+}

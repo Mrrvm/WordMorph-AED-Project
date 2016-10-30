@@ -11,9 +11,10 @@
 
 int main(int argc, char **argv) {
 
-	FILE *pal_file;
+	FILE *pal_file, *output_file;
 	vector *indexing_vector = NULL;
 	pal_problem *new_problem = NULL;
+	char *output_filename;
 
 	if(argc != 3 || strcmp(get_filename_ext(argv[1]), "dic") || strcmp(get_filename_ext(argv[2]), "pal"))
 		file_error("Missing arguments or wrong extension specified on file input");
@@ -43,6 +44,12 @@ int main(int argc, char **argv) {
 	/*Alloc space for a structure to hold the problems of pal file,
 		temporarily*/
 	new_problem = create_pal_problem();
+	/*Create the output filename - pal filename with .stat extension.
+		Generate the output file*/
+	output_filename = create_output_filename(argv[2]);
+	output_file = fopen(output_filename, "w");
+	if(output_file == NULL)
+		file_error("Unable to create specified file");
 
 	/*Start reading problem by problem*/
 	while(read_pal_file(pal_file, new_problem)) {
@@ -54,7 +61,7 @@ int main(int argc, char **argv) {
 			typeof_exe));
 
 		if(typeof_exe == 1) {
-
+			write_to_file1(indexing_vector, new_problem, output_file);
 		}
 		else if(typeof_exe == 2) {
 			run_type2(new_problem, indexing_vector);
@@ -63,6 +70,7 @@ int main(int argc, char **argv) {
 				get_problem_position1(new_problem),
 				get_problem_word2(new_problem),
 				get_problem_position2(new_problem)));
+			write_to_file2(new_problem, output_file);
 		}
 
 		spam(("\n"));
@@ -70,6 +78,7 @@ int main(int argc, char **argv) {
 
  	/*Bring freedom to computer*/
 
+ 	fclose(output_file);
 	fclose(pal_file);
 	exit(0);
 
