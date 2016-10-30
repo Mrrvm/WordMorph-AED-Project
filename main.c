@@ -77,7 +77,11 @@ int main(int argc, char **argv) {
  	}
 
  	/*Bring freedom to computer*/
+ 	free(output_filename);
+ 	free(new_problem);
+ 	free_indexing_vector(indexing_vector);
 
+ 	/*Bring death upon this files*/
  	fclose(output_file);
 	fclose(pal_file);
 	exit(0);

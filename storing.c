@@ -111,6 +111,12 @@ void print_element(item got_item) {
 	return;
 }
 
+void free_element(item got_item) {
+
+	element *got_element = (element *)got_item;
+	free(got_element);
+}
+
 /********************* ELEMENT OF WORD VECTOR ***********************/
 
 word_element *create_word_element(char *el_word) {
@@ -133,6 +139,13 @@ word_element *create_word_element(char *el_word) {
 
 char *get_word_element_word(word_element *got_element) {
 	return got_element->word;
+}
+
+void free_word_element(item got_item) {
+
+	word_element *got_element = (word_element *)got_item;
+	free(got_element->word);
+	free(got_element);
 }
 
 /********************* CREATE WORD VECTORS ***********************/
@@ -209,5 +222,28 @@ int get_problem_position1(pal_problem *new_problem) {
 
 int get_problem_position2(pal_problem *new_problem) {
 	return new_problem->position2;
+}
+
+/********************* FREE INDEXING VECTOR ***********************/
+
+void free_indexing_vector(vector *indexing_vector) {
+
+	element *got_element = NULL;
+	vector *word_vector = NULL;
+	int size = 0, i = 0;
+
+	size = get_vector_size(indexing_vector);
+
+	while(i < size) {
+		got_element = get_vector_item(i, indexing_vector);
+		if(got_element != NULL) {
+			word_vector = get_element_word_vector(got_element);
+			free_vector(word_vector, free_word_element);		
+		}
+		i++;
+	}
+
+	free_vector(indexing_vector, free_element);
+	return;
 }
 
