@@ -10,7 +10,8 @@
 #ifndef executionHeader
 #define executionHeader
 
-#include "defs.h"
+#include "file.h"
 
+void run_type2(pal_problem *new_problem, vector *indexing_vector);
 
 #endif

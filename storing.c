@@ -26,8 +26,8 @@ struct _pal_problem
 {
 	char word1[100];
 	char word2[100];
-	int postion1;
-	int postion2;
+	int position1;
+	int position2;
 	int typeof_exe;
 };
 
@@ -90,7 +90,6 @@ void print_element(item got_item) {
 
 	element *got_element = (element *)got_item;
 	vector* got_word_vector = NULL;
-	word_element *got_word_element =  NULL;
 	int i = 0, size;
 
 	if(got_element != NULL) {
@@ -103,8 +102,7 @@ void print_element(item got_item) {
 			size = got_element->n_words;
 			while(i < size) {
 				spam((KCYN"[word_vector = %d]: "RESET, i));
-				got_word_element = get_vector_item(i, got_word_vector);
-				spam(("%s ", got_word_element->word));
+				spam(("%s ", get_word_element_word(get_vector_item(i, got_word_vector))));
 				i++;
 			}
 			spam(("\n"));
@@ -178,6 +176,18 @@ void set_problem_variables(pal_problem *new_problem, char *_word1, char *_word2,
 	strcpy(new_problem->word1, _word1);
 	strcpy(new_problem->word2, _word2);
 	new_problem->typeof_exe =  _typeof_exe;
+	new_problem->position1 = 0;
+	new_problem->position2 = 0;
+	return;
+}
+
+void addto_problem_position1(pal_problem *new_problem) {
+	new_problem->position1 ++;
+	return;
+}
+
+void addto_problem_position2(pal_problem *new_problem) {
+	new_problem->position2 ++;
 	return;
 }
 
@@ -194,9 +204,10 @@ int get_problem_typeof_exe(pal_problem *new_problem) {
 }
 
 int get_problem_position1(pal_problem *new_problem) {
-	return new_problem->postion1;
+	return new_problem->position1;
 }
 
 int get_problem_position2(pal_problem *new_problem) {
-	return new_problem->postion2;
+	return new_problem->position2;
 }
+

@@ -7,7 +7,6 @@
 * Main execution of the program
 ***************************************************************/
 
-#include "file.h"
 #include "execution.h"
 
 int main(int argc, char **argv) {
@@ -36,25 +35,40 @@ int main(int argc, char **argv) {
 	manage_dic_file(argv[1], manage_dic_data2, indexing_vector);
 	/*Print the dicitonary already organized*/
 	print_vector(indexing_vector, print_element);
-	/*Read pal file again and leave it open till all the 
+	/*Open pal file again and leave it open till all the 
 		problems are solved*/
 	pal_file = fopen(argv[2], "r");
 	if(pal_file == NULL)
 		file_error("Unable to open specified file");
-
 	/*Alloc space for a structure to hold the problems of pal file,
 		temporarily*/
 	new_problem = create_pal_problem();
+
+	/*Start reading problem by problem*/
 	while(read_pal_file(pal_file, new_problem)) {
+		int typeof_exe = get_problem_typeof_exe(new_problem);
+
 		spam((KYEL"Problem: \n"RESET"%s %s %d \n", 
 			get_problem_word1(new_problem),
 			get_problem_word2(new_problem),
-			get_problem_typeof_exe(new_problem)));
-		/*decide which execution based on typeof_exe*/
-		/*do the execution*/
-		/*create output for that line*/
-		
-	}
+			typeof_exe));
+
+		if(typeof_exe == 1) {
+
+		}
+		else if(typeof_exe == 2) {
+			run_type2(new_problem, indexing_vector);
+			spam((KYEL"Solution: \n"RESET"%s %d %s %d\n", 
+				get_problem_word1(new_problem),
+				get_problem_position1(new_problem),
+				get_problem_word2(new_problem),
+				get_problem_position2(new_problem)));
+		}
+
+		spam(("\n"));
+ 	}
+
+ 	/*Bring freedom to computer*/
 
 	fclose(pal_file);
 	exit(0);

@@ -33,9 +33,12 @@ void create_word_vectors(vector *indexing_vector);
 
 pal_problem *create_pal_problem();
 void set_problem_variables(pal_problem *new_problem, char *_word1, char *_word2, int _typeof_exe);
+void addto_problem_position1(pal_problem *new_problem);
+void addto_problem_position2(pal_problem *new_problem);
 char *get_problem_word1(pal_problem *new_problem);
 char *get_problem_word2(pal_problem *new_problem);
 int get_problem_typeof_exe(pal_problem *new_problem);
+int get_problem_position1(pal_problem *new_problem);
 int get_problem_position2(pal_problem *new_problem);
 
 #endif
