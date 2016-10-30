@@ -37,7 +37,6 @@ int main(int argc, char **argv) {
 	manage_dic_file(argv[1], manage_dic_data2, indexing_vector);
 	/*Print the dicitonary already organized*/
 	print_vector(indexing_vector, print_element);
-
 	/*Read pal file again and leave it open till all the 
 		problems are solved*/
 	pal_file = fopen(argv[2], "r");

@@ -25,7 +25,7 @@
 #define RESET "\033[0m"
 
 /*change this to DEBUG_OFF to clear out the printfs*/
-#define DEBUG_ON
+#define DEBUG_OFF
 
 #ifdef DEBUG_ON
   #define spam(a) printf a
@@ -43,6 +43,5 @@ typedef enum
 char *get_filename_ext(char *filename);
 void file_error(char *msg);
 void memory_error(char *msg);
-void print_none(item got_item, item got_item2);
 
 #endif

@@ -183,7 +183,7 @@ size_t get_vector_size(vector *got_vector) {
 
 item get_vector_item(int index, vector *got_vector) {
     if(index >= (int)got_vector->size || index < 0) {
-        memory_error("Unable to reach element memory");
+        memory_error("Unable to reach element memory while getting");
         exit(0);
     }
     return got_vector->data[index];
@@ -192,7 +192,7 @@ item get_vector_item(int index, vector *got_vector) {
 void set_item_to_vector(int index, vector *got_vector, item new_item) {
 
     if(index >= (int)got_vector->size || index < 0) {
-        memory_error("Unable to reach element memory");
+        memory_error("Unable to reach element memory while setting");
         exit(0);
     }
    

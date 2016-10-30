@@ -33,5 +33,3 @@ void memory_error(char *msg)
 
     exit(0);
 }
-
-void print_none(item got_item, item got_item2){return;}

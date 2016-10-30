@@ -29,8 +29,10 @@ element *create_element(int el_n_words, int el_max_comut) {
 	element *new_element = NULL;
 
 	new_element = (element *)malloc(sizeof(element));
-    if (new_element == NULL)
+    if (new_element == NULL) {
         memory_error("Unable to reserve index_element memory");
+    	exit(0);
+    }
 
     new_element->next_index = 0;
     new_element->n_words = el_n_words;
@@ -88,16 +90,16 @@ void print_element(item got_item) {
 				KRED"max_comut:"RESET"%d\n", 
 				got_element->n_words, got_element->max_comut));
 
-		got_word_vector = get_element_word_vector(got_element);
+		got_word_vector = got_element->word_vector;
 		if(got_word_vector != NULL) {
-			size = get_element_n_words(got_element);
+			size = got_element->n_words;
 			while(i < size) {
 				spam((KRED"[word_vector = %d]: "RESET, i));
 				got_word_element = get_vector_item(i, got_word_vector);
-				spam(("\nBAM BAM3 %s\n", get_word_element_word(got_word_element)));
-				spam(("%s ", get_word_element_word(got_word_element)));
+				spam(("%s ", got_word_element->word));
 				i++;
 			}
+			spam(("\n"));
 		}
 	}
 	return;
@@ -110,13 +112,18 @@ word_element *create_word_element(char *el_word) {
 	word_element *new_element = NULL;
 
 	new_element = (word_element *)malloc(sizeof(word_element));
-    if (new_element == NULL)
+    if(new_element == NULL) {
         memory_error("Unable to reserve word_element memory");
+        exit(0);
+    }
 
-   /* new_element->word = (char*)malloc(strlen(el_word+1)*sizeof(char));
-    if (new_element->word == NULL)
-        memory_error("Unable to reserve word memory");*/
-    new_element->word = el_word;
+   	new_element->word = (char*)malloc((strlen(el_word)+1)*sizeof(char));
+    if(new_element->word == NULL) {
+        memory_error("Unable to reserve word memory");
+        exit(0);
+    }
+
+    strcpy(new_element->word, el_word);
     return new_element;
 }
 
