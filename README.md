@@ -13,12 +13,16 @@
 * To execute:
 
     
-        $ ./wordmorph res/test_file.dic res/test_file.pal
-    
+        $ ./wordmorph res/dic/test_file.dic res/pal/test_file.pal
+        
+use time flag to check memory and execution time:
+
+         $ /usr/bin/time -v ./wordmorph res/dic/test_file.dic res/pal/test_file.pal     
+                   
 * Execute with valgrind:
 
     
-        $ valgrind --leak-check=full -v ./wordmorph res/test_file.dic res/test_file.pal
+        $ valgrind --leak-check=full -v ./wordmorph res/dic/test_file.dic res/pal/test_file.pal
 
 * To clear out printfs change 
 
