@@ -64,7 +64,7 @@ int main(int argc, char **argv) {
 			write_to_file1(indexing_vector, new_problem, output_file);
 		}
 		else if(typeof_exe == 2) {
-			run_type2(new_problem, indexing_vector);
+			run_position_search(new_problem, indexing_vector);
 			spam((KYEL"Solution: \n"RESET"%s %d %s %d\n", 
 				get_problem_word1(new_problem),
 				get_problem_position1(new_problem),

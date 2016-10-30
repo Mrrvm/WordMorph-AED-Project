@@ -22,5 +22,6 @@ void manage_dic_file(char *file, void (*manage_dic_data)(item, item), vector *in
 
 char *create_output_filename(char *pal_filename);
 void write_to_file1(vector *indexing_vector, pal_problem *new_problem, FILE *output_file);
+void write_to_file2(pal_problem *new_problem, FILE *output_file);
 
 #endif

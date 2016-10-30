@@ -12,6 +12,6 @@
 
 #include "file.h"
 
-void run_type2(pal_problem *new_problem, vector *indexing_vector);
+void run_position_search(pal_problem *new_problem, vector *indexing_vector);
 
 #endif

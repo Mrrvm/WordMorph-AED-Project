@@ -165,3 +165,14 @@ void write_to_file1(vector *indexing_vector, pal_problem *new_problem, FILE *out
 	fprintf(output_file, "%s %d\n\n", word, n_words);
 	return;
 }
+
+void write_to_file2(pal_problem *new_problem, FILE *output_file) {
+
+	fprintf(output_file, "%s %d\n", 
+		get_problem_word1(new_problem), 
+		get_problem_position1(new_problem));
+	fprintf(output_file, "%s %d\n\n", 
+		get_problem_word2(new_problem),
+		get_problem_position2(new_problem));
+	return;
+}

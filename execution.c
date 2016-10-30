@@ -32,7 +32,7 @@ void search_for_words(pal_problem *new_problem, vector *got_word_vector) {
 	}
 }
 
-void run_type2(pal_problem *new_problem, vector *indexing_vector) {
+void run_position_search(pal_problem *new_problem, vector *indexing_vector) {
 
 	int word_len = 0;
 	element *got_element = NULL;
