@@ -15,6 +15,7 @@
 
 typedef struct _element element;
 typedef struct _word_element word_element;
+typedef struct _pal_problem pal_problem;
 
 element *create_element(int el_n_words, int el_max_comutations);
 int get_element_next_index(element *got_element);
@@ -30,5 +31,11 @@ word_element *create_word_element(char *el_word);
 char *get_word_element_word(word_element *got_element);
 void create_word_vectors(vector *indexing_vector);
 
+pal_problem *create_pal_problem();
+void set_problem_variables(pal_problem *new_problem, char *_word1, char *_word2, int _typeof_exe);
+char *get_problem_word1(pal_problem *new_problem);
+char *get_problem_word2(pal_problem *new_problem);
+int get_problem_typeof_exe(pal_problem *new_problem);
+int get_problem_position2(pal_problem *new_problem);
 
 #endif

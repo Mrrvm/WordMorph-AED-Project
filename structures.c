@@ -164,13 +164,15 @@ vector *create_vector(int n_elements) {
     vector *new_vector = NULL;
     
     new_vector = (vector *)malloc(sizeof(vector));
-    if(new_vector == NULL)
+    if(new_vector == NULL) {
         memory_error("Unable to reserve vector memory");
+    }
 
     /*an array of void pointers*/
     new_vector->data = (item *)calloc(n_elements, sizeof(item));
-    if(new_vector->data == NULL)
-         memory_error("Unable to reserve vector memory");
+    if(new_vector->data == NULL) {
+        memory_error("Unable to reserve vector memory");
+    }
 
     new_vector->size = n_elements;
 
@@ -184,7 +186,6 @@ size_t get_vector_size(vector *got_vector) {
 item get_vector_item(int index, vector *got_vector) {
     if(index >= (int)got_vector->size || index < 0) {
         memory_error("Unable to reach element memory while getting");
-        exit(0);
     }
     return got_vector->data[index];
 }
@@ -193,7 +194,6 @@ void set_item_to_vector(int index, vector *got_vector, item new_item) {
 
     if(index >= (int)got_vector->size || index < 0) {
         memory_error("Unable to reach element memory while setting");
-        exit(0);
     }
    
     got_vector->data[index] = new_item;

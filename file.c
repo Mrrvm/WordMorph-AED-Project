@@ -52,18 +52,20 @@ void manage_pal_file(char *file, vector *indexing_vector) {
 	return;
 }
 
-int read_pal_file(FILE* pal_file, char *first_word, char *second_word, int *typeof_exe) {
+int read_pal_file(FILE* pal_file, pal_problem *new_problem) {
 	
-	/*check SECURITY!!*/
+	char first_word[100];
+	char second_word[100];
+	int typeof_exe = 0;
+
 	if(fscanf(pal_file, "%99s", first_word) == 1) {
 		fscanf(pal_file, "%99s", second_word);
-		fscanf(pal_file, "%d", typeof_exe);
+		fscanf(pal_file, "%d", &typeof_exe);
+		set_problem_variables(new_problem, first_word, second_word, typeof_exe);
 		return 1;
 	}
-	else {
-		/*File ended*/
+	else
 		return 0;
-	}
 }
 
 /********************* DIC FILE FUNCTIONS ***********************/

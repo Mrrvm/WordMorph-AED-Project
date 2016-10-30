@@ -17,5 +17,5 @@ void manage_pal_file(char *file, vector *indexing_vector);
 void manage_dic_data1(item got_char, item got_vector);
 void manage_dic_data2(item got_char, item got_vector);
 void manage_dic_file(char *file, void (*manage_dic_data)(item, item), vector *indexing_vector);
-int read_pal_file(FILE* pal_file, char *first_word, char *second_word, int *typeof_exe);
+int read_pal_file(FILE* pal_file, pal_problem *new_problem);
 #endif

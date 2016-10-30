@@ -22,6 +22,15 @@ struct _word_element
 	char *word;
 };
 
+struct _pal_problem
+{
+	char word1[100];
+	char word2[100];
+	int postion1;
+	int postion2;
+	int typeof_exe;
+};
+
 /********************* ELEMENT OF INDEXING VECTOR ***********************/
 
 element *create_element(int el_n_words, int el_max_comut) {
@@ -31,7 +40,6 @@ element *create_element(int el_n_words, int el_max_comut) {
 	new_element = (element *)malloc(sizeof(element));
     if (new_element == NULL) {
         memory_error("Unable to reserve index_element memory");
-    	exit(0);
     }
 
     new_element->next_index = 0;
@@ -94,7 +102,7 @@ void print_element(item got_item) {
 		if(got_word_vector != NULL) {
 			size = got_element->n_words;
 			while(i < size) {
-				spam((KRED"[word_vector = %d]: "RESET, i));
+				spam((KCYN"[word_vector = %d]: "RESET, i));
 				got_word_element = get_vector_item(i, got_word_vector);
 				spam(("%s ", got_word_element->word));
 				i++;
@@ -114,13 +122,11 @@ word_element *create_word_element(char *el_word) {
 	new_element = (word_element *)malloc(sizeof(word_element));
     if(new_element == NULL) {
         memory_error("Unable to reserve word_element memory");
-        exit(0);
     }
 
    	new_element->word = (char*)malloc((strlen(el_word)+1)*sizeof(char));
     if(new_element->word == NULL) {
         memory_error("Unable to reserve word memory");
-        exit(0);
     }
 
     strcpy(new_element->word, el_word);
@@ -150,4 +156,47 @@ void create_word_vectors(vector *indexing_vector) {
 		i++;
 	}
 	return;
+}
+
+
+/********************* PROBLEM STRUCTURE ***********************/
+
+pal_problem *create_pal_problem() {
+
+	pal_problem *new_problem = NULL;
+
+	new_problem = (pal_problem *)malloc(sizeof(pal_problem));
+	if(new_problem == NULL) {
+		memory_error("Unable to reserve problem memory");
+	}
+
+	return new_problem;
+}
+
+void set_problem_variables(pal_problem *new_problem, char *_word1, char *_word2, int _typeof_exe) {
+
+	strcpy(new_problem->word1, _word1);
+	strcpy(new_problem->word2, _word2);
+	new_problem->typeof_exe =  _typeof_exe;
+	return;
+}
+
+char *get_problem_word1(pal_problem *new_problem) {
+	return new_problem->word1;
+}
+
+char *get_problem_word2(pal_problem *new_problem) {
+	return new_problem->word2;
+}
+
+int get_problem_typeof_exe(pal_problem *new_problem) {
+	return new_problem->typeof_exe;
+}
+
+int get_problem_position1(pal_problem *new_problem) {
+	return new_problem->postion1;
+}
+
+int get_problem_position2(pal_problem *new_problem) {
+	return new_problem->postion2;
 }

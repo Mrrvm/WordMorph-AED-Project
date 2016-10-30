@@ -8,14 +8,13 @@
 ***************************************************************/
 
 #include "file.h"
+#include "execution.h"
 
 int main(int argc, char **argv) {
 
-	FILE *pal_file, *outputfile;
-	char first_word[100], second_word[100];
-	char *nome;
-	int typeof_exe;
+	FILE *pal_file;
 	vector *indexing_vector = NULL;
+	pal_problem *new_problem = NULL;
 
 	if(argc != 3 || strcmp(get_filename_ext(argv[1]), "dic") || strcmp(get_filename_ext(argv[2]), "pal"))
 		file_error("Missing arguments or wrong extension specified on file input");
@@ -43,28 +42,21 @@ int main(int argc, char **argv) {
 	if(pal_file == NULL)
 		file_error("Unable to open specified file");
 
-	while(read_pal_file(pal_file, first_word, second_word, &typeof_exe)) {
+	/*Alloc space for a structure to hold the problems of pal file,
+		temporarily*/
+	new_problem = create_pal_problem();
+	while(read_pal_file(pal_file, new_problem)) {
+		spam((KYEL"Problem: \n"RESET"%s %s %d \n", 
+			get_problem_word1(new_problem),
+			get_problem_word2(new_problem),
+			get_problem_typeof_exe(new_problem)));
 		/*decide which execution based on typeof_exe*/
 		/*do the execution*/
 		/*create output for that line*/
-		spam(("%s %s %d\n", first_word, second_word, typeof_exe));
+		
 	}
 
-	/*free data structures*/
-
-	/*
-	    nome=(char*)malloc(strlen(argv[2])+strlen(".stat")+1)*sizeof(char);
-          
-	strcpy ( nome, argv[2] );
-    strcat ( nome, ".stat" );
-
-	outputfile = fopen( nome , "w"); 
-	fprintf(outputfile, 
-
-	fclose(outputfile);
-free(nome);
-*/
-
+	fclose(pal_file);
 	exit(0);
 
 }
