@@ -38,7 +38,9 @@ void addto_problem_position2(pal_problem *new_problem);
 char *get_problem_word1(pal_problem *new_problem);
 char *get_problem_word2(pal_problem *new_problem);
 int get_problem_typeof_exe(pal_problem *new_problem);
+void set_problem_position1(pal_problem *new_problem, int _value);
 int get_problem_position1(pal_problem *new_problem);
+void set_problem_position2(pal_problem *new_problem, int _value);
 int get_problem_position2(pal_problem *new_problem);
 
 void free_indexing_vector(vector *indexing_vector);

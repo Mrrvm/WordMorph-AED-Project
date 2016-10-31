@@ -30,13 +30,13 @@ void simple_search_for_words(pal_problem *new_problem, vector *got_word_vector) 
 	char *word1, *word2, *curr_word;
 	int size, i = 0;
 	word_element *got_word_element = NULL;
+	int found_word1 = 0, found_word2 = 0;
 	
 	word1 = get_problem_word1(new_problem);
 	word2 = get_problem_word2(new_problem);
 	size = get_vector_size(got_word_vector);
 
-	/*If the element has no words in the word vector, the result
-		of the search will be zero??*/
+
 	while(i < size) {
 		got_word_element = get_vector_item(i, got_word_vector);
 		curr_word = get_word_element_word(got_word_element);
@@ -46,7 +46,20 @@ void simple_search_for_words(pal_problem *new_problem, vector *got_word_vector) 
 		if(strcmp(word2, curr_word) > 0) {
 			addto_problem_position2(new_problem);
 		}
+		if(strcmp(word1, curr_word) == 0) {
+			found_word1 = 1;
+		}
+		if(strcmp(word2, curr_word) == 0) {
+			found_word2 = 1;
+		}
 		i++;
+	}
+
+	if(found_word1 != 1) {
+		set_problem_position1(new_problem, -1);
+	}
+	if(found_word2 != 1) {
+		set_problem_position2(new_problem, -1);
 	}
 }
 
@@ -68,6 +81,12 @@ void run_position_search(pal_problem *new_problem, vector *indexing_vector) {
 			/*For little Ns, simple search*/
 			simple_search_for_words(new_problem, got_word_vector);
 			/*For big Ns, order and search - TO IMPLEMENT*/
+		}
+		/*If the element has no words in the word vector, the result
+			of the search will be -1*/
+		else {
+			set_problem_position1(new_problem, -1);
+			set_problem_position2(new_problem, -1);
 		}
 	}
 	return;

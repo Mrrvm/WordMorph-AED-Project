@@ -194,8 +194,18 @@ void set_problem_variables(pal_problem *new_problem, char *_word1, char *_word2,
 	return;
 }
 
+void set_problem_position1(pal_problem *new_problem, int _value) {
+	new_problem->position1 = _value;
+	return;
+}
+
 void addto_problem_position1(pal_problem *new_problem) {
 	new_problem->position1 ++;
+	return;
+}
+
+void set_problem_position2(pal_problem *new_problem, int _value) {
+	new_problem->position2 = _value;
 	return;
 }
 
