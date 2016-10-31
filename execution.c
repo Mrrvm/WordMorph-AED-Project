@@ -9,7 +9,23 @@
 
 #include "execution.h"
 
-void search_for_words(pal_problem *new_problem, vector *got_word_vector) {
+/*Searches the position of the 2 words of the problem in the word 
+	vector of its number of letters. 
+	The search is made by comparing the problem strings with each vector
+	string. If the vector string is less than the problem string, the 
+	problem string position adds up. 
+	Example:
+		VECTOR: roxa boca rola bola roda 
+		A PROBLEM STRING: rola 
+		COMPARISSONS:
+			rola > roxa - discarded
+			rola < boca - adds up (+1)
+			rola = rola - discarded
+			rola < bola - adds up (+1)
+			rola < roda - adds up (+1)
+		POSITION: rola 3 
+*/
+void simple_search_for_words(pal_problem *new_problem, vector *got_word_vector) {
 
 	char *word1, *word2, *curr_word;
 	int size, i = 0;
@@ -19,6 +35,8 @@ void search_for_words(pal_problem *new_problem, vector *got_word_vector) {
 	word2 = get_problem_word2(new_problem);
 	size = get_vector_size(got_word_vector);
 
+	/*If the element has no words in the word vector, the result
+		of the search will be zero??*/
 	while(i < size) {
 		got_word_element = get_vector_item(i, got_word_vector);
 		curr_word = get_word_element_word(got_word_element);
@@ -32,6 +50,9 @@ void search_for_words(pal_problem *new_problem, vector *got_word_vector) {
 	}
 }
 
+
+/*Gets the correct vector to search the words position into and then
+	decides what mecanism to run depending on the problem dimension.*/
 void run_position_search(pal_problem *new_problem, vector *indexing_vector) {
 
 	int word_len = 0;
@@ -43,9 +64,11 @@ void run_position_search(pal_problem *new_problem, vector *indexing_vector) {
 	/*Just to be sure*/
 	if(got_element != NULL) {
 		got_word_vector = get_element_word_vector(got_element);
-		/*For little Ns, simple search*/
-		search_for_words(new_problem, got_word_vector);
-		/*For big Ns, order and search - TO IMPLEMENT*/
+		if(got_word_vector != NULL) {
+			/*For little Ns, simple search*/
+			simple_search_for_words(new_problem, got_word_vector);
+			/*For big Ns, order and search - TO IMPLEMENT*/
+		}
 	}
 	return;
 }

@@ -15,10 +15,11 @@ int main(int argc, char **argv) {
 	vector *indexing_vector = NULL;
 	pal_problem *new_problem = NULL;
 	char *output_filename;
+	int typeof_exe = 0;
 
+	/*Checks if the invocation is right*/
 	if(argc != 3 || strcmp(get_filename_ext(argv[1]), "dic") || strcmp(get_filename_ext(argv[2]), "pal"))
 		file_error("Missing arguments or wrong extension specified on file input");
-
 	/*Alloc vector with each index as the number 
 		of letters of a word. The maximum number of letters is 100*/
 	indexing_vector = create_vector(101);
@@ -50,40 +51,23 @@ int main(int argc, char **argv) {
 	output_file = fopen(output_filename, "w");
 	if(output_file == NULL)
 		file_error("Unable to create specified file");
-
-	/*Start reading problem by problem*/
+	/*Start reading problem by problem until EOF*/
 	while(read_pal_file(pal_file, new_problem)) {
-		int typeof_exe = get_problem_typeof_exe(new_problem);
-
-		spam((KYEL"Problem: \n"RESET"%s %s %d \n", 
-			get_problem_word1(new_problem),
-			get_problem_word2(new_problem),
-			typeof_exe));
-
+		typeof_exe = get_problem_typeof_exe(new_problem);
 		if(typeof_exe == 1) {
 			write_to_file1(indexing_vector, new_problem, output_file);
 		}
 		else if(typeof_exe == 2) {
 			run_position_search(new_problem, indexing_vector);
-			spam((KYEL"Solution: \n"RESET"%s %d %s %d\n", 
-				get_problem_word1(new_problem),
-				get_problem_position1(new_problem),
-				get_problem_word2(new_problem),
-				get_problem_position2(new_problem)));
 			write_to_file2(new_problem, output_file);
 		}
-
-		spam(("\n"));
  	}
-
- 	/*Bring freedom to computer*/
+ 	/*Bring freedom upon this data structures!*/
  	free(output_filename);
  	free(new_problem);
  	free_indexing_vector(indexing_vector);
-
- 	/*Bring death upon this files*/
+ 	/*Bring death upon this files!*/
  	fclose(output_file);
 	fclose(pal_file);
 	exit(0);
-
 }

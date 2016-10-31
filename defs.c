@@ -4,7 +4,7 @@
 * Madalena Muller & Mariana Martins
 *
 * defs.c
-* Auxiliary definitions/functions used many times
+* Auxiliary definitions or functions used many times
 ***************************************************************/
 
 #include "defs.h"

@@ -9,17 +9,24 @@
 
 #include "file.h"
 
-/********************* PAL FILE FUNCTIONS ***********************/
+/************************* PAL FILE FUNCTIONS **************************/
 
+/*Receives a problem from the pal file, allocates space in the indexing
+	vector for the element with its number of letters or if the memory 
+	is already existant, just sets the number of comutations to the 
+	number of comutations of the problem if this last one is higher.*/
 void manage_pal_data(char *word, vector *indexing_vector, int typeof_exe) {
 	
 	int word_len;
 	element *got_element = NULL;
 	
+	/*Gets the element with the word length*/
 	word_len = strlen(word);
 	got_element = get_vector_item(word_len, indexing_vector);
 
 	if(got_element == NULL) {
+		/*Creates the element with 0 words and the number of comutations
+			of the current problem*/
 		got_element = create_element(0, typeof_exe); 
 		set_item_to_vector(word_len, indexing_vector, (element *)got_element);
 	}
@@ -27,10 +34,11 @@ void manage_pal_data(char *word, vector *indexing_vector, int typeof_exe) {
 		if(typeof_exe > get_element_max_comut(got_element))
 			set_element_max_comut(got_element, typeof_exe);
 	}
-
 	return;
 }
 
+/*Reads the whole pal file once and sends each problem to
+	manage_pal_data() function.*/
 void manage_pal_file(char *file, vector *indexing_vector) {
 
 	char first_word[100];
@@ -47,11 +55,12 @@ void manage_pal_file(char *file, vector *indexing_vector) {
 		fscanf(pal_file, "%d", &typeof_exe);
 		manage_pal_data(second_word, indexing_vector, typeof_exe);
 	}
-
 	fclose(pal_file);
 	return;
 }
 
+/*Reads one problem of the pal file and sets the problem variables
+	to its structure in set_problem_variables() function*/
 int read_pal_file(FILE* pal_file, pal_problem *new_problem) {
 	
 	char first_word[100];
@@ -68,8 +77,11 @@ int read_pal_file(FILE* pal_file, pal_problem *new_problem) {
 		return 0;
 }
 
-/********************* DIC FILE FUNCTIONS ***********************/
+/************************* DIC FILE FUNCTIONS **************************/
 
+/*First function to manage the dic file data. Receives each word of the
+	dictionary, analyzes its length and adds up the number of words in 
+	the element of the indexing vector with its length.*/
 void manage_dic_data1(item got_char, item got_vector) {
 	
 	char *word = (char *)got_char;
@@ -77,6 +89,7 @@ void manage_dic_data1(item got_char, item got_vector) {
 	int word_len;
 	element *got_element = NULL;
 	
+	/*Gets the element with the word length*/
 	word_len = strlen(word);
 	got_element = get_vector_item(word_len, indexing_vector);
 
@@ -86,6 +99,10 @@ void manage_dic_data1(item got_char, item got_vector) {
 	return;
 }
 
+/*Second function to manage the dic file data. Receives each word of 
+	the dictionary, and adds it to the word vector pointed by the
+	element of the indexing vector with the word length, if the  
+	is a problem solver.*/
 void manage_dic_data2(item got_char, item got_vector) {
 
 	char *word = (char *)got_char;
@@ -95,10 +112,11 @@ void manage_dic_data2(item got_char, item got_vector) {
 	vector *got_word_vector = NULL;
 	word_element *new_word_element = NULL;
 	
-	spam(("%s\n", word));
+	/*Gets the element with the word length*/
 	word_len = strlen(word);
 	got_element = get_vector_item(word_len, indexing_vector);
 
+	/*If this element is a problem solver aka not NULL*/
 	if(got_element != NULL) {
 		got_word_vector = get_element_word_vector(got_element);
 		next_index = get_element_next_index(got_element);
@@ -109,6 +127,7 @@ void manage_dic_data2(item got_char, item got_vector) {
 	return;
 }
 
+/*Opens the dic file and send each word to a specified function.*/
 void manage_dic_file(char *file, void (*manage_dic_data)(item, item), vector *indexing_vector) {
 	
 	char word[100]; 
@@ -126,8 +145,10 @@ void manage_dic_file(char *file, void (*manage_dic_data)(item, item), vector *in
 	return;
 }
 
-/********************* OUTPUT FILE FUNCTIONS ***********************/
+/*********************** OUTPUT FILE FUNCTIONS *************************/
 
+/*Creates the name of the output file by using the name of the pal file
+	and changing its extension.*/
 char *create_output_filename(char *pal_filename) {
 
 	char *output_filename;
@@ -144,12 +165,13 @@ char *create_output_filename(char *pal_filename) {
         }
         len --;
     }
-
     strcat(output_filename, ".stat");
-
     return output_filename;
 }
 
+/*Writes to output file for the execution of type 1. Gets the number 
+	of words in the dictionary for the problem word length and writes 
+	it in the output file.*/
 void write_to_file1(vector *indexing_vector, pal_problem *new_problem, FILE *output_file) {
 
 	element *got_element = NULL;
@@ -166,6 +188,9 @@ void write_to_file1(vector *indexing_vector, pal_problem *new_problem, FILE *out
 	return;
 }
 
+/*Writes to output file for the execution of type 2. Using the 
+	problem structure, writes the information of the problem
+	words and positions in the output file.*/
 void write_to_file2(pal_problem *new_problem, FILE *output_file) {
 
 	fprintf(output_file, "%s %d\n", 
