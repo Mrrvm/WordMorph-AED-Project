@@ -118,6 +118,10 @@ void manage_dic_data2(item got_char, item got_vector) {
 	/*If this element is a problem solver aka not NULL*/
 	if(got_element != NULL) {
 		got_word_vector = get_element_word_vector(got_element);
+		if(got_word_vector == NULL) {
+			got_word_vector = create_word_vector(get_element_n_words(got_element));
+			set_element_word_vector(got_element, got_word_vector);
+		}
 		next_index = get_element_next_index(got_element);
 		copy_word_to_vector(word, got_word_vector, next_index);
 		add_element_next_index(got_element);

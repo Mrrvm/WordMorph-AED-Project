@@ -30,33 +30,37 @@ void simple_search_for_words(pal_problem *new_problem, char **got_word_vector, i
 	char *word1, *word2, *curr_word;
 	int i = 0;
 	int found_word1 = 0, found_word2 = 0;
+	int result1 = 0, result2 = 0;
+	int add1 = 0, add2 = 0;
 	
 	word1 = get_problem_word1(new_problem);
 	word2 = get_problem_word2(new_problem);
 
 	while(i < size) {
 		curr_word = got_word_vector[i];
-		if(strcmp(word1, curr_word) > 0) {
-			addto_problem_position1(new_problem);
-		}
-		if(strcmp(word2, curr_word) > 0) {
-			addto_problem_position2(new_problem);
-		}
-		if(strcmp(word1, curr_word) == 0) {
-			found_word1 = 1;
-		}
-		if(strcmp(word2, curr_word) == 0) {
+		result1 = strcmp(word1, curr_word);
+		result2 = strcmp(word2, curr_word);
+		if(result1 > 0) 
+			add1++;
+		else if(result1 == 0)
+			found_word1 = 1;	
+		if(result2 > 0) 
+			add2++;
+		else if(result2 == 0) 
 			found_word2 = 1;
-		}
 		i++;
 	}
 
-	if(found_word1 != 1) {
+	if(found_word1 != 1)
 		set_problem_position1(new_problem, -1);
-	}
-	if(found_word2 != 1) {
+	else
+		set_problem_position1(new_problem, add1);
+
+	if(found_word2 != 1) 
 		set_problem_position2(new_problem, -1);
-	}
+	else 
+		set_problem_position2(new_problem, add2);
+
 	return;
 }
 

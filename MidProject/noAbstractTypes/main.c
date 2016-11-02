@@ -30,9 +30,6 @@ int main(int argc, char **argv) {
 	/*Read dictionary file once to get the number of words 
 		for each different number of letters*/
 	manage_dic_file(argv[1], manage_dic_data1, indexing_vector);
-	/*Create the rest of the vector with the number of word of each number
-		of letters*/
-	create_word_vectors(indexing_vector);
 	/*Read dictionary file again to put all the words in the dictionary*/
 	manage_dic_file(argv[1], manage_dic_data2, indexing_vector);
 	/*Open pal file again and leave it open till all the 
@@ -60,10 +57,10 @@ int main(int argc, char **argv) {
 			write_to_file2(new_problem, output_file);
 		}
  	}
- 	/*Bring freedom upon this data structures!
+ 	/*Bring freedom upon this data structures!*/
  	free(output_filename);
  	free(new_problem);
- 	free_indexing_vector(indexing_vector);*/
+ 	free_indexing_vector(indexing_vector);
  	/*Bring death upon this files!*/
  	fclose(output_file);
 	fclose(pal_file);

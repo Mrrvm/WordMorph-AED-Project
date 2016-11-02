@@ -85,7 +85,7 @@ void free_element(item got_item) {
 	free(got_element);
 }
 
-/***************** ELEMENT OF WORD VECTOR *********************/
+/*********************** WORD VECTOR *********************/
 
 char **create_word_vector(int n_words) {
 
@@ -106,45 +106,27 @@ void copy_word_to_vector(char *_word, char **got_word_vector, int i) {
 	return;
 }	
 
-void print_word_vector(char **word_vector, int n_words) {
+void print_word_vector(char **got_word_vector, int n_words) {
 
 	int i = 0;
 
 	while(i<n_words) {
-		spam(("%s ", word_vector[i]));
+		spam(("%s ", got_word_vector[i]));
 		i++;
 	}
 	spam(("\n"));
 	return;
 }
 
-/******************* CREATE WORD VECTORS **********************/
+void free_word_vector(char **got_word_vector, int n_words) {
+	int i = 0;
 
-void create_word_vectors(vector *indexing_vector) {
-
-	int size = 0, i = 0;
-	char **word_vector = NULL;
-	element *got_element = NULL;
-	int n_words = 0;
-
-	size = get_vector_size(indexing_vector);
-
-	while(i < size) {
-		got_element = get_vector_item(i, indexing_vector);
-		if(got_element != NULL) {
-			n_words = get_element_n_words(got_element);
-			if(n_words > 0) {
-				word_vector = create_word_vector(n_words);
-   				set_element_word_vector(got_element, word_vector);
-			}
-		}
+	while(i<n_words) {
+		free(got_word_vector[i]);
 		i++;
 	}
+	free(got_word_vector);
 	return;
-}
-
-char *get_word_element(int index, char **word_vector) {
-	return word_vector[index];
 }
 
 /********************* PROBLEM STRUCTURE **********************/
@@ -212,11 +194,11 @@ int get_problem_position2(pal_problem *new_problem) {
 }
 
 /******************* FREE INDEXING VECTOR *********************/
-/*
+
 void free_indexing_vector(vector *indexing_vector) {
 
 	element *got_element = NULL;
-	word_element *word_vector = NULL;
+	char **got_word_vector = NULL;
 	int size = 0, i = 0;
 
 	size = get_vector_size(indexing_vector);
@@ -224,9 +206,9 @@ void free_indexing_vector(vector *indexing_vector) {
 	while(i < size) {
 		got_element = get_vector_item(i, indexing_vector);
 		if(got_element != NULL) {
-			word_vector = get_element_word_vector(got_element);
-			if(word_vector != NULL)
-				free_vector(word_vector, free_word_element);		
+			got_word_vector = get_element_word_vector(got_element);
+			if(got_word_vector != NULL)
+				free_word_vector(got_word_vector, get_element_n_words(got_element));		
 		}
 		i++;
 	}
@@ -234,5 +216,3 @@ void free_indexing_vector(vector *indexing_vector) {
 	free_vector(indexing_vector, free_element);
 	return;
 }
-
-*/

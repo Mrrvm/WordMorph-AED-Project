@@ -21,12 +21,13 @@ int get_element_next_index(element *got_element);
 int get_element_n_words(element *got_element);
 int get_element_max_comut(element *got_element);
 char **get_element_word_vector(element *got_element);
+void set_element_word_vector(element *got_element, char **word_vector);
 void add_element_n_words(element *got_element);
 void add_element_next_index(element *got_element);
 void set_element_max_comut(element *got_element, int el_max_comut);
+void set_element_word_vector(element *got_element, char **_word_vector);
 
-void create_word_vectors(vector *indexing_vector);
-char *get_word_element(int index, char **word_vector);
+char **create_word_vector(int n_words);
 void copy_word_to_vector(char *_word, char **got_word_vector, int i);
 void print_word_vector(char **word_vector, int n_words);
 
