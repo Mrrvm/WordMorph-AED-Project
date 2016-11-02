@@ -20,12 +20,16 @@ element *create_element(int el_n_words, int el_max_comutations);
 int get_element_next_index(element *got_element);
 int get_element_n_words(element *got_element);
 int get_element_max_comut(element *got_element);
+int get_element_n_problems(element *got_element);
 char **get_element_word_vector(element *got_element);
+int get_element_sorted(element *got_element);
 void set_element_word_vector(element *got_element, char **word_vector);
+void add_element_n_problems(element *got_element);
 void add_element_n_words(element *got_element);
 void add_element_next_index(element *got_element);
 void set_element_max_comut(element *got_element, int el_max_comut);
 void set_element_word_vector(element *got_element, char **_word_vector);
+void set_element_sorted(element *got_element);
 
 char **create_word_vector(int n_words);
 void copy_word_to_vector(char *_word, char **got_word_vector, int i);

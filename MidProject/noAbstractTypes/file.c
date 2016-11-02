@@ -34,6 +34,8 @@ void manage_pal_data(char *word, vector *indexing_vector, int typeof_exe) {
 		if(typeof_exe > get_element_max_comut(got_element))
 			set_element_max_comut(got_element, typeof_exe);
 	}
+
+	add_element_n_problems(got_element);
 	return;
 }
 

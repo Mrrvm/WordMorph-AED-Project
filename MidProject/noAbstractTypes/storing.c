@@ -13,6 +13,8 @@ struct _element {
 	int next_index;
 	int n_words;
 	int max_comut;
+	int sorted;
+	int n_problems;
 	char **word_vector;
 };
 
@@ -39,12 +41,18 @@ element *create_element(int el_n_words, int el_max_comut) {
     new_element->n_words = el_n_words;
     new_element->max_comut = el_max_comut;
     new_element->word_vector = NULL;
+    new_element->sorted = 0;
+    new_element->n_problems = 0;
     
     return new_element;
 }
 
 int get_element_next_index(element *got_element) {
 	return got_element->next_index;
+}
+
+int get_element_n_problems(element *got_element) {
+	return got_element->n_problems;
 }
 
 int get_element_n_words(element *got_element) {
@@ -59,6 +67,10 @@ char **get_element_word_vector(element *got_element) {
 	return got_element->word_vector;
 }
 
+int get_element_sorted(element *got_element) {
+	return got_element->sorted;
+}
+
 void add_element_n_words(element *got_element) {
 	got_element->n_words ++;
 	return;
@@ -69,6 +81,10 @@ void add_element_next_index(element *got_element) {
 	return;
 }
 
+void add_element_n_problems(element *got_element) {
+	got_element->n_problems++;
+}
+
 void set_element_max_comut(element *got_element, int el_max_comut) {
 	got_element->max_comut = el_max_comut;
 	return;
@@ -76,6 +92,11 @@ void set_element_max_comut(element *got_element, int el_max_comut) {
 
 void set_element_word_vector(element *got_element, char **_word_vector) {
 	got_element->word_vector = _word_vector;
+	return;
+}
+
+void set_element_sorted(element *got_element) {
+	got_element->sorted = 1;
 	return;
 }
 
