@@ -36,7 +36,6 @@ void simple_search_for_words(pal_problem *new_problem, vector *got_word_vector) 
 	word2 = get_problem_word2(new_problem);
 	size = get_vector_size(got_word_vector);
 
-
 	while(i < size) {
 		got_word_element = get_vector_item(i, got_word_vector);
 		curr_word = get_word_element_word(got_word_element);
@@ -61,6 +60,7 @@ void simple_search_for_words(pal_problem *new_problem, vector *got_word_vector) 
 	if(found_word2 != 1) {
 		set_problem_position2(new_problem, -1);
 	}
+	return;
 }
 
 
