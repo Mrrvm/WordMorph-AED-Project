@@ -9,7 +9,7 @@
 
 #include "execution.h"
 
-int binarySearch(char **arr, int l, int r, char *word) {
+int binary_search(char **arr, int l, int r, char *word) {
   while (l <= r) {
     int m;
     m = l + (r-l)/2;
@@ -19,7 +19,6 @@ int binarySearch(char **arr, int l, int r, char *word) {
 
     if (strcmp(arr[m], word) < 0) 
         l = m + 1; 
-
     else
     	r = m - 1; 
   }
@@ -29,59 +28,68 @@ int binarySearch(char **arr, int l, int r, char *word) {
 
 void merge(char **array, int left, int mid, int right)
 {
-    /*We need a Temporary array to store the new sorted part*/
-    char **tempArray  = NULL;
+    char **temp_array  = NULL;
     int pos=0,lpos = left,rpos = mid + 1;
     int iter = 0;
 
-    tempArray = (char **)calloc((right-left+1),sizeof(char*));
+    /*Alloc a temporary array of strings*/
+    temp_array = (char **)calloc((right-left+1),sizeof(char*));
     while(iter < right-left+1) {
-    	tempArray[iter] = (char *)calloc(100, sizeof(char));
+    	temp_array[iter] = (char *)calloc(100, sizeof(char));
     	iter++;
     }
 
+    /*Merge the 2 parts*/
     while(lpos <= mid && rpos <= right)
     {
         if(strcmp(array[lpos], array[rpos]) < 0) {
-            strcpy(tempArray[pos], array[lpos]);
+            strcpy(temp_array[pos], array[lpos]);
             pos++;
             lpos++;
         }
         else {
-        	strcpy(tempArray[pos], array[rpos]);
+        	strcpy(temp_array[pos], array[rpos]);
         	pos++;
         	rpos++;
         }
     }
+    /*Merge the leftover part*/
     while(lpos <= mid) {
-    	strcpy(tempArray[pos], array[lpos]);
+    	strcpy(temp_array[pos], array[lpos]);
          pos++;
          lpos++;
     }
     while(rpos <= right) {
-    	strcpy(tempArray[pos], array[rpos]);
+    	strcpy(temp_array[pos], array[rpos]);
         pos++;
         rpos++;
     }
-    /* Copy back the sorted array to the original array */
+    
+    /*Copy the temporary array to the real array*/
     for(iter = 0;iter < pos; iter++) {
-    	strcpy(array[iter+left], tempArray[iter]);
+    	strcpy(array[iter+left], temp_array[iter]);
     }
-    return;
 
-    /*FREE THIS SHIT*/
+    /*Free the temporary array*/
+    iter = 0;
+    while(iter < right-left+1) {
+    	free(temp_array[iter]);
+    	iter++;
+    }
+    free(temp_array);
+    return;
 }
 
 void merge_sort(char **array, int left, int right)
 {
     int mid = (left+right)/2;
-    /* We have to sort only when left<right because when left=right it is anyhow sorted*/
+    /*When left=right it is already sorted*/
     if(left<right) {
-            /* Sort the left part */
+            /*Sort the left part */
             merge_sort(array,left,mid);
-            /* Sort the right part */
+            /*Sort the right part */
             merge_sort(array,mid+1,right);
-            /* Merge the two sorted parts */
+            /*Merge the two sorted parts */
            	merge(array,left,mid,right);
     }
 }
@@ -143,7 +151,9 @@ void simple_search_for_words(pal_problem *new_problem, char **got_word_vector, i
 }
 
 
-/*Gets the correct vector to search the words position into.*/
+/*Gets the correct vector to search the words position into and decides which
+	function to execute depending on the number of problems of each number of 
+	letters.*/
 void run_position_search(pal_problem *new_problem, vector *indexing_vector) {
 
 	int word_len = 0;
@@ -157,17 +167,24 @@ void run_position_search(pal_problem *new_problem, vector *indexing_vector) {
 	/*Just to be sure*/
 	if(got_element != NULL) {
 		got_word_vector = get_element_word_vector(got_element);
+		/*If there words of this size in the dictionary, then...*/
 		if(got_word_vector != NULL) {
-			if(get_element_n_problems(got_element) < 4)
+			/*If there are less problems then HYBRID_DEF of a determined
+				number of letters, do a simple search 0(N) - not so bad*/
+			if(get_element_n_problems(got_element) < HYBRID_DEF)
 				simple_search_for_words(new_problem, got_word_vector, n_words);
+			/*If there many problems using the same dictionary, then sort
+				the dictionary once - O(NlogN) - and use binary search 
+				after - O(logN) - pretty good right? */
 			else {
 				if(!get_element_sorted(got_element)) {
 					merge_sort(got_word_vector, 0, n_words-1);
 					print_word_vector(got_word_vector, n_words);
 					set_element_sorted(got_element);
 				}
-				set_problem_position1(new_problem, binarySearch(got_word_vector, 0, n_words, get_problem_word1(new_problem)));
-				set_problem_position2(new_problem, binarySearch(got_word_vector, 0, n_words, get_problem_word2(new_problem)));	
+				/*Set the position of the words in the problem structure after the search*/
+				set_problem_position1(new_problem, binary_search(got_word_vector, 0, n_words, get_problem_word1(new_problem)));
+				set_problem_position2(new_problem, binary_search(got_word_vector, 0, n_words, get_problem_word2(new_problem)));	
 			}
 		}
 		/*If the element has no words in the word vector, the result

@@ -25,13 +25,15 @@
 #define RESET "\033[0m"
 
 /*change this to DEBUG_OFF to clear out the printfs*/
-#define DEBUG_O
+#define DEBUG_OFF
 
 #ifdef DEBUG_ON
   #define spam(a) printf a
 #else
   #define spam(a) (void)0
 #endif
+
+#define HYBRID_DEF 4
 
 typedef void *item;
 typedef enum
