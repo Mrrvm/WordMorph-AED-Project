@@ -170,7 +170,7 @@ char *create_output_filename(char *pal_filename) {
 	int len = 0;
 
     len = strlen(pal_filename);
-	output_filename = (char*)malloc((len-4+strlen(".stat")+1)*sizeof(char));
+	output_filename = (char*)malloc((len-4+strlen(".path")+1)*sizeof(char));
 	strcpy(output_filename, pal_filename);
     
     while(len) {
@@ -180,7 +180,7 @@ char *create_output_filename(char *pal_filename) {
         }
         len --;
     }
-    strcat(output_filename, ".stat");
+    strcat(output_filename, ".path");
     return output_filename;
 }
 
