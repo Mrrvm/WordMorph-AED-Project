@@ -9,15 +9,18 @@
 
 #include "execution.h"
 
-int binary_search(char **arr, int l, int r, char *word) {
-  while (l <= r) {
-    int m;
-    m = l + (r-l)/2;
+int binary_search(vector *got_word_vector, int l, int r, char *word) {
+  
+  char *temp_word;
+  int m;
 
-    if(strcmp(arr[m], word) == 0) 
+  while (l <= r) {  
+    m = l + (r-l)/2;
+    temp_word = get_word_vector_element_word(get_vector_item(m, got_word_vector));
+    if(strcmp(temp_word, word) == 0) 
         return m;  
 
-    if (strcmp(arr[m], word) < 0) 
+    if (strcmp(temp_word, word) < 0) 
         l = m + 1; 
     else
     	r = m - 1; 
@@ -26,9 +29,10 @@ int binary_search(char **arr, int l, int r, char *word) {
 }
 
 
-void merge(char **array, int left, int mid, int right)
+void merge(vector *got_word_vector, int left, int mid, int right)
 {
     char **temp_array  = NULL;
+    char *wordl, *wordr;
     int pos=0,lpos = left,rpos = mid + 1;
     int iter = 0;
 
@@ -42,32 +46,37 @@ void merge(char **array, int left, int mid, int right)
     /*Merge the 2 parts*/
     while(lpos <= mid && rpos <= right)
     {
-        if(strcmp(array[lpos], array[rpos]) < 0) {
-            strcpy(temp_array[pos], array[lpos]);
+    	wordl = get_word_vector_element_word(get_vector_item(lpos, got_word_vector));
+    	wordr = get_word_vector_element_word(get_vector_item(rpos, got_word_vector));
+        if(strcmp(wordl, wordr) < 0) {
+            strcpy(temp_array[pos], wordl);
             pos++;
             lpos++;
         }
         else {
-        	strcpy(temp_array[pos], array[rpos]);
+        	strcpy(temp_array[pos], wordr);
         	pos++;
         	rpos++;
         }
     }
     /*Merge the leftover part*/
     while(lpos <= mid) {
-    	strcpy(temp_array[pos], array[lpos]);
+    	wordl = get_word_vector_element_word(get_vector_item(lpos, got_word_vector));
+    	strcpy(temp_array[pos], wordl);
          pos++;
          lpos++;
     }
     while(rpos <= right) {
-    	strcpy(temp_array[pos], array[rpos]);
+    	wordr = get_word_vector_element_word(get_vector_item(rpos, got_word_vector));
+    	strcpy(temp_array[pos], wordr);
         pos++;
         rpos++;
     }
     
     /*Copy the temporary array to the real array*/
     for(iter = 0;iter < pos; iter++) {
-    	strcpy(array[iter+left], temp_array[iter]);
+    	set_word_vector_element_word(get_vector_item(iter+left, got_word_vector), 
+    		temp_array[iter]);
     }
 
     /*Free the temporary array*/
@@ -80,17 +89,17 @@ void merge(char **array, int left, int mid, int right)
     return;
 }
 
-void merge_sort(char **array, int left, int right)
+void merge_sort(vector *got_word_vector, int left, int right)
 {
     int mid = (left+right)/2;
     /*When left=right it is already sorted*/
     if(left<right) {
             /*Sort the left part */
-            merge_sort(array,left,mid);
+            merge_sort(got_word_vector, left, mid);
             /*Sort the right part */
-            merge_sort(array,mid+1,right);
+            merge_sort(got_word_vector, mid+1, right);
             /*Merge the two sorted parts */
-           	merge(array,left,mid,right);
+           	merge(got_word_vector, left, mid, right);
     }
 }
 
@@ -111,7 +120,7 @@ void merge_sort(char **array, int left, int right)
 			rola < roda - adds up (+1)
 		POSITION: rola 3 
 */
-void simple_search_for_words(pal_problem *new_problem, char **got_word_vector, int size) {
+void simple_search_for_words(pal_problem *new_problem, vector *got_word_vector, int size) {
 
 	char *word1, *word2, *curr_word;
 	int i = 0;
@@ -123,7 +132,7 @@ void simple_search_for_words(pal_problem *new_problem, char **got_word_vector, i
 	word2 = get_problem_word2(new_problem);
 
 	while(i < size) {
-		curr_word = got_word_vector[i];
+		curr_word = get_word_vector_element_word(get_vector_item(i, got_word_vector));
 		result1 = strcmp(word1, curr_word);
 		result2 = strcmp(word2, curr_word);
 		if(result1 > 0) 
@@ -158,7 +167,7 @@ void run_position_search(pal_problem *new_problem, vector *indexing_vector) {
 
 	int word_len = 0;
 	element *got_element = NULL;
-	char **got_word_vector = NULL;
+	vector *got_word_vector = NULL;
 	int n_words = 0;
 
 	word_len = strlen(get_problem_word1(new_problem));
@@ -179,7 +188,6 @@ void run_position_search(pal_problem *new_problem, vector *indexing_vector) {
 			else {
 				if(!get_element_sorted(got_element)) {
 					merge_sort(got_word_vector, 0, n_words-1);
-					print_word_vector(got_word_vector, n_words);
 					set_element_sorted(got_element);
 				}
 				/*Set the position of the words in the problem structure after the search*/

@@ -184,11 +184,11 @@ void free_vector(vector *got_vector, void (*free_item)(item)) {
     return;
 }
 
-void print_vector(vector *got_vector, void (*print_item)(item)) {
+void print_vector(vector *got_vector, void (*print_item)(item), char *name) {
     int size = got_vector->size;
     int i = 0;
     while(i < size) {
-        spam((KGRN "\n[Element = %d]:\n" RESET, i));
+        spam((KGRN "\n[Element %s = %d]:\n" RESET, name, i));
         print_item(got_vector->data[i]);
         spam(("\n"));
         i++;

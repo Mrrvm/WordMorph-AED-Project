@@ -34,6 +34,6 @@ size_t get_vector_size(vector *got_vector);
 item get_vector_item(int index, vector *got_vector);
 void set_item_to_vector(int index, vector *got_vector, item new_item);
 void free_vector(vector *got_vector, void (*free_item)(item));
-void print_vector(vector *got_vector, void (*print_item)(item));
+void print_vector(vector *got_vector, void (*print_item)(item), char *name);
 
 #endif

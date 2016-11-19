@@ -47,3 +47,4 @@ wordmorph
 __pycache__/*
 vgcore*
 *.stat
+*.path

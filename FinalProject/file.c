@@ -106,6 +106,7 @@ void manage_dic_data1(item got_char, item got_vector) {
 	word_len = strlen(word);
 	got_element = get_vector_item(word_len, indexing_vector);
 
+	/*If its a problem to solve*/
 	if(got_element != NULL) {
 		add_element_n_words(got_element);
 	}
@@ -122,7 +123,8 @@ void manage_dic_data2(item got_char, item got_vector) {
 	vector *indexing_vector = (vector *)got_vector;
 	int word_len, next_index;
 	element *got_element = NULL;
-	char **got_word_vector = NULL;
+	vector *got_word_vector = NULL;
+	word_vector_element *new_word_element =  NULL;
 	
 	/*Gets the element with the word length*/
 	word_len = strlen(word);
@@ -132,11 +134,12 @@ void manage_dic_data2(item got_char, item got_vector) {
 	if(got_element != NULL) {
 		got_word_vector = get_element_word_vector(got_element);
 		if(got_word_vector == NULL) {
-			got_word_vector = create_word_vector(get_element_n_words(got_element));
+			got_word_vector = create_vector(get_element_n_words(got_element));
 			set_element_word_vector(got_element, got_word_vector);
 		}
 		next_index = get_element_next_index(got_element);
-		copy_word_to_vector(word, got_word_vector, next_index);
+		new_word_element = create_word_vector_element(word);
+		set_item_to_vector(next_index, got_word_vector, (word_vector_element *)new_word_element);
 		add_element_next_index(got_element);
 	}
 	return;

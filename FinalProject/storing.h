@@ -14,6 +14,7 @@
 #include "structures.h"
 
 typedef struct _element element;
+typedef struct _word_vector_element word_vector_element;
 typedef struct _pal_problem pal_problem;
 
 element *create_element(int el_n_words, int el_max_comutations);
@@ -22,19 +23,20 @@ int get_element_next_index(element *got_element);
 int get_element_n_words(element *got_element);
 int get_element_max_comut(element *got_element);
 int get_element_n_problems(element *got_element);
-char **get_element_word_vector(element *got_element);
 int get_element_sorted(element *got_element);
-void set_element_word_vector(element *got_element, char **word_vector);
+vector *get_element_word_vector(element *got_element);
 void add_element_n_problems(element *got_element);
 void add_element_n_words(element *got_element);
 void add_element_next_index(element *got_element);
 void set_element_max_comut(element *got_element, int el_max_comut);
-void set_element_word_vector(element *got_element, char **_word_vector);
+void set_element_word_vector(element *got_element, vector *_word_vector);
 void set_element_sorted(element *got_element);
 
-char **create_word_vector(int n_words);
-void copy_word_to_vector(char *_word, char **got_word_vector, int i);
-void print_word_vector(char **word_vector, int n_words);
+word_vector_element *create_word_vector_element(char *_word);
+char *get_word_vector_element_word(word_vector_element *got_element);
+void set_word_vector_element_word(word_vector_element *got_element, char *_word);
+list *get_word_vector_element_list(word_vector_element *got_element);
+void print_word_vector(item got_item);
 
 pal_problem *create_pal_problem();
 void set_problem_variables(pal_problem *new_problem, char *_word1, char *_word2, int _typeof_exe);
