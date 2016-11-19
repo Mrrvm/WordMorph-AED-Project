@@ -13,5 +13,6 @@
 #include "file.h"
 
 void run_position_search(pal_problem *new_problem, vector *indexing_vector);
+void run_all_problems_solver(vector *indexing_vector);
 
 #endif

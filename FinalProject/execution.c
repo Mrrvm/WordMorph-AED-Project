@@ -204,3 +204,48 @@ void run_position_search(pal_problem *new_problem, vector *indexing_vector) {
 	}
 	return;
 }
+
+/*******************************************************************/
+
+void save_problem_solution() {
+	return;	
+}
+
+char **do_dijkstra() {
+	char **solution_array = NULL;
+	return solution_array;
+}
+
+void run_element_problems_solver(element *got_element) {
+
+	list *problem_list = NULL;
+	node *list_element = NULL;
+	char **solution_array = NULL;
+
+	problem_list = get_element_problem_list(got_element);
+	list_element = get_head(problem_list);
+	create_graph(got_element);
+	/*While there are still problems to solve in this element*/
+	while(list_element != NULL) {
+		solution_array = do_dijkstra();
+		save_problem_solution();
+		list_element = get_next_node(list_element);
+	}
+	free_graph();
+}
+
+void run_all_problems_solver(vector *indexing_vector) {
+
+	int i = 0;
+	int size = 0;
+	element *got_element = NULL;
+
+	size = get_vector_size(indexing_vector);
+	while(i < size) {
+		got_element = get_vector_item(i, indexing_vector);
+		if(got_element != NULL)
+			run_element_problems_solver(got_element);
+		i++;
+	}
+	return;
+}

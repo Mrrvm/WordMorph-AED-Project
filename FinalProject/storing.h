@@ -51,6 +51,9 @@ void set_problem_position2(pal_problem *new_problem, int _value);
 int get_problem_position2(pal_problem *new_problem);
 void print_pal_problem(item got_item);
 
+void create_graph(element *got_element);
+void free_graph();
+
 void free_indexing_vector(vector *indexing_vector);
 
 #endif

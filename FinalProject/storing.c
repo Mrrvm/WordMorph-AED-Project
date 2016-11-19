@@ -253,6 +253,17 @@ void print_pal_problem(item got_item) {
 	return;
 }
 
+/******************* GRAPH *********************/
+
+void create_graph(element *got_element) {
+	return;
+}
+
+void free_graph() {
+	return;
+}
+
+
 /******************* FREE INDEXING VECTOR *********************/
 
 /*

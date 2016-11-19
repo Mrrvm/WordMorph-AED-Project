@@ -16,12 +16,9 @@ int main(int argc, char **argv) {
 	char *output_filename;
 	list *solution_list;
 	/*TEMPORARY*/
-	FILE *pal_file;
-	int typeof_exe = 0;
 	int i = 0;
 	element *got_element = NULL;
 	char *vector_name = " of indexing_vector";
-	pal_problem *new_problem = NULL;
 
 	/*Checks if the invocation is right*/
 	if(argc != 3 || strcmp(get_filename_ext(argv[1]), "dic") || strcmp(get_filename_ext(argv[2]), "pal"))
@@ -57,34 +54,16 @@ int main(int argc, char **argv) {
 
 	print_vector(indexing_vector, print_word_vector, vector_name);
 
+	/*SOLVE THE PROBLEMS*/
+	run_all_problems_solver(indexing_vector);
 
-	pal_file = fopen(argv[2], "r");
-	if(pal_file == NULL)
-		file_error("Unable to open specified file");
-	/*Alloc space for a structure to hold the problems of pal file,
-		temporarily*/
-	new_problem = create_pal_problem();
-
+	/*WRITE OUTPUT FILE*/
 	/*Create the output filename - pal filename with .stat extension.
 		Generate the output file*/
 	output_filename = create_output_filename(argv[2]);
 	output_file = fopen(output_filename, "w");
 	if(output_file == NULL)
 		file_error("Unable to create specified file");
-
-	/*SOLVE THE PROBLEMS*/
-	while(read_pal_file(pal_file, new_problem)) {
-		typeof_exe = get_problem_typeof_exe(new_problem);
-		if(typeof_exe == 1) {
-			write_to_file1(indexing_vector, new_problem, output_file);
-		}
-		else if(typeof_exe == 2) {
-			run_position_search(new_problem, indexing_vector);
-			write_to_file2(new_problem, output_file);
-		}
- 	}
-
-	/*WRITE OUTPUT FILE*/
 
  	/*Bring freedom upon this data structures!*/
  	free(output_filename);
