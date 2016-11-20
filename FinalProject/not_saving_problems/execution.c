@@ -178,22 +178,14 @@ void run_position_search(pal_problem *new_problem, vector *indexing_vector) {
 		got_word_vector = get_element_word_vector(got_element);
 		/*If there words of this size in the dictionary, then...*/
 		if(got_word_vector != NULL) {
-			/*If there are less problems then HYBRID_DEF of a determined
-				number of letters, do a simple search 0(N) - not so bad*/
-			if(get_element_n_problems(got_element) < HYBRID_DEF)
-				simple_search_for_words(new_problem, got_word_vector, n_words);
-			/*If there many problems using the same dictionary, then sort
-				the dictionary once - O(NlogN) - and use binary search 
-				after - O(logN) - pretty good right? */
-			else {
-				if(!get_element_sorted(got_element)) {
-					merge_sort(got_word_vector, 0, n_words-1);
-					set_element_sorted(got_element);
-				}
-				/*Set the position of the words in the problem structure after the search*/
-				set_problem_position1(new_problem, binary_search(got_word_vector, 0, n_words, get_problem_word1(new_problem)));
-				set_problem_position2(new_problem, binary_search(got_word_vector, 0, n_words, get_problem_word2(new_problem)));	
+			if(!get_element_sorted(got_element)) {
+				merge_sort(got_word_vector, 0, n_words-1);
+				set_element_sorted(got_element);
 			}
+			/*Set the position of the words in the problem structure after the search*/
+			set_problem_position1(new_problem, binary_search(got_word_vector, 0, n_words, get_problem_word1(new_problem)));
+			set_problem_position2(new_problem, binary_search(got_word_vector, 0, n_words, get_problem_word2(new_problem)));	
+			
 		}
 		/*If the element has no words in the word vector, the result
 			of the search will be -1*/
@@ -205,3 +197,57 @@ void run_position_search(pal_problem *new_problem, vector *indexing_vector) {
 	return;
 }
 
+/*************************************************************/
+
+int get_number_of_comutations(item got_item1, item got_item2) {
+	char *word1 = (char *)got_item1;
+	char *word2 = (char *)got_item2;
+	int diff = 0, i=0, len = 0;
+
+	len = strlen(word1);
+	for(i=0; i 	< len; i++) {
+    	if(word1[i] != word2[i])
+    		diff ++;
+    }
+	return diff;
+}
+
+void create_graph(vector *got_word_vector) {
+
+}
+
+void free_graph(vector *got_word_vector) {
+
+}
+
+void do_dijkstra(vector *got_word_vector, pal_problem *got_problem) {
+
+}
+
+void run_problem_solver(pal_problem *new_problem, vector *indexing_vector) {
+	
+	int len = 0;
+	element *got_element = NULL;
+	vector *got_word_vector = NULL;
+	int n_words = 0;
+
+	len = strlen(get_problem_word1(new_problem));
+	got_element = get_vector_item(len, indexing_vector);
+	n_words = get_element_n_words(got_element);
+	got_word_vector = get_element_word_vector(got_element);
+
+	if(got_word_vector != NULL) {
+		if(!get_element_sorted(got_element)) {
+			merge_sort(got_word_vector, 0, n_words-1);
+			set_element_sorted(got_element);
+		}
+		create_graph(got_word_vector);
+		do_dijkstra(got_word_vector, new_problem);
+	}
+
+	sub_element_n_problems(got_element);
+	if(get_element_n_problems(got_element) == 0)
+		free_graph(got_word_vector);
+
+	return;
+}

@@ -27,6 +27,7 @@ vector *get_element_word_vector(element *got_element);
 int get_element_sorted(element *got_element);
 void set_element_word_vector(element *got_element, vector *word_vector);
 void add_element_n_problems(element *got_element);
+void sub_element_n_problems(element *got_element);
 void add_element_n_words(element *got_element);
 void add_element_next_index(element *got_element);
 void set_element_max_comut(element *got_element, int el_max_comut);
@@ -34,6 +35,7 @@ void set_element_word_vector(element *got_element, vector *_word_vector);
 void set_element_sorted(element *got_element);
 
 word_vector_element *create_word_vector_element(char *_word);
+void create_adj_list(word_vector_element *got_element);
 char *get_word_vector_element_word(word_vector_element *got_element);
 void set_word_vector_element_word(word_vector_element *got_element, char *_word);
 list *get_word_vector_element_list(word_vector_element *got_element);

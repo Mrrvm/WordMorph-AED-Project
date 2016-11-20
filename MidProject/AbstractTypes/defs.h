@@ -33,6 +33,8 @@
   #define spam(a) (void)0
 #endif
 
+#define HYBRID_DEF 4
+
 typedef void *item;
 typedef enum
 {

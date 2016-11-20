@@ -15,7 +15,9 @@ int main(int argc, char **argv) {
 	vector *indexing_vector = NULL;
 	pal_problem *new_problem = NULL;
 	char *output_filename;
-	int typeof_exe = 0;
+
+	int diff;
+	char *word1, *word2;
 
 	/*Checks if the invocation is right*/
 	if(argc != 3 || strcmp(get_filename_ext(argv[1]), "dic") || strcmp(get_filename_ext(argv[2]), "pal"))
@@ -48,14 +50,8 @@ int main(int argc, char **argv) {
 		file_error("Unable to create specified file");
 	/*Start reading problem by problem until EOF*/
 	while(read_pal_file(pal_file, new_problem)) {
-		typeof_exe = get_problem_typeof_exe(new_problem);
-		if(typeof_exe == 1) {
-			write_to_file1(indexing_vector, new_problem, output_file);
-		}
-		else if(typeof_exe == 2) {
-			run_position_search(new_problem, indexing_vector);
-			write_to_file2(new_problem, output_file);
-		}
+		run_problem_solver(new_problem, indexing_vector);
+		write_to_file(new_problem, output_file);
  	}
  	/*Bring freedom upon this data structures!*/
  	free(output_filename);
@@ -64,5 +60,10 @@ int main(int argc, char **argv) {
  	/*Bring death upon this files!*/
  	fclose(output_file);
 	fclose(pal_file);
+
+	word1 = "carro"; word2 = "carro";
+	diff = get_number_of_comutations(word1, word2);
+	printf("%d\n", diff);
+
 	exit(0);
 }

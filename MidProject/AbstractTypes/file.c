@@ -34,6 +34,8 @@ void manage_pal_data(char *word, vector *indexing_vector, int typeof_exe) {
 		if(typeof_exe > get_element_max_comut(got_element))
 			set_element_max_comut(got_element, typeof_exe);
 	}
+
+	add_element_n_problems(got_element);
 	return;
 }
 
@@ -110,7 +112,7 @@ void manage_dic_data2(item got_char, item got_vector) {
 	int word_len, next_index;
 	element *got_element = NULL;
 	vector *got_word_vector = NULL;
-	word_element *new_word_element = NULL;
+	word_vector_element *new_word_element = NULL;
 	
 	/*Gets the element with the word length*/
 	word_len = strlen(word);
@@ -119,9 +121,13 @@ void manage_dic_data2(item got_char, item got_vector) {
 	/*If this element is a problem solver aka not NULL*/
 	if(got_element != NULL) {
 		got_word_vector = get_element_word_vector(got_element);
+		if(got_word_vector == NULL) {
+			got_word_vector = create_vector(get_element_n_words(got_element));
+			set_element_word_vector(got_element, got_word_vector);
+		}
 		next_index = get_element_next_index(got_element);
-		new_word_element = create_word_element(word);
-		set_item_to_vector(next_index, got_word_vector, new_word_element);
+		new_word_element = create_word_vector_element(word);
+		set_item_to_vector(next_index, got_word_vector, (word_vector_element *)new_word_element);
 		add_element_next_index(got_element);
 	}
 	return;
@@ -155,7 +161,7 @@ char *create_output_filename(char *pal_filename) {
 	int len = 0;
 
     len = strlen(pal_filename);
-	output_filename = (char*)malloc((len-4+strlen(".stat")+1)*sizeof(char));
+	output_filename = (char*)malloc((len-4+strlen(".path")+1)*sizeof(char));
 	strcpy(output_filename, pal_filename);
     
     while(len) {
@@ -165,7 +171,7 @@ char *create_output_filename(char *pal_filename) {
         }
         len --;
     }
-    strcat(output_filename, ".stat");
+    strcat(output_filename, ".path");
     return output_filename;
 }
 

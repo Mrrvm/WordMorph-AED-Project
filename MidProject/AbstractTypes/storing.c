@@ -13,11 +13,14 @@ struct _element {
 	int next_index;
 	int n_words;
 	int max_comut;
+	int sorted;
+	int n_problems;
 	vector *word_vector;
 };
 
-struct _word_element {
+struct _word_vector_element {
 	char *word;
+	list *adj_list;
 };
 
 struct _pal_problem {
@@ -26,6 +29,11 @@ struct _pal_problem {
 	int position1;
 	int position2;
 	int typeof_exe;
+};
+
+struct _adj_element {
+	int word_position;
+	int n_comut; 
 };
 
 /*************** ELEMENT OF INDEXING VECTOR *******************/
@@ -43,12 +51,18 @@ element *create_element(int el_n_words, int el_max_comut) {
     new_element->n_words = el_n_words;
     new_element->max_comut = el_max_comut;
     new_element->word_vector = NULL;
+    new_element->sorted = 0;
+    new_element->n_problems = 0;
     
     return new_element;
 }
 
 int get_element_next_index(element *got_element) {
 	return got_element->next_index;
+}
+
+int get_element_n_problems(element *got_element) {
+	return got_element->n_problems;
 }
 
 int get_element_n_words(element *got_element) {
@@ -63,6 +77,10 @@ vector *get_element_word_vector(element *got_element) {
 	return got_element->word_vector;
 }
 
+int get_element_sorted(element *got_element) {
+	return got_element->sorted;
+}
+
 void add_element_n_words(element *got_element) {
 	got_element->n_words ++;
 	return;
@@ -73,38 +91,22 @@ void add_element_next_index(element *got_element) {
 	return;
 }
 
+void add_element_n_problems(element *got_element) {
+	got_element->n_problems++;
+}
+
 void set_element_max_comut(element *got_element, int el_max_comut) {
 	got_element->max_comut = el_max_comut;
 	return;
 }
 
-void set_element_word_vector(element *got_element, vector *got_vector) {
-	got_element->word_vector = got_vector;
+void set_element_word_vector(element *got_element, vector *_word_vector) {
+	got_element->word_vector = _word_vector;
 	return;
 }
 
-void print_element(item got_item) {
-
-	element *got_element = (element *)got_item;
-	vector* got_word_vector = NULL;
-	int i = 0, size;
-
-	if(got_element != NULL) {
-		spam((KRED"n_words:"RESET"%d\n"
-				KRED"max_comut:"RESET"%d\n", 
-				got_element->n_words, got_element->max_comut));
-
-		got_word_vector = got_element->word_vector;
-		if(got_word_vector != NULL) {
-			size = got_element->n_words;
-			while(i < size) {
-				spam((KCYN"[word_vector = %d]: "RESET, i));
-				spam(("%s ", get_word_element_word(get_vector_item(i, got_word_vector))));
-				i++;
-			}
-			spam(("\n"));
-		}
-	}
+void set_element_sorted(element *got_element) {
+	got_element->sorted = 1;
 	return;
 }
 
@@ -114,61 +116,69 @@ void free_element(item got_item) {
 	free(got_element);
 }
 
-/***************** ELEMENT OF WORD VECTOR *********************/
+/**************** ELEMENT OF WORD VECTOR *****************/
 
-word_element *create_word_element(char *el_word) {
+word_vector_element *create_word_vector_element(char *_word) {
 
-	word_element *new_element = NULL;
+	word_vector_element *new_element = NULL;
 
-	new_element = (word_element *)malloc(sizeof(word_element));
+	new_element = (word_vector_element *)malloc(sizeof(word_vector_element));
     if(new_element == NULL) {
-        memory_error("Unable to reserve word_element memory");
+        memory_error("Unable to reserve word_vector_element memory");
     }
 
-   	new_element->word = (char*)malloc((strlen(el_word)+1)*sizeof(char));
+   	new_element->word = (char*)malloc((strlen(_word)+1)*sizeof(char));
     if(new_element->word == NULL) {
         memory_error("Unable to reserve word memory");
     }
 
-    strcpy(new_element->word, el_word);
+    new_element->adj_list = create_list();
+
+    strcpy(new_element->word, _word);
     return new_element;
 }
 
-char *get_word_element_word(word_element *got_element) {
+char *get_word_vector_element_word(word_vector_element *got_element) {
 	return got_element->word;
 }
 
-void free_word_element(item got_item) {
+void set_word_vector_element_word(word_vector_element *got_element, char *_word) {
+	strcpy(got_element->word, _word);
+	return;
+}
 
-	word_element *got_element = (word_element *)got_item;
+list *get_word_vector_element_list(word_vector_element *got_element) {
+	return got_element->adj_list;
+}
+
+void free_word_vector_element(item got_item) {
+
+	word_vector_element *got_element = (word_vector_element *)got_item;
+	free_list(got_element->adj_list, free_adj_element);
 	free(got_element->word);
 	free(got_element);
 }
 
-/******************* CREATE WORD VECTORS **********************/
-
-void create_word_vectors(vector *indexing_vector) {
-
-	int size = 0, i = 0;
-	vector *word_vector = NULL;
-	element *got_element = NULL;
-	int n_words = 0;
-
-	size = get_vector_size(indexing_vector);
-
-	while(i < size) {
-		got_element = get_vector_item(i, indexing_vector);
-		if(got_element != NULL) {
-			n_words = get_element_n_words(got_element);
-			if(n_words > 0) {
-				word_vector = create_vector(n_words);
-				set_element_word_vector(got_element, word_vector);			
-			}
-		}
-		i++;
-	}
+void print_word_vector_element(item got_item) {
+	word_vector_element *got_word_element = (word_vector_element *)got_item;
+	if(got_word_element != NULL)
+		spam((KMAG"\n Word: %s, \n List: "RESET, got_word_element->word));
+	/*print_list(got_word_element->adj_list)*/
 	return;
 }
+
+/******************** WORD VECTOR *****************************/
+
+void print_word_vector(item got_item) {
+	element *got_element = (element *)got_item;
+	char *vector_name = " of word_vector";
+	if(got_element != NULL)
+		if(got_element->word_vector != NULL) {
+			print_vector(got_element->word_vector, print_word_vector_element, vector_name);
+		}
+	return;
+}
+
 
 /********************* PROBLEM STRUCTURE **********************/
 
@@ -234,12 +244,35 @@ int get_problem_position2(pal_problem *new_problem) {
 	return new_problem->position2;
 }
 
-/******************* FREE INDEXING VECTOR *********************/
+/******************* GRAPH ELEMENT *********************/
 
+adj_element *create_adj_element(int _word_position, int _n_comut) {
+
+	adj_element *new_element = NULL;
+
+	new_element = (adj_element *)malloc(sizeof(adj_element));
+	if(new_element == NULL) {
+		memory_error("Unable to reserve adj_element memory");
+	}
+
+	new_element->word_position = _word_position;
+	new_element->n_comut = _n_comut;
+
+	return new_element;
+}
+
+void free_adj_element(item got_item) {
+
+	adj_element *got_adj_element = (adj_element *)got_item;
+	free(got_adj_element);
+}
+
+/******************* FREE INDEXING VECTOR *********************/
+/*
 void free_indexing_vector(vector *indexing_vector) {
 
 	element *got_element = NULL;
-	vector *word_vector = NULL;
+	char **got_word_vector = NULL;
 	int size = 0, i = 0;
 
 	size = get_vector_size(indexing_vector);
@@ -247,9 +280,9 @@ void free_indexing_vector(vector *indexing_vector) {
 	while(i < size) {
 		got_element = get_vector_item(i, indexing_vector);
 		if(got_element != NULL) {
-			word_vector = get_element_word_vector(got_element);
-			if(word_vector != NULL)
-				free_vector(word_vector, free_word_element);		
+			got_word_vector = get_element_word_vector(got_element);
+			if(got_word_vector != NULL)
+				free_word_vector(got_word_vector, get_element_n_words(got_element));		
 		}
 		i++;
 	}
@@ -257,4 +290,4 @@ void free_indexing_vector(vector *indexing_vector) {
 	free_vector(indexing_vector, free_element);
 	return;
 }
-
+*/

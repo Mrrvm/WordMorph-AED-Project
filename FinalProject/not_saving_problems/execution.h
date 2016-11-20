@@ -13,5 +13,6 @@
 #include "file.h"
 
 void run_position_search(pal_problem *new_problem, vector *indexing_vector);
-
+void run_problem_solver(pal_problem *new_problem, vector *indexing_vector);
+int get_number_of_comutations(item got_item1, item got_item2);
 #endif

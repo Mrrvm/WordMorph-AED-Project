@@ -12,7 +12,6 @@
 
 #include "storing.h"
 
-void manage_pal_data(char *word, vector *indexing_vector, int typeof_exe);
 void manage_pal_file(char *file, vector *indexing_vector);
 int read_pal_file(FILE* pal_file, pal_problem *new_problem);
 

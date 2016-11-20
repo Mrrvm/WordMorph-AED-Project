@@ -95,6 +95,10 @@ void add_element_n_problems(element *got_element) {
 	got_element->n_problems++;
 }
 
+void sub_element_n_problems(element *got_element) {
+	got_element->n_problems--;
+}
+
 void set_element_max_comut(element *got_element, int el_max_comut) {
 	got_element->max_comut = el_max_comut;
 	return;
@@ -132,10 +136,15 @@ word_vector_element *create_word_vector_element(char *_word) {
         memory_error("Unable to reserve word memory");
     }
 
-    new_element->adj_list = create_list();
+    new_element->adj_list = NULL;
 
     strcpy(new_element->word, _word);
     return new_element;
+}
+
+void create_adj_list(word_vector_element *got_element) {
+	got_element->adj_list = create_list();
+	return;
 }
 
 char *get_word_vector_element_word(word_vector_element *got_element) {
@@ -167,7 +176,8 @@ void print_word_vector_element(item got_item) {
 	return;
 }
 
-/******************** WORD VECTOR ******************/
+/******************** WORD VECTOR *****************************/
+
 void print_word_vector(item got_item) {
 	element *got_element = (element *)got_item;
 	char *vector_name = " of word_vector";
