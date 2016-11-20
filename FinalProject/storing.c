@@ -33,6 +33,11 @@ struct _pal_problem {
 	/*solution array*/
 };
 
+struct _adj_element {
+	int word_position;
+	int n_comut; 
+};
+
 /*************** ELEMENT OF INDEXING VECTOR *******************/
 
 element *create_element(int el_n_words, int el_max_comut) {
@@ -253,16 +258,26 @@ void print_pal_problem(item got_item) {
 	return;
 }
 
-/******************* GRAPH *********************/
-
-void create_graph(element *got_element) {
-	return;
+void save_problem_solution() {
+	return;	
 }
 
-void free_graph() {
-	return;
-}
+/******************* GRAPH ELEMENT *********************/
 
+adj_element *create_adj_element(int _word_position, int _n_comut) {
+
+	adj_element *new_element = NULL;
+
+	new_element = (adj_element *)malloc(sizeof(adj_element));
+	if(new_element == NULL) {
+		memory_error("Unable to reserve adj_element memory");
+	}
+
+	new_element->word_position = _word_position;
+	new_element->n_comut = _n_comut;
+
+	return new_element;
+}
 
 /******************* FREE INDEXING VECTOR *********************/
 

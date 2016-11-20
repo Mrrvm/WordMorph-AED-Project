@@ -207,27 +207,72 @@ void run_position_search(pal_problem *new_problem, vector *indexing_vector) {
 
 /*******************************************************************/
 
-void save_problem_solution() {
-	return;	
+int get_number_of_comutations(item got_item1, item got_item2) {
+	char *word1 = (char *)got_item1;
+	char *word2 = (char *)got_item2;
+	int diff = 0;
+
+	diff = strcspn(word1, word2);
+	return diff;
 }
 
-char **do_dijkstra() {
-	char **solution_array = NULL;
-	return solution_array;
+void create_graph(element *got_element) {
+
+	int size = 0, max_comut = 0, n_comut = 0;
+	int i = 0, j = 0;
+	vector *got_word_vector = NULL;
+	char *curr_word, *temp_word;
+	adj_element *new_adj_element = NULL;
+	list *curr_adj_list = NULL, *temp_adj_list = NULL;
+
+	max_comut = get_element_max_comut(got_element);
+	size = get_element_n_words(got_element);
+	got_word_vector = get_element_word_vector(got_element);
+
+	/*IF NOT SORTED AND BIGGER THAN DEF_HYBRID, SORT.*/
+	if(get_element_n_problems(got_element) >= HYBRID_DEF) {
+		if(!get_element_sorted(got_element)) {
+			merge_sort(got_word_vector, 0, size-1);
+			set_element_sorted(got_element);
+		}
+	}
+	for(i=0; i<size; i++) {
+		curr_word = get_word_vector_element_word(get_vector_item(i, got_word_vector));
+		curr_adj_list = get_word_vector_element_list(get_vector_item(i, got_word_vector));
+		for(j=i+1; j<size; j++) {
+			temp_word = get_word_vector_element_word(get_vector_item(j, got_word_vector));
+			temp_adj_list = get_word_vector_element_list(get_vector_item(j, got_word_vector));
+			n_comut = get_number_of_comutations(curr_word, temp_word);
+			if(n_comut < max_comut) {
+				new_adj_element = create_adj_element(j, n_comut);
+				push_item_to_list(curr_adj_list, (adj_element *)new_adj_element);
+				new_adj_element = create_adj_element(i, n_comut);
+				push_item_to_list(temp_adj_list, (adj_element *)new_adj_element);
+			}
+		}
+	}
+	return;
+}
+
+void free_graph() {
+	return;
+}
+
+void do_dijkstra() {
+	return;
 }
 
 void run_element_problems_solver(element *got_element) {
 
 	list *problem_list = NULL;
 	node *list_element = NULL;
-	char **solution_array = NULL;
 
 	problem_list = get_element_problem_list(got_element);
 	list_element = get_head(problem_list);
 	create_graph(got_element);
 	/*While there are still problems to solve in this element*/
 	while(list_element != NULL) {
-		solution_array = do_dijkstra();
+		do_dijkstra();
 		save_problem_solution();
 		list_element = get_next_node(list_element);
 	}

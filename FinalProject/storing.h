@@ -16,6 +16,7 @@
 typedef struct _element element;
 typedef struct _word_vector_element word_vector_element;
 typedef struct _pal_problem pal_problem;
+typedef struct _adj_element adj_element;
 
 element *create_element(int el_n_words, int el_max_comutations);
 list *get_element_problem_list(element *got_element);
@@ -50,9 +51,9 @@ int get_problem_position1(pal_problem *new_problem);
 void set_problem_position2(pal_problem *new_problem, int _value);
 int get_problem_position2(pal_problem *new_problem);
 void print_pal_problem(item got_item);
+void save_problem_solution();
 
-void create_graph(element *got_element);
-void free_graph();
+adj_element *create_adj_element(int _word_position, int _n_comut);
 
 void free_indexing_vector(vector *indexing_vector);
 
