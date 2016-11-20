@@ -61,8 +61,7 @@ void manage_pal_file(char *file, vector *indexing_vector, list *solution_list) {
 	while(fscanf(pal_file, "%99s", first_word) == 1) {
 		if(fscanf(pal_file, "%99s", second_word) == 1) {
 			if(fscanf(pal_file, "%d", &typeof_exe) == 1) {
-				new_problem = create_pal_problem();
-				set_problem_variables(new_problem, first_word, second_word, typeof_exe);
+				new_problem = create_pal_problem(first_word, second_word, typeof_exe);
 				manage_pal_data(new_problem, indexing_vector);
 				push_item_to_list(solution_list, (pal_problem *)new_problem);
 			}
@@ -70,24 +69,6 @@ void manage_pal_file(char *file, vector *indexing_vector, list *solution_list) {
 	}
 	fclose(pal_file);
 	return;
-}
-
-/*Reads one problem of the pal file and sets the problem variables
-	to its structure in set_problem_variables() function*/
-int read_pal_file(FILE* pal_file, pal_problem *new_problem) {
-	
-	char first_word[100];
-	char second_word[100];
-	int typeof_exe = 0;
-
-	if(fscanf(pal_file, "%99s", first_word) == 1) {
-		if(fscanf(pal_file, "%99s", second_word) == 1)
-			if(fscanf(pal_file, "%d", &typeof_exe) == 1)
-				set_problem_variables(new_problem, first_word, second_word, typeof_exe);
-		return 1;
-	}
-	else
-		return 0;
 }
 
 /************************* DIC FILE FUNCTIONS **************************/

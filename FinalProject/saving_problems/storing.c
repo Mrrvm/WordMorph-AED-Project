@@ -25,8 +25,8 @@ struct _word_vector_element {
 };
 
 struct _pal_problem {
-	char word1[100];
-	char word2[100];
+	char *word1;
+	char *word2;
 	int position1;
 	int position2;
 	int typeof_exe;
@@ -102,6 +102,11 @@ void add_element_n_problems(element *got_element) {
 	got_element->n_problems++;
 }
 
+void set_element_n_words(element *got_element, int _n_words) {
+	got_element->n_words = _n_words;
+	return;
+}
+
 void set_element_max_comut(element *got_element, int el_max_comut) {
 	got_element->max_comut = el_max_comut;
 	return;
@@ -161,15 +166,15 @@ list *get_word_vector_element_list(word_vector_element *got_element) {
 void free_word_vector_element(item got_item) {
 
 	word_vector_element *got_element = (word_vector_element *)got_item;
+	free_list(got_element->adj_list, free_adj_element);
 	free(got_element->word);
-	/*
-	free_list(got_element->adj_list, free_adj_list_element);*/
 	free(got_element);
 }
 
 void print_word_vector_element(item got_item) {
 	word_vector_element *got_word_element = (word_vector_element *)got_item;
-	spam((KMAG"\n Word: %s, \n List: "RESET, got_word_element->word));
+	if(got_word_element != NULL)
+		spam((KMAG"\n Word: %s, \n List: "RESET, got_word_element->word));
 	/*print_list(got_word_element->adj_list)*/
 	return;
 }
@@ -179,7 +184,7 @@ void print_word_vector(item got_item) {
 	element *got_element = (element *)got_item;
 	char *vector_name = " of word_vector";
 	if(got_element != NULL)
-		if(got_element->word_vector) {
+		if(got_element->word_vector != NULL) {
 			print_vector(got_element->word_vector, print_word_vector_element, vector_name);
 		}
 	return;
@@ -187,7 +192,7 @@ void print_word_vector(item got_item) {
 
 /********************* PROBLEM STRUCTURE **********************/
 
-pal_problem *create_pal_problem() {
+pal_problem *create_pal_problem(char *_word1, char *_word2, int _typeof_exe) {
 
 	pal_problem *new_problem = NULL;
 
@@ -196,17 +201,23 @@ pal_problem *create_pal_problem() {
 		memory_error("Unable to reserve problem memory");
 	}
 
-	return new_problem;
-}
+	new_problem->word1 = (char*)malloc((strlen(_word1)+1)*sizeof(char));
+    if(new_problem->word1 == NULL) {
+        memory_error("Unable to reserve word memory");
+    }
+    strcpy(new_problem->word1, _word1);
 
-void set_problem_variables(pal_problem *new_problem, char *_word1, char *_word2, int _typeof_exe) {
+    new_problem->word2 = (char*)malloc((strlen(_word2)+1)*sizeof(char));
+    if(new_problem->word1 == NULL) {
+        memory_error("Unable to reserve word memory");
+    }
+    strcpy(new_problem->word2, _word2);
 
-	strcpy(new_problem->word1, _word1);
-	strcpy(new_problem->word2, _word2);
-	new_problem->typeof_exe =  _typeof_exe;
+	new_problem->typeof_exe = _typeof_exe;
 	new_problem->position1 = 0;
 	new_problem->position2 = 0;
-	return;
+	
+	return new_problem;
 }
 
 void set_problem_position1(pal_problem *new_problem, int _value) {
@@ -277,6 +288,12 @@ adj_element *create_adj_element(int _word_position, int _n_comut) {
 	new_element->n_comut = _n_comut;
 
 	return new_element;
+}
+
+void free_adj_element(item got_item) {
+
+	adj_element *got_adj_element = (adj_element *)got_item;
+	free(got_adj_element);
 }
 
 /******************* FREE INDEXING VECTOR *********************/

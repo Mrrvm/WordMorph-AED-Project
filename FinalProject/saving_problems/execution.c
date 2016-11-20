@@ -226,8 +226,8 @@ void create_graph(element *got_element) {
 	list *curr_adj_list = NULL, *temp_adj_list = NULL;
 
 	max_comut = get_element_max_comut(got_element);
-	size = get_element_n_words(got_element);
 	got_word_vector = get_element_word_vector(got_element);
+	size = get_element_n_words(got_element);
 
 	/*IF NOT SORTED AND BIGGER THAN DEF_HYBRID, SORT.*/
 	if(get_element_n_problems(got_element) >= HYBRID_DEF) {
@@ -254,10 +254,6 @@ void create_graph(element *got_element) {
 	return;
 }
 
-void free_graph() {
-	return;
-}
-
 void do_dijkstra() {
 	return;
 }
@@ -267,16 +263,17 @@ void run_element_problems_solver(element *got_element) {
 	list *problem_list = NULL;
 	node *list_element = NULL;
 
+	create_graph(got_element);
 	problem_list = get_element_problem_list(got_element);
 	list_element = get_head(problem_list);
-	create_graph(got_element);
 	/*While there are still problems to solve in this element*/
 	while(list_element != NULL) {
 		do_dijkstra();
 		save_problem_solution();
 		list_element = get_next_node(list_element);
 	}
-	free_graph();
+	free_vector(get_element_word_vector(got_element), free_word_vector_element);
+	return;
 }
 
 void run_all_problems_solver(vector *indexing_vector) {
@@ -288,8 +285,10 @@ void run_all_problems_solver(vector *indexing_vector) {
 	size = get_vector_size(indexing_vector);
 	while(i < size) {
 		got_element = get_vector_item(i, indexing_vector);
-		if(got_element != NULL)
-			run_element_problems_solver(got_element);
+		if(got_element != NULL) {
+			if(get_element_n_words(got_element) != 0)
+				run_element_problems_solver(got_element);
+		}
 		i++;
 	}
 	return;

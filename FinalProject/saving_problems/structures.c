@@ -126,7 +126,7 @@ void print_list(list *got_list, void (*print_item)(item)) {
     }
     spam(("-> [ " KBLU "NULL" RESET " ]"));
 }
-
+    
 void free_list(list *got_list, void (*free_item)(item)) {
     node *got_node = get_head(got_list);
     /* Free every node of list*/

@@ -13,7 +13,6 @@
 #include "storing.h"
 
 void manage_pal_file(char *file, vector *indexing_vector, list *solution_list);
-int read_pal_file(FILE* pal_file, pal_problem *new_problem);
 
 void manage_dic_data1(item got_char, item got_vector);
 void manage_dic_data2(item got_char, item got_vector);

@@ -53,7 +53,6 @@ int main(int argc, char **argv) {
 	manage_dic_file(argv[1], manage_dic_data2, indexing_vector);
 
 	print_vector(indexing_vector, print_word_vector, vector_name);
-
 	/*SOLVE THE PROBLEMS*/
 	run_all_problems_solver(indexing_vector);
 
