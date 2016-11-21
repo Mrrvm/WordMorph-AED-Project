@@ -15,10 +15,6 @@ int main(int argc, char **argv) {
 	vector *indexing_vector = NULL;
 	char *output_filename;
 	list *solution_list;
-	/*TEMPORARY*/
-	int i = 0;
-	element *got_element = NULL;
-	char *vector_name = " of indexing_vector";
 
 	/*Checks if the invocation is right*/
 	if(argc != 3 || strcmp(get_filename_ext(argv[1]), "dic") || strcmp(get_filename_ext(argv[2]), "pal"))

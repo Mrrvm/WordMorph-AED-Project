@@ -9,14 +9,14 @@
 
 #include "execution.h"
 
-int binary_search(vector *got_word_vector, int l, int r, char *word) {
+int binary_search(word_vector_element *got_word_vector, int l, int r, char *word) {
   
   char *temp_word;
   int m;
 
   while (l <= r) {  
     m = l + (r-l)/2;
-    temp_word = get_word_vector_element_word(get_vector_item(m, got_word_vector));
+    temp_word = get_word_vector_word(m, got_word_vector);
     if(strcmp(temp_word, word) == 0) 
         return m;  
 
@@ -29,7 +29,7 @@ int binary_search(vector *got_word_vector, int l, int r, char *word) {
 }
 
 
-void merge(vector *got_word_vector, int left, int mid, int right) {
+void merge(word_vector_element *got_word_vector, int left, int mid, int right) {
     char **temp_array  = NULL;
     char *wordl, *wordr;
     int pos=0,lpos = left,rpos = mid + 1;
@@ -45,8 +45,8 @@ void merge(vector *got_word_vector, int left, int mid, int right) {
     /*Merge the 2 parts*/
     while(lpos <= mid && rpos <= right)
     {
-    	wordl = get_word_vector_element_word(get_vector_item(lpos, got_word_vector));
-    	wordr = get_word_vector_element_word(get_vector_item(rpos, got_word_vector));
+    	wordl = get_word_vector_word(lpos, got_word_vector);
+    	wordr = get_word_vector_word(rpos, got_word_vector);
         if(strcmp(wordl, wordr) < 0) {
             strcpy(temp_array[pos], wordl);
             pos++;
@@ -60,13 +60,13 @@ void merge(vector *got_word_vector, int left, int mid, int right) {
     }
     /*Merge the leftover part*/
     while(lpos <= mid) {
-    	wordl = get_word_vector_element_word(get_vector_item(lpos, got_word_vector));
+    	wordl = get_word_vector_word(lpos, got_word_vector);
     	strcpy(temp_array[pos], wordl);
          pos++;
          lpos++;
     }
     while(rpos <= right) {
-    	wordr = get_word_vector_element_word(get_vector_item(rpos, got_word_vector));
+    	wordr = get_word_vector_word(rpos, got_word_vector);
     	strcpy(temp_array[pos], wordr);
         pos++;
         rpos++;
@@ -74,8 +74,7 @@ void merge(vector *got_word_vector, int left, int mid, int right) {
     
     /*Copy the temporary array to the real array*/
     for(iter = 0;iter < pos; iter++) {
-    	set_word_vector_element_word(get_vector_item(iter+left, got_word_vector), 
-    		temp_array[iter]);
+    	copy_word_to_vector(temp_array[iter], got_word_vector, iter+left);
     }
 
     /*Free the temporary array*/
@@ -88,7 +87,8 @@ void merge(vector *got_word_vector, int left, int mid, int right) {
     return;
 }
 
-void merge_sort(vector *got_word_vector, int left, int right) {
+
+void merge_sort(word_vector_element *got_word_vector, int left, int right) {
     int mid = (left+right)/2;
     /*When left=right it is already sorted*/
     if(left<right) {
@@ -108,7 +108,7 @@ void run_position_search(pal_problem *new_problem, vector *indexing_vector) {
 
 	int word_len = 0;
 	element *got_element = NULL;
-	vector *got_word_vector = NULL;
+	word_vector_element *got_word_vector = NULL;
 	int n_words = 0;
 
 	word_len = strlen(get_problem_word1(new_problem));
@@ -125,8 +125,7 @@ void run_position_search(pal_problem *new_problem, vector *indexing_vector) {
 			}
 			/*Set the position of the words in the problem structure after the search*/
 			set_problem_position1(new_problem, binary_search(got_word_vector, 0, n_words, get_problem_word1(new_problem)));
-			set_problem_position2(new_problem, binary_search(got_word_vector, 0, n_words, get_problem_word2(new_problem)));	
-		
+			set_problem_position2(new_problem, binary_search(got_word_vector, 0, n_words, get_problem_word2(new_problem)));		
 		}
 		/*If the element has no words in the word vector, the result
 			of the search will be -1*/
@@ -157,10 +156,8 @@ void create_graph(element *got_element) {
 
 	int size = 0, max_comut = 0, n_comut = 0;
 	int i = 0, j = 0;
-	vector *got_word_vector = NULL;
+	word_vector_element *got_word_vector = NULL;
 	char *curr_word, *temp_word;
-	list *curr_adj_list = NULL, *temp_adj_list = NULL;
-	word_vector_element *curr_element, *temp_element;
 
 	max_comut = get_element_max_comut(got_element);
 	got_word_vector = get_element_word_vector(got_element);
@@ -172,16 +169,12 @@ void create_graph(element *got_element) {
 	}
 
 	for(i=0; i<size; i++) {
-		curr_element = get_vector_item(i, got_word_vector);
-		curr_word = get_word_vector_element_word(curr_element);
-		curr_adj_list = get_word_vector_element_list(curr_element);
+		curr_word = get_word_vector_word(i, got_word_vector);
 		for(j=i+1; j<size; j++) {
-			temp_element = get_vector_item(j, got_word_vector);
-			temp_word = get_word_vector_element_word(temp_element);
+			temp_word = get_word_vector_word(j, got_word_vector);
 			if(check_number_of_comutations(curr_word, temp_word, max_comut)) {
-				temp_adj_list = get_word_vector_element_list(temp_element);
-				push_item_to_list(curr_adj_list, (adj_element *)create_adj_element(j, n_comut));
-				push_item_to_list(temp_adj_list, (adj_element *)create_adj_element(i, n_comut));
+				push_adj_el_to_word_vector_el(i, got_word_vector, create_adj_element(j, n_comut));
+				push_adj_el_to_word_vector_el(j, got_word_vector, create_adj_element(i, n_comut));
 			}
 		}
 	}
@@ -206,7 +199,7 @@ void run_element_problems_solver(element *got_element) {
 		save_problem_solution();
 		list_element = get_next_node(list_element);
 	}
-	free_vector(get_element_word_vector(got_element), free_word_vector_element);
+	free_word_vector(get_element_word_vector(got_element), get_element_n_words(got_element));
 	return;
 }
 

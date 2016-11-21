@@ -126,7 +126,7 @@ void print_list(list *got_list, void (*print_item)(item)) {
     }
     spam(("-> [ " KBLU "NULL" RESET " ]"));
 }
-    
+
 void free_list(list *got_list, void (*free_item)(item)) {
     node *got_node = get_head(got_list);
     /* Free every node of list*/
@@ -150,7 +150,7 @@ vector *create_vector(int n_elements) {
         memory_error("Unable to reserve vector memory");
     }
     new_vector->size = n_elements;
-    return new_vector;
+     return new_vector;
 }
 
 size_t get_vector_size(vector *got_vector) {
@@ -184,11 +184,11 @@ void free_vector(vector *got_vector, void (*free_item)(item)) {
     return;
 }
 
-void print_vector(vector *got_vector, void (*print_item)(item), char *name) {
+void print_vector(vector *got_vector, void (*print_item)(item)) {
     int size = got_vector->size;
     int i = 0;
     while(i < size) {
-        spam((KGRN "\n[Element %s = %d]:\n" RESET, name, i));
+        spam((KGRN "\n[Element = %d]:\n" RESET, i));
         print_item(got_vector->data[i]);
         spam(("\n"));
         i++;
