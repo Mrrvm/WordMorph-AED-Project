@@ -207,17 +207,17 @@ void run_position_search(pal_problem *new_problem, vector *indexing_vector) {
 
 /*******************************************************************/
 
-int get_number_of_comutations(item got_item1, item got_item2) {
-	char *word1 = (char *)got_item1;
-	char *word2 = (char *)got_item2;
+int check_number_of_comutations(char *word1, char *word2, int max_comut) {
 	int diff = 0, i=0, len = 0;
 
 	len = strlen(word1);
 	for(i=0; i < len; i++) {
     	if(word1[i] != word2[i])
     		diff ++;
+    	if(diff > max_comut)
+    		return 0;
     }
-	return diff;
+	return 1;
 }
 
 void create_graph(element *got_element) {
@@ -234,11 +234,9 @@ void create_graph(element *got_element) {
 	got_word_vector = get_element_word_vector(got_element);
 	size = get_element_n_words(got_element);
 
-	if(get_element_n_problems(got_element) >= HYBRID_DEF) {
-		if(!get_element_sorted(got_element)) {
-			merge_sort(got_word_vector, 0, size-1);
-			set_element_sorted(got_element);
-		}
+	if(!get_element_sorted(got_element)) {
+		merge_sort(got_word_vector, 0, size-1);
+		set_element_sorted(got_element);
 	}
 
 	for(i=0; i<size; i++) {
@@ -249,8 +247,7 @@ void create_graph(element *got_element) {
 			temp_element = get_vector_item(j, got_word_vector);
 			temp_word = get_word_vector_element_word(temp_element);
 			temp_adj_list = get_word_vector_element_list(temp_element);
-			n_comut = get_number_of_comutations(curr_word, temp_word);
-			if(n_comut < max_comut) {
+			if(check_number_of_comutations(curr_word, temp_word, max_comut)) {
 				new_adj_element = create_adj_element(j, n_comut);
 				push_item_to_list(curr_adj_list, (adj_element *)new_adj_element);
 				new_adj_element = create_adj_element(i, n_comut);
