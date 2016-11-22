@@ -139,7 +139,7 @@ void run_position_search(pal_problem *new_problem, vector *indexing_vector) {
 
 /*******************************************************************/
 
-int check_number_of_comutations(char *word1, char *word2, int max_comut) {
+int check_number_of_comutations(char *word1, char *word2, int max_comut, int *n_comut) {
 	int diff = 0, i=0, len = 0;
 
 	len = strlen(word1);
@@ -149,6 +149,7 @@ int check_number_of_comutations(char *word1, char *word2, int max_comut) {
     	if(diff > max_comut)
     		return 0;
     }
+    *n_comut = diff;
 	return 1;
 }
 
@@ -172,12 +173,13 @@ void create_graph(element *got_element) {
 		curr_word = get_word_vector_word(i, got_word_vector);
 		for(j=i+1; j<size; j++) {
 			temp_word = get_word_vector_word(j, got_word_vector);
-			if(check_number_of_comutations(curr_word, temp_word, max_comut)) {
+			if(check_number_of_comutations(curr_word, temp_word, max_comut, &n_comut)) {
 				push_adj_el_to_word_vector_el(i, got_word_vector, create_adj_element(j, n_comut));
 				push_adj_el_to_word_vector_el(j, got_word_vector, create_adj_element(i, n_comut));
 			}
 		}
 	}
+
 	return;
 }
 

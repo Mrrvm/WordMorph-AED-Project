@@ -33,6 +33,7 @@ void add_element_next_index(element *got_element);
 void set_element_max_comut(element *got_element, int el_max_comut);
 void set_element_word_vector(element *got_element, word_vector_element *_word_vector);
 void set_element_sorted(element *got_element);
+void free_indexing_vector_element(item got_item);
 
 word_vector_element *create_word_vector(int n_words);
 word_vector_element get_word_vector_element(int i, word_vector_element *got_word_vector);
@@ -40,6 +41,7 @@ char *get_word_vector_word(int i, word_vector_element *got_word_vector);
 adj_element *get_word_vector_head(int i, word_vector_element *got_word_vector);
 void copy_word_to_vector(char *_word, word_vector_element *got_word_vector, int i);
 void set_word_vector_element_head(word_vector_element *got_word_vector, int i, adj_element *_head);
+void print_word_vector(word_vector_element *got_word_vector, int n_words);
 void free_word_vector(word_vector_element *got_word_vector, int n_words);
 
 adj_element *create_adj_element(int word_position, int n_comut);
@@ -58,7 +60,6 @@ void set_problem_position2(pal_problem *new_problem, int _value);
 int get_problem_position2(pal_problem *new_problem);
 void print_pal_problem(item got_item);
 void save_problem_solution();
-
-void free_indexing_vector(vector *indexing_vector);
+void free_problem(item got_item);
 
 #endif

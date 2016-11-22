@@ -33,3 +33,7 @@ void memory_error(char *msg)
 
     exit(0);
 }
+
+void do_nothing(item got_item) {
+    return;
+}

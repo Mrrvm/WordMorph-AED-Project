@@ -119,10 +119,12 @@ void set_element_sorted(element *got_element) {
 	return;
 }
 
-void free_element(item got_item) {
-
+void free_indexing_vector_element(item got_item) {
 	element *got_element = (element *)got_item;
-	free(got_element);
+	if(got_element != NULL) {
+		free_list(got_element->problem_list, free_problem);
+	}
+	free(got_element);	
 }
 
 /*********************** WORD VECTOR *********************/
@@ -153,25 +155,57 @@ adj_element *get_word_vector_head(int i, word_vector_element *got_word_vector) {
 
 void copy_word_to_vector(char *_word, word_vector_element *got_word_vector, int i) {
 
+	if(got_word_vector[i].word != NULL)
+		free(got_word_vector[i].word);
 	got_word_vector[i].word = (char *)calloc(strlen(_word)+1, sizeof(char));
 	strcpy(got_word_vector[i].word, _word);
 	return;
-}	
+}
 
 void set_word_vector_element_head(word_vector_element *got_word_vector, int i, adj_element *_head) {
 	got_word_vector[i].head = _head;
 }
 
+void print_word_vector(word_vector_element *got_word_vector, int n_words) {
+	int i = 0;
+	adj_element *node;
+
+	while(i<n_words) {
+		printf("Word: %s \n", got_word_vector[i].word);
+		printf("List:");
+		if(got_word_vector[i].head != NULL) {
+			node = got_word_vector[i].head;
+			while(node != NULL) {
+				printf(" -> ");
+				printf("Word pos: %d , n_comut: %d\n", 
+					node->word_position,
+					node->n_comut);
+				node = node->next;
+			}
+		}
+		printf("\n");
+		i++;
+	}
+	return;
+}
+
 void free_word_vector(word_vector_element *got_word_vector, int n_words) {
 	int i = 0;
+	adj_element *node = NULL;
 
 	while(i<n_words) {
 		free(got_word_vector[i].word);
-		free_word_vector_el_list(got_word_vector[i].head);
+		node = got_word_vector[i].head;
+		while(node != NULL) {
+			node = got_word_vector[i].head->next;
+			free(got_word_vector[i].head);
+			got_word_vector[i].head = node;
+		}	
 		i++;
 	}
 	free(got_word_vector);
 	return;
+
 }
 
 /********************* ADJ LIST **********************/
@@ -192,17 +226,6 @@ adj_element *create_adj_element(int _word_position, int _n_comut) {
 void push_adj_el_to_word_vector_el(int i, word_vector_element *got_word_vector, adj_element *new_element) {
 	new_element->next = got_word_vector[i].head;
 	got_word_vector[i].head = new_element;
-	return;
-}
-
-void free_word_vector_el_list(adj_element *head) {
-	adj_element *node = NULL;
-
-	while(node != NULL) {
-		node = head->next;
-		free(head);
-		head = node;
-	}
 	return;
 }
 
@@ -289,27 +312,11 @@ void save_problem_solution() {
 	return;	
 }
 
-/******************* FREE INDEXING VECTOR *********************/
-/*
-void free_indexing_vector(vector *indexing_vector) {
-
-	element *got_element = NULL;
-	char **got_word_vector = NULL;
-	int size = 0, i = 0;
-
-	size = get_vector_size(indexing_vector);
-
-	while(i < size) {
-		got_element = get_vector_item(i, indexing_vector);
-		if(got_element != NULL) {
-			got_word_vector = get_element_word_vector(got_element);
-			if(got_word_vector != NULL)
-				free_word_vector(got_word_vector, get_element_n_words(got_element));		
-		}
-		i++;
-	}
-
-	free_vector(indexing_vector, free_element);
+void free_problem(item got_item) {
+	pal_problem *got_problem = (pal_problem *)got_item;
+	free(got_problem->word1);
+	free(got_problem->word2);
+	free(got_problem);
 	return;
 }
-*/
+

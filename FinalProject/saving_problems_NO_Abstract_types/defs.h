@@ -45,5 +45,6 @@ typedef enum
 char *get_filename_ext(char *filename);
 void file_error(char *msg);
 void memory_error(char *msg);
+void do_nothing(item got_item);
 
 #endif

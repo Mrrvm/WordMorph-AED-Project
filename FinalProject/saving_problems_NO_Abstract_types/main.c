@@ -47,7 +47,8 @@ int main(int argc, char **argv) {
 
  	/*Bring freedom upon this data structures!*/
  	free(output_filename);
- 	/*free_indexing_vector(indexing_vector);*/
+ 	free_vector(indexing_vector, free_indexing_vector_element);
+ 	free_list(solution_list, do_nothing);
  	/*Bring death upon this files!*/
  	fclose(output_file);
 	exit(0);
