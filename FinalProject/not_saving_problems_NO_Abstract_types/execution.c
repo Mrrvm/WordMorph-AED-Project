@@ -179,6 +179,7 @@ void create_graph(element *got_element) {
 			}
 		}
 	}
+	set_element_got_graph(got_element);
 
 	return;
 }
@@ -191,44 +192,21 @@ void do_dijkstra() {
 	return;
 }
 
-void run_element_problems_solver(element *got_element) {
+void run_problem_solver(pal_problem *new_problem, vector *indexing_vector) {
 
-	list *problem_list = NULL;
-	node *list_element = NULL;
-
-	create_graph(got_element);
-	problem_list = get_element_problem_list(got_element);
-	list_element = get_head(problem_list);
-
-	do_dijkstra();
-	save_problem_solution();
-	list_element = get_next_node(list_element);
-
-	/*While there are still problems to solve in this element*/
-	while(list_element != NULL) {
-		if(!check_similar_problems())
-			do_dijkstra();
-		save_problem_solution();
-		list_element = get_next_node(list_element);
-	}
-	free_word_vector(get_element_word_vector(got_element), get_element_n_words(got_element));
-	return;
-}
-
-void run_all_problems_solver(vector *indexing_vector) {
-
-	int i = 0;
-	int size = 0;
+	int len = 0;
 	element *got_element = NULL;
 
-	size = get_vector_size(indexing_vector);
-	while(i < size) {
-		got_element = get_vector_item(i, indexing_vector);
-		if(got_element != NULL) {
-			if(get_element_n_words(got_element) != 0)
-				run_element_problems_solver(got_element);
-		}
-		i++;
-	}
+	len = strlen(get_problem_word1(new_problem));
+	got_element = get_vector_item(len, indexing_vector);
+	
+	if(!get_element_got_graph(got_element))
+		create_graph(got_element);
+	do_dijkstra();
+	save_problem_solution();
+	
+	sub_element_n_problems(got_element);
+	if(get_element_n_problems(got_element) == 0)
+		free_word_vector(get_element_word_vector(got_element), get_element_n_words(got_element));
 	return;
 }
