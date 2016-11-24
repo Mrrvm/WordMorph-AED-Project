@@ -50,10 +50,11 @@ int main(int argc, char **argv) {
 		run_problem_solver(new_problem, indexing_vector);
 		/*write_to_file(new_problem, output_file);*/
  	}
+ 	
  	/*Bring freedom upon this data structures!*/
  	free(output_filename);
  	free(new_problem);
- 	/*free_vector(indexing_vector);*/
+ 	free_vector(indexing_vector, free_element);
  	/*Bring death upon this files!*/
  	fclose(output_file);
 	fclose(pal_file);

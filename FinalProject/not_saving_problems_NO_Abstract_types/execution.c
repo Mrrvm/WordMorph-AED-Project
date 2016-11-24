@@ -184,8 +184,13 @@ void create_graph(element *got_element) {
 	return;
 }
 
-int check_similar_problems() {
-	return 1;
+void print_graph(item got_item) {
+
+    element *got_element = (element *)got_item;
+
+    if(got_element != NULL)
+        print_word_vector(get_element_word_vector(got_element), get_element_n_words(got_element));
+
 }
 
 void do_dijkstra() {

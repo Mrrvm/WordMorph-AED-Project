@@ -131,6 +131,7 @@ void set_element_sorted(element *got_element) {
 void free_element(item got_item) {
 
 	element *got_element = (element *)got_item;
+	if(got_element != NULL)
 	free(got_element);
 }
 
@@ -178,19 +179,19 @@ void print_word_vector(word_vector_element *got_word_vector, int n_words) {
 	adj_element *node;
 
 	while(i<n_words) {
-		printf("Word: %s \n", got_word_vector[i].word);
-		printf("List:");
+		spam(("Word: %s \n", got_word_vector[i].word));
+		spam(("List:"));
 		if(got_word_vector[i].head != NULL) {
 			node = got_word_vector[i].head;
 			while(node != NULL) {
-				printf(" -> ");
-				printf("Word pos: %d , n_comut: %d\n", 
+				spam((" -> "));
+				spam(("Word pos: %d , n_comut: %d\n", 
 					node->word_position,
-					node->n_comut);
+					node->n_comut));
 				node = node->next;
 			}
 		}
-		printf("\n");
+		spam(("\n"));
 		i++;
 	}
 	return;

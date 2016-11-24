@@ -25,7 +25,7 @@
 #define RESET "\033[0m"
 
 /*change this to DEBUG_OFF to clear out the printfs*/
-#define DEBUG_OFF
+#define DEBUG_ON
 
 #ifdef DEBUG_ON
   #define spam(a) printf a
