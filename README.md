@@ -33,3 +33,7 @@ to
         #define DEBUG_OFF
 
 in defs.h, and use spam((a)) instead of printf(a).
+
+* To run the script for testing all test files
+
+		$ sh run_all.sh > ../results.txt 2>&1
