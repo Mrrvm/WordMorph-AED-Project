@@ -205,19 +205,24 @@ path_element *run_dijkstra(element *got_element, int src_index) {
     hash_table = create_hash_table(n_words);
     path_vector = create_path_vector(n_words);
 
+    /*Set initial dijkstra variables*/
     for(i=0; i<n_words; i++) {
         set_path_element_parent(ORFAN, i, path_vector);
         set_path_element_total_weight(INF, i, path_vector);
-        set_hash_table_value(i, i, hash_table);
+        set_hash_table_value(i+1, i, hash_table);
         set_heap_element_dic_index(i-1, i, heap_vector);
         set_heap_element_weight(INF, i, heap_vector);
     }
+    /*Set source variables*/
     set_path_element_parent(src_index, src_index, path_vector);
     set_path_element_total_weight(0, src_index, path_vector);
     set_heap_element_weight(0, src_index+1, heap_vector);
 
-    /*DO THE HEAPIFY AND THEN START HEAP!*/
-    /*START DIJKSTRA*/
+    print_hash_table(hash_table, n_words);
+    /*Start by ordering the heap*/
+    for (i = n_words/2; i >= 1; i--) {
+        heapify(i, n_words, hash_table, heap_vector);
+    }
 
 	return path_vector;
 }
