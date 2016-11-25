@@ -150,6 +150,22 @@ void print_heap_vector(heap_element *heap_vector, int size) {
 	}
 }
 
+void initialize_heap(int size, int *hash_table, path_element *path_vector, heap_element *heap_vector) {
+
+	int i = 0;
+	while(i<size+1) {
+		if(i<size) {
+			path_vector[i].parent = ORFAN;
+			path_vector[i].total_weight = INF;
+			hash_table[i] = i+1;
+		}
+		heap_vector[i].dic_index = i-1;
+		heap_vector[i].weight = INF;
+		i++;
+	}
+	return;
+}
+
 void swap_heaps(heap_element *heap_vector, int i, int j) {
 
 	heap_element aux_heap;
@@ -197,4 +213,16 @@ void heapify(int i, int size, int *hash_table, heap_element *heap_vector) {
 		else 
 			break;
 	}
+}
+
+int get_first_heap_dic_index(int *hash_table, int size, heap_element *heap_vector) {
+
+	heap_element first_heap;
+
+	swap_hash_values(hash_table, heap_vector[1].dic_index, heap_vector[size].dic_index);
+    first_heap = heap_vector[1];
+    swap_heaps(heap_vector, 1, size);
+    heapify(1, size-1, hash_table, heap_vector);
+     
+    return heap_vector[1].dic_index;
 }

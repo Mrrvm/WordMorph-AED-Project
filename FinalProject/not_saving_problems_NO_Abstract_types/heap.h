@@ -36,8 +36,9 @@ int get_heap_element_weight(int i, heap_element *heap_vector);
 void set_heap_element_dic_index(int _dic_index, int i, heap_element *heap_vector);
 void set_heap_element_weight(int _weight, int i, heap_element *heap_vector);
 void print_heap_vector(heap_element *heap_vector, int size);
+void initialize_heap(int size, int *hash_table, path_element *path_vector, heap_element *heap_vector);
 void heapify(int i, int size, int *hash_table, heap_element *heap_vector);
-
+int get_first_heap_dic_index(int *hash_table, int size, heap_element *heap_vector);
 
 
 #endif
