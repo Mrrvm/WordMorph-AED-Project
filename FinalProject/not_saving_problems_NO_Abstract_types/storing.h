@@ -17,6 +17,8 @@ typedef struct _element element;
 typedef struct _pal_problem pal_problem;
 typedef struct _word_vector_element word_vector_element;
 typedef struct _adj_element adj_element;
+typedef struct _heap_element heap_element;
+typedef struct _path_element path_element;
 
 element *create_element(int el_n_words, int el_max_comutations);
 int get_element_got_graph(element *got_element);
@@ -62,5 +64,24 @@ int get_problem_position1(pal_problem *new_problem);
 void set_problem_position2(pal_problem *new_problem, int _value);
 int get_problem_position2(pal_problem *new_problem);
 void save_problem_solution();
+
+int *create_hash_table(int n_elements);
+int get_hash_table_value(int i, int *hash_table);
+void set_hash_table_value(int _value, int i, int *hash_table);
+
+heap_element *create_heap_vector(int n_elements);
+heap_element get_heap_vector_element(int i, heap_element *heap_vector);
+
+int get_heap_element_dic_index(int i, heap_element *heap_vector);
+int get_heap_element_weight(int i, heap_element *heap_vector);
+void set_heap_element_dic_index(int _dic_index, int i, heap_element *heap_vector);
+void set_heap_element_weight(int _weight, int i, heap_element *heap_vector);
+
+path_element *create_path_vector(int n_elements);
+path_element get_path_vector_element(int i, path_element *path_vector);
+int get_path_element_total_weight(int i, path_element *path_vector);
+int get_path_element_parent(int i, path_element *path_vector);
+void set_path_element_total_weight(int _total_weight, int i, path_element *path_vector);
+void set_path_element_parent(int _parent, int i, path_element *path_vector);
 
 #endif

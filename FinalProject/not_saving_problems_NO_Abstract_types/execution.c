@@ -193,7 +193,28 @@ void print_graph(item got_item) {
 
 }
 
-void do_dijkstra() {
+void run_dijkstra(element *got_element, pal_problem *new_problem) {
+
+    char *word_src = NULL;
+    heap_element *heap_vector = NULL;
+    int *hash_table = NULL;
+    path_element *path_vector = NULL;
+    int i = 0, n_words = 0;
+
+    n_words = get_element_n_words(got_element);
+    word_src = get_problem_word1(new_problem);
+    heap_vector = create_heap_vector(n_words+1);
+    hash_table = create_hash_table(n_words);
+    path_vector = create_path_vector(n_words);
+
+    for(i=0; i<n_words; i++) {
+        set_path_element_parent(ORFAN, i, path_vector);
+        set_path_element_total_weight(INF, i, path_vector);
+        set_hash_table_value(i, i, hash_table);
+        set_heap_element_dic_index(i-1, i, heap_vector);
+        set_heap_element_dic_index(INF, i, heap_vector);
+    }
+
 	return;
 }
 
@@ -207,7 +228,7 @@ void run_problem_solver(pal_problem *new_problem, vector *indexing_vector) {
 	
 	if(!get_element_got_graph(got_element))
 		create_graph(got_element);
-	do_dijkstra();
+	run_dijkstra(got_element, new_problem);
 	save_problem_solution();
 	
 	sub_element_n_problems(got_element);
