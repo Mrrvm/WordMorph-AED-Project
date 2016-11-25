@@ -33,7 +33,7 @@
   #define spam(a) (void)0
 #endif
 
-#define INF -1
+#define INF 100*100*2
 #define ORFAN -1
 
 typedef void *item;

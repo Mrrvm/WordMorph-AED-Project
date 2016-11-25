@@ -26,6 +26,7 @@ int get_path_element_total_weight(int i, path_element *path_vector);
 int get_path_element_parent(int i, path_element *path_vector);
 void set_path_element_total_weight(int _total_weight, int i, path_element *path_vector);
 void set_path_element_parent(int _parent, int i, path_element *path_vector);
+void print_path_vector(path_element *path_vector, int size);
 
 heap_element *create_heap_vector(int n_elements);
 heap_element get_heap_vector_element(int i, heap_element *heap_vector);
@@ -34,6 +35,7 @@ int get_heap_element_dic_index(int i, heap_element *heap_vector);
 int get_heap_element_weight(int i, heap_element *heap_vector);
 void set_heap_element_dic_index(int _dic_index, int i, heap_element *heap_vector);
 void set_heap_element_weight(int _weight, int i, heap_element *heap_vector);
+void print_heap_vector(heap_element *heap_vector, int size);
 void heapify(int i, int size, int *hash_table, heap_element *heap_vector);
 
 

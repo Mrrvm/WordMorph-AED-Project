@@ -44,8 +44,10 @@ void set_hash_table_value(int _value, int i, int *hash_table) {
 
 void swap_hash_values(int *hash_table, int i, int j) {
 
-	hash_table[i] = j;
-	hash_table[j] = i;
+	int temp = 0;
+	temp = hash_table[i];
+	hash_table[i] = hash_table[j];
+	hash_table[j] = temp;
 	return;
 }
 
@@ -93,6 +95,15 @@ void set_path_element_parent(int _parent, int i, path_element *path_vector) {
 	path_vector[i].parent =_parent;
 }
 
+void print_path_vector(path_element *path_vector, int size) {
+	int i = 0;
+	spam(("PATH VECTOR\n"));
+	for (i = 0; i < size; ++i) {
+		spam((KGRN"%d :\n\ttotal_weight=%d\n\tparent=%d\n"RESET,
+			i, path_vector[i].total_weight, path_vector[i].parent));
+	}
+}
+
 /*************** HEAP VECTOR *******************/
 
 heap_element *create_heap_vector(int n_elements) {
@@ -129,6 +140,15 @@ void set_heap_element_weight(int _weight, int i, heap_element *heap_vector) {
 }
 
 /*************** HEAP FUNCTIONS *******************/
+
+void print_heap_vector(heap_element *heap_vector, int size) {
+	int i = 0;
+	spam(("HEAP\n"));
+	for (i = 0; i < size; ++i) {
+		spam((KYEL"%d :\n\tweight=%d\n\tdic_index=%d\n"RESET,
+			i, heap_vector[i].weight, heap_vector[i].dic_index));
+	}
+}
 
 void swap_heaps(heap_element *heap_vector, int i, int j) {
 
