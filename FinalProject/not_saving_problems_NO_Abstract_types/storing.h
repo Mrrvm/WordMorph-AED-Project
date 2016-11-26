@@ -49,6 +49,10 @@ void free_word_vector(word_vector_element *got_word_vector, int n_words);
 adj_element *create_adj_element(int word_position, int n_comut);
 void push_adj_el_to_word_vector_el(int i, word_vector_element *got_word_vector, adj_element *new_element);
 void free_word_vector_el_list(adj_element *head);
+adj_element *get_next_adj_element(adj_element *curr_node);
+int get_adj_element_dic_index(adj_element *curr_node);
+int get_adj_element_weight(adj_element *curr_node);
+int get_adj_element_n_comut(adj_element *curr_node);
 
 pal_problem *create_pal_problem();
 void set_problem_variables(pal_problem *new_problem, char *_word1, char *_word2, int _typeof_exe);

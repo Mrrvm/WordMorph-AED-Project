@@ -224,5 +224,38 @@ int get_first_heap_dic_index(int *hash_table, int size, heap_element *heap_vecto
     swap_heaps(heap_vector, 1, size);
     heapify(1, size-1, hash_table, heap_vector);
      
-    return heap_vector[1].dic_index;
+    return first_heap.dic_index;
+}
+
+void find_better_path(path_element *path_vector, int curr_heap_dic_index, adj_element *node, int *hash_table, heap_element *heap_vector) {
+
+	int adj_weight = 0, adj_dic_index = 0, i = 0;
+
+	adj_weight = get_adj_element_weight(node);
+	adj_dic_index = get_adj_element_dic_index(node);
+
+	if((path_vector[adj_dic_index].total_weight > 
+		path_vector[curr_heap_dic_index].total_weight + adj_weight) && 
+		(path_vector[curr_heap_dic_index].total_weight != INF)) {
+
+		path_vector[adj_dic_index].total_weight = 
+			path_vector[curr_heap_dic_index].total_weight + adj_weight;
+		
+		path_vector[adj_dic_index].parent = curr_heap_dic_index;
+	
+		i = hash_table[adj_dic_index];
+		heap_vector[i].weight = path_vector[adj_dic_index].total_weight;
+
+		while(i > 1) {
+			if(heap_vector[i].weight < heap_vector[i/2].weight) {
+				swap_hash_values(hash_table, i, i/2);
+				swap_heaps(heap_vector, i, i/2);
+				i = i/2;
+			}
+			else
+				break;
+		}
+
+	}
+	return;
 }

@@ -10,7 +10,6 @@
 #ifndef executionHeader
 #define executionHeader
 
-#include "file.h"
 #include "heap.h"
 
 void run_position_search(pal_problem *new_problem, vector *indexing_vector);

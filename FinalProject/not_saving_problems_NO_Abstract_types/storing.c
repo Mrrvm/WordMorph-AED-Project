@@ -12,6 +12,7 @@
 struct _adj_element {
 	int word_position;
 	int n_comut;
+	int weight;
 	adj_element *next; 
 };
 
@@ -227,6 +228,7 @@ adj_element *create_adj_element(int _word_position, int _n_comut) {
     new_element->next = NULL;
     new_element->word_position = _word_position;
     new_element->n_comut = _n_comut;
+    new_element->weight = _n_comut*_n_comut;
 
     return new_element;
 }
@@ -235,6 +237,22 @@ void push_adj_el_to_word_vector_el(int i, word_vector_element *got_word_vector, 
 	new_element->next = got_word_vector[i].head;
 	got_word_vector[i].head = new_element;
 	return;
+}
+
+adj_element *get_next_adj_element(adj_element *curr_node) {
+	return curr_node->next;
+}
+
+int get_adj_element_n_comut(adj_element *curr_node) {
+	return curr_node->n_comut;
+}
+
+int get_adj_element_weight(adj_element *curr_node) {
+	return curr_node->weight;
+}
+
+int get_adj_element_dic_index(adj_element *curr_node) {
+	return curr_node->word_position;
 }
 
 /********************* PROBLEM STRUCTURE **********************/

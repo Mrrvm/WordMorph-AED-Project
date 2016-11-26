@@ -11,6 +11,7 @@
 #define heapHeader
 
 #include "defs.h"
+#include "file.h"
 
 typedef struct _heap_element heap_element;
 typedef struct _path_element path_element;
@@ -39,6 +40,6 @@ void print_heap_vector(heap_element *heap_vector, int size);
 void initialize_heap(int size, int *hash_table, path_element *path_vector, heap_element *heap_vector);
 void heapify(int i, int size, int *hash_table, heap_element *heap_vector);
 int get_first_heap_dic_index(int *hash_table, int size, heap_element *heap_vector);
-
+void find_better_path(path_element *path_vector, int curr_heap_dic_index, adj_element *node, int *hash_table, heap_element *heap_vector);
 
 #endif

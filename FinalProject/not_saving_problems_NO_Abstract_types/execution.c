@@ -193,13 +193,14 @@ void print_graph(item got_item) {
 
 }
 
-path_element *run_dijkstra(element *got_element, int src_index) {
+path_element *run_dijkstra(element *got_element, int src_index, int max_comut) {
 
     heap_element *heap_vector = NULL;
     int *hash_table = NULL;
     path_element *path_vector = NULL;
     int i = 0, n_words = 0;
-    int first_heap_dic_index;
+    int curr_heap_dic_index;
+    adj_element *node = NULL;
 
     n_words = get_element_n_words(got_element);
     heap_vector = create_heap_vector(n_words+1);
@@ -220,12 +221,23 @@ path_element *run_dijkstra(element *got_element, int src_index) {
     /*While queue is not empty*/
     while(i > 0) {
 
-        first_heap_dic_index = get_first_heap_dic_index(hash_table, i, heap_vector);
+        curr_heap_dic_index = get_first_heap_dic_index(hash_table, i, heap_vector);
+        node = get_word_vector_head(curr_heap_dic_index, 
+            get_element_word_vector(got_element));
+        while(node != NULL) {
+            if(get_adj_element_n_comut(node) <= max_comut) {
+                find_better_path(path_vector, curr_heap_dic_index, node, hash_table, heap_vector);
+            }
+            node = get_next_adj_element(node);
+        }
         i--;
     }
 
+    /*Free structures*/
+
 	return path_vector;
 }
+
 
 void run_problem_solver(pal_problem *new_problem, vector *indexing_vector) {
 
@@ -233,10 +245,12 @@ void run_problem_solver(pal_problem *new_problem, vector *indexing_vector) {
 	element *got_element = NULL;
     int src_index = 0;
     path_element *path_vector = NULL;
+    int max_comut = 0;
 
 	len = strlen(get_problem_word1(new_problem));
 	got_element = get_vector_item(len, indexing_vector);
-	
+	max_comut = get_problem_typeof_exe(new_problem);
+
 	if(!get_element_got_graph(got_element))
 		create_graph(got_element);
 
@@ -248,7 +262,7 @@ void run_problem_solver(pal_problem *new_problem, vector *indexing_vector) {
         get_element_n_words(got_element),
         get_problem_word1(new_problem));
 	
-    path_vector = run_dijkstra(got_element, src_index);
+    path_vector = run_dijkstra(got_element, src_index, max_comut);
 	save_problem_solution();
 	
 	sub_element_n_problems(got_element);
