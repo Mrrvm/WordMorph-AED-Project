@@ -185,11 +185,6 @@ path_element *run_dijkstra(element *got_element, int src_index, int max_comut) {
         heapify(i, n_words, hash_table, heap_vector);
     }
     i = n_words;
-    print_hash_table(hash_table, n_words);
-    print_path_vector(path_vector, n_words);
-    print_heap_vector(heap_vector, n_words+1);
-    spam(("\n"));
-
     /*While queue is not empty*/
     while(i > 0) {
 
@@ -205,8 +200,6 @@ path_element *run_dijkstra(element *got_element, int src_index, int max_comut) {
         i--;
     }
 
-    print_path_vector(path_vector, n_words);
-     
     /*Free structures*/
     free(heap_vector);
     free(hash_table);
@@ -243,7 +236,6 @@ void run_problem_solver(pal_problem *new_problem, vector *indexing_vector) {
 	if(!get_element_got_graph(got_element))
 		create_graph(got_element);
 
-    /*print_word_vector(get_element_word_vector(got_element), get_element_n_words(got_element));*/
     src_index = binary_search(
         get_element_word_vector(got_element),
         0,

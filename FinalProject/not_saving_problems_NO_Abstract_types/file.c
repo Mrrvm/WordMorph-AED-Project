@@ -184,7 +184,7 @@ void write_to_file(vector *indexing_vector, pal_problem *new_problem, FILE *outp
 
 	int len = 0;
 	element *got_element = NULL;
-	solution_element *node = NULL;
+	solution_element *node, *rm_node = NULL;
 	int dic_index = 0;
 	word_vector_element *word_vector = NULL;
 
@@ -208,9 +208,12 @@ void write_to_file(vector *indexing_vector, pal_problem *new_problem, FILE *outp
 			dic_index = get_solution_element_parent_index(node);
 			fprintf(output_file, "%s\n", 
 				get_word_vector_word(dic_index, word_vector));
+			rm_node = node;
 			node = get_solution_element_next(node);
+			free(rm_node);
 		}
 	}
+	fprintf(output_file, "\n");
 	/*Free dicionary of word size if there are no more problems to solve*/
 	if(get_element_n_problems(got_element) == 0)
 		free_word_vector(get_element_word_vector(got_element), get_element_n_words(got_element));
