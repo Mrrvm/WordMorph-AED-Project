@@ -172,7 +172,6 @@ path_element *run_dijkstra(element *got_element, int src_index, int max_comut) {
     hash_table = create_hash_table(n_words);
     path_vector = create_path_vector(n_words);
 
-    print_word_vector(get_element_word_vector(got_element), n_words);
     /*Set initial dijkstra variables*/
     initialize_heap(n_words, hash_table, path_vector, heap_vector);
     /*Set source variables*/
