@@ -101,41 +101,6 @@ void merge_sort(word_vector_element *got_word_vector, int left, int right) {
     }
 }
 
-/*Gets the correct vector to search the words position into and decides which
-	function to execute depending on the number of problems of each number of 
-	letters.*/
-void run_position_search(pal_problem *new_problem, vector *indexing_vector) {
-
-	int word_len = 0;
-	element *got_element = NULL;
-	word_vector_element *got_word_vector = NULL;
-	int n_words = 0;
-
-	word_len = strlen(get_problem_word1(new_problem));
-	got_element = get_vector_item(word_len, indexing_vector);
-	n_words = get_element_n_words(got_element);
-	/*Just to be sure*/
-	if(got_element != NULL) {
-		got_word_vector = get_element_word_vector(got_element);
-		/*If there words of this size in the dictionary, then...*/
-		if(got_word_vector != NULL) {
-			if(!get_element_sorted(got_element)) {
-				merge_sort(got_word_vector, 0, n_words-1);
-				set_element_sorted(got_element);
-			}
-			/*Set the position of the words in the problem structure after the search*/
-			set_problem_position1(new_problem, binary_search(got_word_vector, 0, n_words, get_problem_word1(new_problem)));
-			set_problem_position2(new_problem, binary_search(got_word_vector, 0, n_words, get_problem_word2(new_problem)));		
-		}
-		/*If the element has no words in the word vector, the result
-			of the search will be -1*/
-		else {
-			set_problem_position1(new_problem, -1);
-			set_problem_position2(new_problem, -1);
-		}
-	}
-	return;
-}
 
 /*******************************************************************/
 
@@ -249,12 +214,25 @@ path_element *run_dijkstra(element *got_element, int src_index, int max_comut) {
 	return path_vector;
 }
 
+void generate_solution_list(pal_problem *new_problem,path_element *path_vector, int src_index, int dest_index) {
+
+    int parent = 0;
+
+    if(dest_index != ORFAN) {
+        parent = dest_index;
+        while(parent != src_index) {
+            parent = get_path_element_parent(parent, path_vector);
+            push_solution_element_to_list(new_problem, create_solution_element(parent));
+        }
+    }
+    return;
+}
 
 void run_problem_solver(pal_problem *new_problem, vector *indexing_vector) {
 
 	int len = 0;
 	element *got_element = NULL;
-    int src_index = 0;
+    int src_index = 0, dest_index = 0;
     path_element *path_vector = NULL;
     int max_comut = 0;
 
@@ -265,21 +243,27 @@ void run_problem_solver(pal_problem *new_problem, vector *indexing_vector) {
 	if(!get_element_got_graph(got_element))
 		create_graph(got_element);
 
-    /*print_word_vector(get_element_word_vector(got_element), get_element_n_words(got_element));
-    */
+    /*print_word_vector(get_element_word_vector(got_element), get_element_n_words(got_element));*/
     src_index = binary_search(
         get_element_word_vector(got_element),
         0,
         get_element_n_words(got_element),
         get_problem_word1(new_problem));
+    set_problem_position1(src_index, new_problem);
+    dest_index = binary_search(
+        get_element_word_vector(got_element),
+        0,
+        get_element_n_words(got_element),
+        get_problem_word2(new_problem));
+    set_problem_position2(dest_index, new_problem);
 	
     path_vector = run_dijkstra(got_element, src_index, max_comut);
-	save_problem_solution(new_problem, path_vector);
+    /*Generate solution list*/
+    generate_solution_list(new_problem, path_vector, src_index, dest_index);
+    /*To write the total weight to output file*/
+    set_problem_typeof_exe(new_problem, get_path_element_total_weight(dest_index, path_vector));
     /*Free path vector*/
     free(path_vector);
-	
-	sub_element_n_problems(got_element);
-	if(get_element_n_problems(got_element) == 0)
-		free_word_vector(get_element_word_vector(got_element), get_element_n_words(got_element));
+    sub_element_n_problems(got_element);
 	return;
 }

@@ -10,8 +10,7 @@
 #ifndef heapHeader
 #define heapHeader
 
-#include "defs.h"
-#include "file.h"
+#include "storing.h"
 
 typedef struct _heap_element heap_element;
 typedef struct _path_element path_element;

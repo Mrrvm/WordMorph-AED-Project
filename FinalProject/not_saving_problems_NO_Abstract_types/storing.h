@@ -17,6 +17,7 @@ typedef struct _element element;
 typedef struct _pal_problem pal_problem;
 typedef struct _word_vector_element word_vector_element;
 typedef struct _adj_element adj_element;
+typedef struct _solution_element solution_element;
 
 element *create_element(int el_n_words, int el_max_comutations);
 int get_element_got_graph(element *got_element);
@@ -54,17 +55,21 @@ int get_adj_element_dic_index(adj_element *curr_node);
 int get_adj_element_weight(adj_element *curr_node);
 int get_adj_element_n_comut(adj_element *curr_node);
 
+solution_element *create_solution_element(int _parent_index);
+void push_solution_element_to_list(pal_problem *got_problem, solution_element *new_element);
+int get_solution_element_parent_index(solution_element *got_element);
+solution_element *get_solution_element_next(solution_element *got_element);
+
 pal_problem *create_pal_problem();
 void set_problem_variables(pal_problem *new_problem, char *_word1, char *_word2, int _typeof_exe);
-void addto_problem_position1(pal_problem *new_problem);
-void addto_problem_position2(pal_problem *new_problem);
 char *get_problem_word1(pal_problem *new_problem);
 char *get_problem_word2(pal_problem *new_problem);
 int get_problem_typeof_exe(pal_problem *new_problem);
-void set_problem_position1(pal_problem *new_problem, int _value);
 int get_problem_position1(pal_problem *new_problem);
-void set_problem_position2(pal_problem *new_problem, int _value);
 int get_problem_position2(pal_problem *new_problem);
-void save_problem_solution();
-
+solution_element *get_problem_head(pal_problem *new_problem);
+void set_problem_typeof_exe(pal_problem *new_problem, int _typeof_exe);
+void set_problem_position1(int _position, pal_problem *new_problem);
+void set_problem_position2(int _position, pal_problem *new_problem);
+void set_problem_head(pal_problem *new_problem, solution_element *_head);
 #endif

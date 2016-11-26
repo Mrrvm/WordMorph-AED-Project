@@ -180,32 +180,40 @@ char *create_output_filename(char *pal_filename) {
 /*Writes to output file for the execution of type 1. Gets the number 
 	of words in the dictionary for the problem word length and writes 
 	it in the output file.*/
-void write_to_file1(vector *indexing_vector, pal_problem *new_problem, FILE *output_file) {
+void write_to_file(vector *indexing_vector, pal_problem *new_problem, FILE *output_file) {
 
+	int len = 0;
 	element *got_element = NULL;
-	int n_words = 0;
-	int word_len = 0;
-	char *word;
+	solution_element *node = NULL;
+	int dic_index = 0;
+	word_vector_element *word_vector = NULL;
 
-	word = get_problem_word1(new_problem);
-	word_len = strlen(word);
-	got_element = get_vector_item(word_len, indexing_vector);
-	n_words = get_element_n_words(got_element);
+	len =  strlen(get_problem_word1(new_problem));
+	got_element = get_vector_item(len, indexing_vector);
+	word_vector = get_element_word_vector(got_element);
 
-	fprintf(output_file, "%s %d\n\n", word, n_words);
-	return;
-}
 
-/*Writes to output file for the execution of type 2. Using the 
-	problem structure, writes the information of the problem
-	words and positions in the output file.*/
-void write_to_file2(pal_problem *new_problem, FILE *output_file) {
+	node = get_problem_head(new_problem);
+	if(node == NULL) {
+		fprintf(output_file, "%s %d\n%s", 
+			get_problem_word1(new_problem), 
+			-1,
+			get_problem_word2(new_problem));
+	}
+	else {
+		fprintf(output_file, "%s %d\n", 
+			get_problem_word1(new_problem),
+			get_problem_typeof_exe(new_problem));
+		while(node != NULL) {
+			dic_index = get_solution_element_parent_index(node);
+			fprintf(output_file, "%s\n", 
+				get_word_vector_word(dic_index, word_vector));
+			node = get_solution_element_next(node);
+		}
+	}
+	/*Free dicionary of word size if there are no more problems to solve*/
+	if(get_element_n_problems(got_element) == 0)
+		free_word_vector(get_element_word_vector(got_element), get_element_n_words(got_element));
 
-	fprintf(output_file, "%s %d\n", 
-		get_problem_word1(new_problem), 
-		get_problem_position1(new_problem));
-	fprintf(output_file, "%s %d\n\n", 
-		get_problem_word2(new_problem),
-		get_problem_position2(new_problem));
 	return;
 }

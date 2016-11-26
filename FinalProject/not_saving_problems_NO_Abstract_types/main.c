@@ -8,6 +8,7 @@
 ***************************************************************/
 
 #include "execution.h"
+#include "file.h"
 
 int main(int argc, char **argv) {
 
@@ -48,7 +49,7 @@ int main(int argc, char **argv) {
 	/*Start reading problem by problem until EOF*/
 	while(read_pal_file(pal_file, new_problem)) {
 		run_problem_solver(new_problem, indexing_vector);
-		/*write_to_file(new_problem, output_file);*/
+		write_to_file(indexing_vector, new_problem, output_file);
  	}
  	
  	/*Bring freedom upon this data structures!*/

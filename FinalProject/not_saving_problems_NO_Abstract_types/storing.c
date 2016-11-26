@@ -31,14 +31,20 @@ struct _element {
 	word_vector_element *word_vector;
 };
 
+struct _solution_element {
+	int parent_index;
+	solution_element *next;
+};
+
 struct _pal_problem {
 	char word1[100];
 	char word2[100];
 	int position1;
 	int position2;
 	int typeof_exe;
-	/*solution array*/
+	solution_element *head;
 };
+
 
 
 /*************** ELEMENT OF INDEXING VECTOR *******************/
@@ -255,6 +261,35 @@ int get_adj_element_dic_index(adj_element *curr_node) {
 	return curr_node->word_position;
 }
 
+/********************* SOLUTION ELEMENT **********************/
+
+solution_element *create_solution_element(int _parent_index) {
+	solution_element *new_element;
+	new_element = (solution_element *)malloc(sizeof(solution_element));
+	if(new_element == NULL)
+        memory_error("Unable to reserve list memory");
+
+    new_element->next = NULL;
+    new_element->parent_index = _parent_index;
+
+    return new_element;
+}
+
+void push_solution_element_to_list(pal_problem *got_problem, solution_element *new_element) {
+
+	new_element->next = got_problem->head;
+	got_problem->head = new_element;
+	return;
+}
+
+int get_solution_element_parent_index(solution_element *got_element) {
+	return got_element->parent_index;
+}
+
+solution_element *get_solution_element_next(solution_element *got_element) {
+	return got_element->next;
+}
+
 /********************* PROBLEM STRUCTURE **********************/
 
 pal_problem *create_pal_problem() {
@@ -274,28 +309,9 @@ void set_problem_variables(pal_problem *new_problem, char *_word1, char *_word2,
 	strcpy(new_problem->word1, _word1);
 	strcpy(new_problem->word2, _word2);
 	new_problem->typeof_exe =  _typeof_exe;
-	new_problem->position1 = 0;
-	new_problem->position2 = 0;
-	return;
-}
-
-void set_problem_position1(pal_problem *new_problem, int _value) {
-	new_problem->position1 = _value;
-	return;
-}
-
-void addto_problem_position1(pal_problem *new_problem) {
-	new_problem->position1 ++;
-	return;
-}
-
-void set_problem_position2(pal_problem *new_problem, int _value) {
-	new_problem->position2 = _value;
-	return;
-}
-
-void addto_problem_position2(pal_problem *new_problem) {
-	new_problem->position2 ++;
+	new_problem->position1 = -1;
+	new_problem->position2 = -1;
+	new_problem->head = NULL;
 	return;
 }
 
@@ -319,6 +335,22 @@ int get_problem_position2(pal_problem *new_problem) {
 	return new_problem->position2;
 }
 
-void save_problem_solution() {
-	return;
+solution_element *get_problem_head(pal_problem *new_problem) {
+	return new_problem->head;
+}
+
+void set_problem_typeof_exe(pal_problem *new_problem, int _typeof_exe) {
+	new_problem->typeof_exe = _typeof_exe;
+}
+
+void set_problem_position1(int _position, pal_problem *new_problem) {
+	new_problem->position1 = _position;
+}
+
+void set_problem_position2(int _position, pal_problem *new_problem) {
+	new_problem->position2 = _position;
+}
+
+void set_problem_head(pal_problem *new_problem, solution_element *_head) {
+	new_problem->head = _head;
 }
