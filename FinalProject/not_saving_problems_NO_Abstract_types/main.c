@@ -16,6 +16,7 @@ int main(int argc, char **argv) {
 	vector *indexing_vector = NULL;
 	char *output_filename;
 	pal_problem *new_problem = NULL;
+	path_element *path_vector = NULL;
 
 	/*Checks if the invocation is right*/
 	if(argc != 3 || strcmp(get_filename_ext(argv[1]), "dic") || strcmp(get_filename_ext(argv[2]), "pal"))
@@ -48,8 +49,9 @@ int main(int argc, char **argv) {
 		file_error("Unable to create specified file");
 	/*Start reading problem by problem until EOF*/
 	while(read_pal_file(pal_file, new_problem)) {
-		run_problem_solver(new_problem, indexing_vector);
-		write_to_file(indexing_vector, new_problem, output_file);
+		path_vector = run_problem_solver(new_problem, indexing_vector);
+		write_to_file(indexing_vector, new_problem, output_file, path_vector);
+ 		free(path_vector);
  	}
  	
  	/*Bring freedom upon this data structures!*/

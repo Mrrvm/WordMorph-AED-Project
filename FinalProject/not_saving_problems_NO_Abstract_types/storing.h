@@ -56,9 +56,6 @@ int get_adj_element_weight(adj_element *curr_node);
 int get_adj_element_n_comut(adj_element *curr_node);
 
 solution_element *create_solution_element(int _parent_index);
-void push_solution_element_to_list(pal_problem *got_problem, solution_element *new_element);
-int get_solution_element_parent_index(solution_element *got_element);
-solution_element *get_solution_element_next(solution_element *got_element);
 
 pal_problem *create_pal_problem();
 void set_problem_variables(pal_problem *new_problem, char *_word1, char *_word2, int _typeof_exe);
@@ -68,8 +65,8 @@ int get_problem_typeof_exe(pal_problem *new_problem);
 int get_problem_position1(pal_problem *new_problem);
 int get_problem_position2(pal_problem *new_problem);
 solution_element *get_problem_head(pal_problem *new_problem);
-void set_problem_typeof_exe(pal_problem *new_problem, int _typeof_exe);
 void set_problem_position1(int _position, pal_problem *new_problem);
 void set_problem_position2(int _position, pal_problem *new_problem);
-void set_problem_head(pal_problem *new_problem, solution_element *_head);
+void set_problem_typeof_exe(pal_problem *new_problem, int _typeof_exe);
+
 #endif

@@ -20,6 +20,6 @@ void manage_dic_data2(item got_char, item got_vector);
 void manage_dic_file(char *file, void (*manage_dic_data)(item, item), vector *indexing_vector);
 
 char *create_output_filename(char *pal_filename);
-void write_to_file(vector *indexing_vector, pal_problem *new_problem, FILE *output_file);
+void write_to_file(vector *indexing_vector, pal_problem *new_problem, FILE *output_file, path_element *path_vector);
 
 #endif

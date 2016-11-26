@@ -207,21 +207,7 @@ path_element *run_dijkstra(element *got_element, int src_index, int max_comut) {
 	return path_vector;
 }
 
-void generate_solution_list(pal_problem *new_problem,path_element *path_vector, int src_index, int dest_index) {
-
-    int parent = 0;
-
-    if(dest_index != ORFAN) {
-        parent = dest_index;
-        while(parent != src_index) {
-            push_solution_element_to_list(new_problem, create_solution_element(parent));
-            parent = get_path_element_parent(parent, path_vector);
-        }
-    }
-    return;
-}
-
-void run_problem_solver(pal_problem *new_problem, vector *indexing_vector) {
+path_element *run_problem_solver(pal_problem *new_problem, vector *indexing_vector) {
 
 	int len = 0;
 	element *got_element = NULL;
@@ -248,14 +234,10 @@ void run_problem_solver(pal_problem *new_problem, vector *indexing_vector) {
         get_element_n_words(got_element),
         get_problem_word2(new_problem));
     set_problem_position2(dest_index, new_problem);
-	
+
     path_vector = run_dijkstra(got_element, src_index, max_comut);
-    /*Generate solution list*/
-    generate_solution_list(new_problem, path_vector, src_index, dest_index);
-    /*To write the total weight to output file*/
-    set_problem_typeof_exe(new_problem, get_path_element_total_weight(dest_index, path_vector));
-    /*Free path vector*/
-    free(path_vector);
+    set_problem_typeof_exe(new_problem, 
+        get_path_element_total_weight(dest_index, path_vector));
     sub_element_n_problems(got_element);
-	return;
+	return path_vector;
 }

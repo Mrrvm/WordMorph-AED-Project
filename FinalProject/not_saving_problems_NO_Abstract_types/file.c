@@ -177,42 +177,44 @@ char *create_output_filename(char *pal_filename) {
     return output_filename;
 }
 
+void print_path(word_vector_element *word_vector, FILE *aux_file, int src_index, path_element *path_vector, int i) {
+
+	int parent = get_path_element_parent(i, path_vector);
+	if(parent == src_index) {
+		fprintf(aux_file, "%s\n", get_word_vector_word(i, word_vector));
+		return;
+	}
+	print_path(word_vector, aux_file, src_index, path_vector, parent);
+	
+	fprintf(aux_file, "%s\n", get_word_vector_word(i, word_vector));
+}
+
 /*Writes to output file for the execution of type 1. Gets the number 
 	of words in the dictionary for the problem word length and writes 
 	it in the output file.*/
-void write_to_file(vector *indexing_vector, pal_problem *new_problem, FILE *output_file) {
+void write_to_file(vector *indexing_vector, pal_problem *new_problem, FILE *output_file, path_element *path_vector) {
 
 	int len = 0;
 	element *got_element = NULL;
-	solution_element *node, *rm_node = NULL;
-	int dic_index = 0;
 	word_vector_element *word_vector = NULL;
+	int src_index = 0, dest_index = 0;
 
 	len =  strlen(get_problem_word1(new_problem));
 	got_element = get_vector_item(len, indexing_vector);
 	word_vector = get_element_word_vector(got_element);
+	src_index = get_problem_position1(new_problem);
+	dest_index = get_problem_position2(new_problem);
 
+	fprintf(output_file, "%s ", get_problem_word1(new_problem));
 
-	node = get_problem_head(new_problem);
-	if(node == NULL) {
-		fprintf(output_file, "%s %d\n%s", 
-			get_problem_word1(new_problem), 
-			-1,
-			get_problem_word2(new_problem));
+	if(get_path_element_parent(dest_index, path_vector) == -1) {
+		fprintf(output_file, "%d\n%s\n", -1, get_problem_word2(new_problem));
 	}
 	else {
-		fprintf(output_file, "%s %d\n", 
-			get_problem_word1(new_problem),
-			get_problem_typeof_exe(new_problem));
-		while(node != NULL) {
-			dic_index = get_solution_element_parent_index(node);
-			fprintf(output_file, "%s\n", 
-				get_word_vector_word(dic_index, word_vector));
-			rm_node = node;
-			node = get_solution_element_next(node);
-			free(rm_node);
-		}
+		fprintf(output_file, "%d\n", get_problem_typeof_exe(new_problem));
+		print_path(word_vector, output_file, src_index, path_vector, dest_index);
 	}
+		
 	fprintf(output_file, "\n");
 	/*Free dicionary of word size if there are no more problems to solve*/
 	if(get_element_n_problems(got_element) == 0)

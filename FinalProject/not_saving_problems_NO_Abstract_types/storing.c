@@ -33,7 +33,6 @@ struct _element {
 
 struct _solution_element {
 	int parent_index;
-	solution_element *next;
 };
 
 struct _pal_problem {
@@ -42,7 +41,6 @@ struct _pal_problem {
 	int position1;
 	int position2;
 	int typeof_exe;
-	solution_element *head;
 };
 
 
@@ -269,25 +267,9 @@ solution_element *create_solution_element(int _parent_index) {
 	if(new_element == NULL)
         memory_error("Unable to reserve list memory");
 
-    new_element->next = NULL;
     new_element->parent_index = _parent_index;
 
     return new_element;
-}
-
-void push_solution_element_to_list(pal_problem *got_problem, solution_element *new_element) {
-
-	new_element->next = got_problem->head;
-	got_problem->head = new_element;
-	return;
-}
-
-int get_solution_element_parent_index(solution_element *got_element) {
-	return got_element->parent_index;
-}
-
-solution_element *get_solution_element_next(solution_element *got_element) {
-	return got_element->next;
 }
 
 /********************* PROBLEM STRUCTURE **********************/
@@ -311,7 +293,6 @@ void set_problem_variables(pal_problem *new_problem, char *_word1, char *_word2,
 	new_problem->typeof_exe =  _typeof_exe;
 	new_problem->position1 = -1;
 	new_problem->position2 = -1;
-	new_problem->head = NULL;
 	return;
 }
 
@@ -335,10 +316,6 @@ int get_problem_position2(pal_problem *new_problem) {
 	return new_problem->position2;
 }
 
-solution_element *get_problem_head(pal_problem *new_problem) {
-	return new_problem->head;
-}
-
 void set_problem_typeof_exe(pal_problem *new_problem, int _typeof_exe) {
 	new_problem->typeof_exe = _typeof_exe;
 }
@@ -349,8 +326,4 @@ void set_problem_position1(int _position, pal_problem *new_problem) {
 
 void set_problem_position2(int _position, pal_problem *new_problem) {
 	new_problem->position2 = _position;
-}
-
-void set_problem_head(pal_problem *new_problem, solution_element *_head) {
-	new_problem->head = _head;
 }

@@ -13,7 +13,7 @@
 #include "heap.h"
 
 void run_position_search(pal_problem *new_problem, vector *indexing_vector);
-void run_problem_solver(pal_problem *new_problem, vector *indexing_vector);
+path_element *run_problem_solver(pal_problem *new_problem, vector *indexing_vector);
 void print_graph(item got_item);
 
 #endif
