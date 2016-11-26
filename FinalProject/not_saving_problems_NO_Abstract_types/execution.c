@@ -221,8 +221,8 @@ void generate_solution_list(pal_problem *new_problem,path_element *path_vector, 
     if(dest_index != ORFAN) {
         parent = dest_index;
         while(parent != src_index) {
-            parent = get_path_element_parent(parent, path_vector);
             push_solution_element_to_list(new_problem, create_solution_element(parent));
+            parent = get_path_element_parent(parent, path_vector);
         }
     }
     return;
