@@ -25,7 +25,7 @@ int *create_hash_table(int n_elements) {
 
 	int *hash_table = NULL;
 
-	hash_table = (int *)malloc(n_elements*sizeof(int));
+	hash_table = (int *)calloc(n_elements, sizeof(int));
 	if(hash_table == NULL)
 		memory_error("Unable to reserve hash table memory");
 
@@ -248,7 +248,7 @@ void find_better_path(path_element *path_vector, int curr_heap_dic_index, adj_el
 
 		while(i > 1) {
 			if(heap_vector[i].weight < heap_vector[i/2].weight) {
-				swap_hash_values(hash_table, i, i/2);
+				swap_hash_values(hash_table, heap_vector[i].dic_index, heap_vector[i/2].dic_index);
 				swap_heaps(heap_vector, i, i/2);
 				i = i/2;
 			}

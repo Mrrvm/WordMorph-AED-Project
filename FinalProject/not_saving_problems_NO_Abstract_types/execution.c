@@ -206,6 +206,8 @@ path_element *run_dijkstra(element *got_element, int src_index, int max_comut) {
     heap_vector = create_heap_vector(n_words+1);
     hash_table = create_hash_table(n_words);
     path_vector = create_path_vector(n_words);
+
+    print_word_vector(get_element_word_vector(got_element), n_words);
     /*Set initial dijkstra variables*/
     initialize_heap(n_words, hash_table, path_vector, heap_vector);
     /*Set source variables*/
@@ -218,6 +220,11 @@ path_element *run_dijkstra(element *got_element, int src_index, int max_comut) {
         heapify(i, n_words, hash_table, heap_vector);
     }
     i = n_words;
+    print_hash_table(hash_table, n_words);
+    print_path_vector(path_vector, n_words);
+    print_heap_vector(heap_vector, n_words+1);
+    spam(("\n"));
+
     /*While queue is not empty*/
     while(i > 0) {
 
@@ -233,7 +240,11 @@ path_element *run_dijkstra(element *got_element, int src_index, int max_comut) {
         i--;
     }
 
+    print_path_vector(path_vector, n_words);
+     
     /*Free structures*/
+    free(heap_vector);
+    free(hash_table);
 
 	return path_vector;
 }
@@ -263,7 +274,9 @@ void run_problem_solver(pal_problem *new_problem, vector *indexing_vector) {
         get_problem_word1(new_problem));
 	
     path_vector = run_dijkstra(got_element, src_index, max_comut);
-	save_problem_solution();
+	save_problem_solution(new_problem, path_vector);
+    /*Free path vector*/
+    free(path_vector);
 	
 	sub_element_n_problems(got_element);
 	if(get_element_n_problems(got_element) == 0)
