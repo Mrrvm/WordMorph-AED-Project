@@ -48,3 +48,8 @@ __pycache__/*
 vgcore*
 *.stat
 *.path
+
+# Compressed files
+*.tgz
+*.zip
+*.tar
