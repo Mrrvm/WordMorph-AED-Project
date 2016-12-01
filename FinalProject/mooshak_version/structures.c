@@ -1,11 +1,11 @@
-/***************************************************************
+/***************************************************************************
 * Wordmorph @ AED-Project 2016-2017
 * by
-* Madalena Muller & Mariana Martins
+* Madal ena Muller & Mariana Martins
 *
 * structures.c
-* All functions that create/append/add/free/get/set abstract structures.
-************************************************************************/
+* All functions that create/append/add/free/get/set abstract data structures.
+****************************************************************************/
 
 #include "structures.h"
 

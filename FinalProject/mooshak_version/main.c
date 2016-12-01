@@ -24,9 +24,9 @@ int main(int argc, char **argv) {
 	/*Alloc vector with each index as the number 
 		of letters of a word. The maximum number of letters is 100*/
 	indexing_vector = create_vector(101);
-	/*Read pal file once, to get the maximum number of comutations for
-		each different number of letters,  to know which number of 
-		letters	is a problem to solve and save each problem in a list*/
+	/*Read pal file once, to get the maximum number of mutations for
+		each different number of letters and to know which number of 
+		letters	is a problem to solve*/
 	manage_pal_file(argv[2], indexing_vector);
 	/*Read dictionary file once to get the number of words 
 		for each different number of letters*/
@@ -41,7 +41,7 @@ int main(int argc, char **argv) {
 	/*Alloc space for a structure to hold the problems of pal file,
 		temporarily*/
 	new_problem = create_pal_problem();
-	/*Create the output filename - pal filename with .stat extension.
+	/*Create the output filename - pal filename with .path extension.
 		Generate the output file*/
 	output_filename = create_output_filename(argv[2]);
 	output_file = fopen(output_filename, "w");
@@ -49,7 +49,12 @@ int main(int argc, char **argv) {
 		file_error("Unable to create specified file");
 	/*Start reading problem by problem until EOF*/
 	while(read_pal_file(pal_file, new_problem)) {
+		/*Solve the problem by receiving a vector with the paths from
+			the source word to all the other words that fulfill the 
+			requirements of the problem (aka number of maximum mutations)*/
 		path_vector = run_problem_solver(new_problem, indexing_vector);
+		/*Get the path required from path_vector and write it to an
+			output file*/
 		write_to_file(indexing_vector, new_problem, output_file, path_vector);
  		free(path_vector);
  	}

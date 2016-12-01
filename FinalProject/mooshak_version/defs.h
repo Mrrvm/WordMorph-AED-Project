@@ -24,7 +24,9 @@
 #define KWHT  "\x1B[37m"
 #define RESET "\033[0m"
 
-/*change this to DEBUG_OFF to clear out the printfs*/
+/*DEBUG_OFF - No printfs
+  DEBUG_ON  - Printfs
+ */
 #define DEBUG_OFF	
 
 #ifdef DEBUG_ON
@@ -33,7 +35,9 @@
   #define spam(a) (void)0
 #endif
 
+/*Represents infinte distance*/
 #define INF 100*100*2
+/*Represents heap elements with no parent*/
 #define ORFAN -1
 #define SQUARE(x) (x*x)
 

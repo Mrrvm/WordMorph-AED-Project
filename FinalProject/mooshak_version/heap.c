@@ -4,8 +4,8 @@
 * Madalena Muller & Mariana Martins
 *
 * heap.c
-* All functions that modulate heaps
-************************************************************************/
+* All functions auxiliary for running dijkstra
+****************************************************************/
 
 #include "heap.h"
 
@@ -19,7 +19,8 @@ struct _path_element {
 	int parent;
 };
 
-/*************** HASH TABLE *******************/
+
+/************************* HASH TABLE ***************************/
 
 int *create_hash_table(int n_elements) {
 
@@ -40,7 +41,7 @@ void set_hash_table_value(int _value, int i, int *hash_table) {
 	hash_table[i] = _value;
 }
 
-/*************** HASH FUNCTIONS *******************/
+/********************* HASH FUNCTIONS ***************************/
 
 void swap_hash_values(int *hash_table, int i, int j) {
 
@@ -60,7 +61,7 @@ void print_hash_table(int *hash_table, int size) {
 	}
 }
 
-/*************** PATH VECTOR *******************/
+/*********************** PATH VECTOR ***************************/
 
 path_element *create_path_vector(int n_elements) {
 
@@ -77,7 +78,7 @@ path_element get_path_vector_element(int i, path_element *path_vector) {
 	return path_vector[i];
 }
 
-/*************** PATH VECTOR ELEMENT *******************/
+/********************* PATH VECTOR ELEMENT **********************/
 
 int get_path_element_total_weight(int i, path_element *path_vector) {
 	return path_vector[i].total_weight;
@@ -104,7 +105,7 @@ void print_path_vector(path_element *path_vector, int size) {
 	}
 }
 
-/*************** HEAP VECTOR *******************/
+/************************ HEAP VECTOR ***************************/
 
 heap_element *create_heap_vector(int n_elements) {
 
@@ -121,7 +122,7 @@ heap_element get_heap_vector_element(int i, heap_element *heap_vector) {
 	return heap_vector[i];
 }
 
-/*************** HEAP VECTOR ELEMENT *******************/
+/******************** HEAP VECTOR ELEMENT ***********************/
 
 int get_heap_element_dic_index(int i, heap_element *heap_vector) {
 	return heap_vector[i].dic_index;
@@ -139,7 +140,7 @@ void set_heap_element_weight(int _weight, int i, heap_element *heap_vector) {
 	heap_vector[i].weight =_weight;
 }
 
-/*************** HEAP FUNCTIONS *******************/
+/*********************** HEAP FUNCTIONS ************************/
 
 void print_heap_vector(heap_element *heap_vector, int size) {
 	int i = 0;
@@ -227,6 +228,8 @@ int get_first_heap_dic_index(int *hash_table, int size, heap_element *heap_vecto
     return first_heap.dic_index;
 }
 
+/********************* DIJKSTRA ALGORITHM **********************/
+
 void find_better_path(path_element *path_vector, int curr_heap_dic_index, adj_element *node, int *hash_table, heap_element *heap_vector) {
 
 	int adj_weight = 0, adj_dic_index = 0, i = 0;
@@ -234,6 +237,7 @@ void find_better_path(path_element *path_vector, int curr_heap_dic_index, adj_el
 	adj_weight = get_adj_element_weight(node);
 	adj_dic_index = get_adj_element_dic_index(node);
 
+	/*If a new shorter path is discovered, define the new values for the variables*/
 	if((path_vector[adj_dic_index].total_weight > 
 		path_vector[curr_heap_dic_index].total_weight + adj_weight) && 
 		(path_vector[curr_heap_dic_index].total_weight != INF)) {
@@ -246,6 +250,7 @@ void find_better_path(path_element *path_vector, int curr_heap_dic_index, adj_el
 		i = hash_table[adj_dic_index];
 		heap_vector[i].weight = path_vector[adj_dic_index].total_weight;
 
+		/*Make the disordered "heap" into a heap again*/
 		while(i > 1) {
 			if(heap_vector[i].weight < heap_vector[i/2].weight) {
 				swap_hash_values(hash_table, heap_vector[i].dic_index, heap_vector[i/2].dic_index);
@@ -255,7 +260,6 @@ void find_better_path(path_element *path_vector, int curr_heap_dic_index, adj_el
 			else
 				break;
 		}
-
 	}
 	return;
 }

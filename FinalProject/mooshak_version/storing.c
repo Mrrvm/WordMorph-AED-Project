@@ -1,17 +1,17 @@
-/***************************************************************
+/***************************************************************************
 * Wordmorph @ AED-Project 2016-2017
 * by
 * Madalena Muller & Mariana Martins
 *
-* structures.c
-* All functions that create/append/add/free/get/set structures.
-***************************************************************/
+* storing.c
+* All functions that create/append/add/free/get/set NOT abstract structures.
+****************************************************************************/
 
 #include "storing.h"
 
 struct _adj_element {
 	unsigned int word_position;
-	unsigned int n_comut;
+	unsigned int n_mut;
 	unsigned int weight;
 	adj_element *next; 
 };
@@ -24,7 +24,7 @@ struct _word_vector_element {
 struct _element {
 	unsigned int next_index;
 	unsigned int n_words;
-	unsigned int max_comut;
+	unsigned int max_mut;
 	unsigned int sorted;
 	unsigned int n_problems;
 	unsigned int got_graph;
@@ -44,10 +44,9 @@ struct _pal_problem {
 };
 
 
+/*********************** ELEMENT OF INDEXING VECTOR *************************/
 
-/*************** ELEMENT OF INDEXING VECTOR *******************/
-
-element *create_element(int el_n_words, int el_max_comut) {
+element *create_element(int el_n_words, int el_max_mut) {
 
 	element *new_element = NULL;
 
@@ -58,7 +57,7 @@ element *create_element(int el_n_words, int el_max_comut) {
 
     new_element->next_index = 0;
     new_element->n_words = el_n_words;
-    new_element->max_comut = el_max_comut;
+    new_element->max_mut = el_max_mut;
     new_element->word_vector = NULL;
     new_element->sorted = 0;
     new_element->n_problems = 0;
@@ -83,8 +82,8 @@ int get_element_n_words(element *got_element) {
 	return got_element->n_words;
 }
 
-int get_element_max_comut(element *got_element) {
-	return got_element->max_comut;
+int get_element_max_mut(element *got_element) {
+	return got_element->max_mut;
 }
 
 word_vector_element *get_element_word_vector(element *got_element) {
@@ -118,8 +117,8 @@ void set_element_got_graph(element *got_element) {
 	return;
 }
 
-void set_element_max_comut(element *got_element, int el_max_comut) {
-	got_element->max_comut = el_max_comut;
+void set_element_max_mut(element *got_element, int el_max_mut) {
+	got_element->max_mut = el_max_mut;
 	return;
 }
 
@@ -140,7 +139,8 @@ void free_element(item got_item) {
 	free(got_element);
 }
 
-/*********************** WORD VECTOR *********************/
+
+/******************************* WORD VECTOR ********************************/
 
 word_vector_element *create_word_vector(int n_words) {
 
@@ -150,7 +150,6 @@ word_vector_element *create_word_vector(int n_words) {
 	if(word_vector == NULL) {
 		memory_error("Unable to reserve word_element memory");
 	}
- 
 	return word_vector; 
 }
 
@@ -190,9 +189,9 @@ void print_word_vector(word_vector_element *got_word_vector, int n_words) {
 			node = got_word_vector[i].head;
 			while(node != NULL) {
 				spam((" -> "));
-				spam(("Word pos: %d , n_comut: %d\n", 
+				spam(("Word pos: %d , n_mut: %d\n", 
 					node->word_position,
-					node->n_comut));
+					node->n_mut));
 				node = node->next;
 			}
 		}
@@ -221,9 +220,9 @@ void free_word_vector(word_vector_element *got_word_vector, int n_words) {
 
 }
 
-/********************* ADJ LIST **********************/
+/********************************* ADJ LIST *********************************/
 
-adj_element *create_adj_element(int _word_position, int _n_comut) {
+adj_element *create_adj_element(int _word_position, int _n_mut) {
 	adj_element *new_element;
 	new_element = (adj_element *)malloc(sizeof(adj_element));
 	if(new_element == NULL)
@@ -231,8 +230,8 @@ adj_element *create_adj_element(int _word_position, int _n_comut) {
 
     new_element->next = NULL;
     new_element->word_position = _word_position;
-    new_element->n_comut = _n_comut;
-    new_element->weight = SQUARE(_n_comut);
+    new_element->n_mut = _n_mut;
+    new_element->weight = SQUARE(_n_mut);
 
     return new_element;
 }
@@ -247,8 +246,8 @@ adj_element *get_next_adj_element(adj_element *curr_node) {
 	return curr_node->next;
 }
 
-int get_adj_element_n_comut(adj_element *curr_node) {
-	return curr_node->n_comut;
+int get_adj_element_n_mut(adj_element *curr_node) {
+	return curr_node->n_mut;
 }
 
 int get_adj_element_weight(adj_element *curr_node) {
@@ -259,7 +258,7 @@ int get_adj_element_dic_index(adj_element *curr_node) {
 	return curr_node->word_position;
 }
 
-/********************* SOLUTION ELEMENT **********************/
+/************************** SOLUTION ELEMENT ********************************/
 
 solution_element *create_solution_element(int _parent_index) {
 	solution_element *new_element;
@@ -272,7 +271,7 @@ solution_element *create_solution_element(int _parent_index) {
     return new_element;
 }
 
-/********************* PROBLEM STRUCTURE **********************/
+/**************************** PROBLEM STRUCTURE *****************************/
 
 pal_problem *create_pal_problem() {
 

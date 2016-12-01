@@ -9,6 +9,7 @@
 
 #include "defs.h"
 
+/*Gets the extension of any file*/
 char *get_filename_ext(char *filename)
 {
     char *dot = strrchr(filename, '.');
