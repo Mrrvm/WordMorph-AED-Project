@@ -215,16 +215,22 @@ void write_to_file(vector *indexing_vector, pal_problem *new_problem, FILE *outp
 
 	/*Print the source word*/
 	fprintf(output_file, "%s ", get_problem_word1(new_problem));
-	/*If there is no path (aka if the parent of the destiny is ORFAN)*/
-	if(get_path_element_parent(dest_index, path_vector) == ORFAN) {
-		fprintf(output_file, "%d\n", -1);
-		fprintf(output_file, "%s\n", get_problem_word2(new_problem));
+	if(path_vector != NULL) {
+		/*If there is no path (aka if the parent of the destiny is ORFAN)*/
+		if(get_path_element_parent(dest_index, path_vector) == ORFAN) {
+			fprintf(output_file, "%d\n", -1);
+			fprintf(output_file, "%s\n", get_problem_word2(new_problem));
+		}
+		else {
+			/*Print the total weight from source to destiny*/
+			fprintf(output_file, "%d\n", get_path_element_total_weight(dest_index, path_vector));
+			/*Print the path recusively*/
+			print_path(word_vector, output_file, src_index, path_vector, dest_index);
+		}
 	}
 	else {
-		/*Print the total weight from source to destiny*/
-		fprintf(output_file, "%d\n", get_path_element_total_weight(dest_index, path_vector));
-		/*Print the path recusively*/
-		print_path(word_vector, output_file, src_index, path_vector, dest_index);
+		fprintf(output_file, "%d\n", 0);
+		fprintf(output_file, "%s\n", get_problem_word2(new_problem));
 	}
 	fprintf(output_file, "\n");
 	/*Free dicionary of word size if there are no more problems to solve*/

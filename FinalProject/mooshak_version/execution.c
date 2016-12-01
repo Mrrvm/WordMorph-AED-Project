@@ -141,12 +141,6 @@ void create_graph(element *got_element) {
         of this word length*/
 	size = get_element_n_words(got_element);
 
-    /*If the word vector is not yet sorted, sort it*/
-	if(!get_element_sorted(got_element)) {
-		merge_sort(got_word_vector, 0, size-1);
-		set_element_sorted(got_element);
-	}
-
     /*For each word in the word vector*/
 	for(i=0; i<size; i++) {
 		curr_word = get_word_vector_word(i, got_word_vector);
@@ -237,24 +231,31 @@ path_element *run_dijkstra(element *got_element, int src_index, int max_mut) {
 
 /*This function is responsible for solving problems.
     It receives a problem, 
+        sorts the dictionary,
+        finds the positions of the words in the problem in the dictionary,
         creates a graph for the word length if not the yet created, 
-        finds the positions of the words in the problem in the dictionary, 
         runs dijkstra to get the path vector with the solution, 
         and reduces the number of problems in the element of the word length. */
 path_element *run_problem_solver(pal_problem *new_problem, vector *indexing_vector) {
 
-	int len = 0;
+	int len = 0, size = 0;
 	element *got_element = NULL;
     int src_index = 0, dest_index = 0;
     path_element *path_vector = NULL;
+    word_vector_element *got_word_vector = NULL;
     int max_mut = 0;
 
 	len = strlen(get_problem_word1(new_problem));
 	got_element = get_vector_item(len, indexing_vector);
 	max_mut = get_problem_typeof_exe(new_problem);
-
-	if(!get_element_got_graph(got_element))
-		create_graph(got_element);
+    got_word_vector = get_element_word_vector(got_element);
+    size = get_element_n_words(got_element);
+    
+    /*Sorts the dictionary by alpabetical order if not yet sorted*/
+    if(!get_element_sorted(got_element)) {
+        merge_sort(got_word_vector, 0, size-1);
+        set_element_sorted(got_element);
+    }
 
     src_index = binary_search(
         get_element_word_vector(got_element),
@@ -268,6 +269,16 @@ path_element *run_problem_solver(pal_problem *new_problem, vector *indexing_vect
         get_element_n_words(got_element),
         get_problem_word2(new_problem));
     set_problem_position2(dest_index, new_problem);
+
+    /*If the source and destiny word is the same, 
+        no more work is done here*/
+    if(src_index == dest_index) {
+        return NULL;
+    }
+
+	if(!get_element_got_graph(got_element)) {
+		create_graph(got_element);
+    }
 
     path_vector = run_dijkstra(got_element, src_index, max_mut);
     sub_element_n_problems(got_element);

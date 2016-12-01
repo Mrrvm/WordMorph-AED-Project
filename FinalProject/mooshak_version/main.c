@@ -56,7 +56,8 @@ int main(int argc, char **argv) {
 		/*Get the path required from path_vector and write it to an
 			output file*/
 		write_to_file(indexing_vector, new_problem, output_file, path_vector);
- 		free(path_vector);
+ 		if(path_vector == NULL)
+ 			free(path_vector);
  	}
  	
  	/*Bring freedom upon this data structures!*/

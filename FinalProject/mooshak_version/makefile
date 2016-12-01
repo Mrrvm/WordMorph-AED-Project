@@ -1,6 +1,6 @@
 TARGET = wordmorph
 CC = gcc
-CFLAGS = -Wall -ansi -O3
+CFLAGS = -Wall -Wextra  -ansi -g --pedantic
 
 .PHONY: default all clean
 
