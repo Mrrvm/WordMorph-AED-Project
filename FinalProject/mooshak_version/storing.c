@@ -31,10 +31,6 @@ struct _element {
 	word_vector_element *word_vector;
 };
 
-struct _solution_element {
-	int parent_index;
-};
-
 struct _pal_problem {
 	char word1[100];
 	char word2[100];
@@ -256,19 +252,6 @@ int get_adj_element_weight(adj_element *curr_node) {
 
 int get_adj_element_dic_index(adj_element *curr_node) {
 	return curr_node->word_position;
-}
-
-/************************** SOLUTION ELEMENT ********************************/
-
-solution_element *create_solution_element(int _parent_index) {
-	solution_element *new_element;
-	new_element = (solution_element *)malloc(sizeof(solution_element));
-	if(new_element == NULL)
-        memory_error("Unable to reserve list memory");
-
-    new_element->parent_index = _parent_index;
-
-    return new_element;
 }
 
 /**************************** PROBLEM STRUCTURE *****************************/

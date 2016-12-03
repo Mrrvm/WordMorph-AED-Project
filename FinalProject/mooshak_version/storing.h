@@ -59,9 +59,6 @@ int get_adj_element_dic_index(adj_element *curr_node);
 int get_adj_element_weight(adj_element *curr_node);
 int get_adj_element_n_mut(adj_element *curr_node);
 
-/************************** SOLUTION ELEMENT ********************************/
-solution_element *create_solution_element(int _parent_index);
-
 /**************************** PROBLEM STRUCTURE *****************************/
 pal_problem *create_pal_problem();
 void set_problem_variables(pal_problem *new_problem, char *_word1, char *_word2, int _typeof_exe);

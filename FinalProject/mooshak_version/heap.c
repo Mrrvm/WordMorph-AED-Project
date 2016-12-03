@@ -145,7 +145,7 @@ void set_heap_element_weight(int _weight, int i, heap_element *heap_vector) {
 void print_heap_vector(heap_element *heap_vector, int size) {
 	int i = 0;
 	spam(("HEAP\n"));
-	for (i = 0; i < size; ++i) {
+	for (i = 0; i <= size; i++) {
 		spam((KYEL"%d :\n\tweight=%d\n\tdic_index=%d\n"RESET,
 			i, heap_vector[i].weight, heap_vector[i].dic_index));
 	}

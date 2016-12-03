@@ -221,6 +221,7 @@ path_element *run_dijkstra(element *got_element, int src_index, int max_mut) {
             }
             node = get_next_adj_element(node);
         }
+
         i--;
     }
     /*Get this vectors into the USA*/
