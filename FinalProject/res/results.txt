@@ -1,326 +1,327 @@
-Wed Nov 30 16:12:00 UTC 2016
+Tue Dec  6 15:42:42 UTC 2016
 
 test1.pal
-/usr/bin/time: cannot run ../../mooshak_version/wordmorph: No such file or directory
-Command exited with non-zero status 127
 	Command being timed: "../../mooshak_version/wordmorph ../dic/portugues.dic test1.pal"
-	User time (seconds): 0.00
+	User time (seconds): 0.17
 	System time (seconds): 0.00
-	Percent of CPU this job got: 0%
-	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.00
+	Percent of CPU this job got: 94%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.18
 	Average shared text size (kbytes): 0
 	Average unshared data size (kbytes): 0
 	Average stack size (kbytes): 0
 	Average total size (kbytes): 0
-	Maximum resident set size (kbytes): 1088
+	Maximum resident set size (kbytes): 9328
 	Average resident set size (kbytes): 0
 	Major (requiring I/O) page faults: 0
-	Minor (reclaiming a frame) page faults: 26
+	Minor (reclaiming a frame) page faults: 2031
 	Voluntary context switches: 1
-	Involuntary context switches: 0
+	Involuntary context switches: 21
 	Swaps: 0
-	File system inputs: 0
-	File system outputs: 0
+	File system inputs: 8
+	File system outputs: 8
 	Socket messages sent: 0
 	Socket messages received: 0
 	Signals delivered: 0
 	Page size (bytes): 4096
-	Exit status: 127
+	Exit status: 0
 
 teste001.pal
-/usr/bin/time: cannot run ../../mooshak_version/wordmorph: No such file or directory
-Command exited with non-zero status 127
 	Command being timed: "../../mooshak_version/wordmorph ../dic/portugues.dic teste001.pal"
-	User time (seconds): 0.00
-	System time (seconds): 0.00
-	Percent of CPU this job got: 0%
-	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.00
+	User time (seconds): 19.06
+	System time (seconds): 0.01
+	Percent of CPU this job got: 99%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:19.13
 	Average shared text size (kbytes): 0
 	Average unshared data size (kbytes): 0
 	Average stack size (kbytes): 0
 	Average total size (kbytes): 0
-	Maximum resident set size (kbytes): 1108
+	Maximum resident set size (kbytes): 26132
 	Average resident set size (kbytes): 0
 	Major (requiring I/O) page faults: 0
-	Minor (reclaiming a frame) page faults: 27
+	Minor (reclaiming a frame) page faults: 9548
 	Voluntary context switches: 1
-	Involuntary context switches: 0
+	Involuntary context switches: 674
 	Swaps: 0
-	File system inputs: 0
-	File system outputs: 0
+	File system inputs: 8
+	File system outputs: 8
 	Socket messages sent: 0
 	Socket messages received: 0
 	Signals delivered: 0
 	Page size (bytes): 4096
-	Exit status: 127
+	Exit status: 0
 
 teste002.pal
-/usr/bin/time: cannot run ../../mooshak_version/wordmorph: No such file or directory
-Command exited with non-zero status 127
 	Command being timed: "../../mooshak_version/wordmorph ../dic/portugues.dic teste002.pal"
-	User time (seconds): 0.00
-	System time (seconds): 0.00
-	Percent of CPU this job got: 0%
-	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.00
+	User time (seconds): 9.16
+	System time (seconds): 0.02
+	Percent of CPU this job got: 99%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:09.24
 	Average shared text size (kbytes): 0
 	Average unshared data size (kbytes): 0
 	Average stack size (kbytes): 0
 	Average total size (kbytes): 0
-	Maximum resident set size (kbytes): 1092
+	Maximum resident set size (kbytes): 33472
 	Average resident set size (kbytes): 0
 	Major (requiring I/O) page faults: 0
-	Minor (reclaiming a frame) page faults: 26
-	Voluntary context switches: 0
-	Involuntary context switches: 1
+	Minor (reclaiming a frame) page faults: 10645
+	Voluntary context switches: 1
+	Involuntary context switches: 453
 	Swaps: 0
-	File system inputs: 0
-	File system outputs: 0
+	File system inputs: 8
+	File system outputs: 8
 	Socket messages sent: 0
 	Socket messages received: 0
 	Signals delivered: 0
 	Page size (bytes): 4096
-	Exit status: 127
+	Exit status: 0
 
 teste003.pal
-/usr/bin/time: cannot run ../../mooshak_version/wordmorph: No such file or directory
-Command exited with non-zero status 127
 	Command being timed: "../../mooshak_version/wordmorph ../dic/portugues.dic teste003.pal"
-	User time (seconds): 0.00
+	User time (seconds): 13.00
 	System time (seconds): 0.00
-	Percent of CPU this job got: 0%
-	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.00
+	Percent of CPU this job got: 99%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:13.04
 	Average shared text size (kbytes): 0
 	Average unshared data size (kbytes): 0
 	Average stack size (kbytes): 0
 	Average total size (kbytes): 0
-	Maximum resident set size (kbytes): 1108
+	Maximum resident set size (kbytes): 10032
 	Average resident set size (kbytes): 0
 	Major (requiring I/O) page faults: 0
-	Minor (reclaiming a frame) page faults: 25
+	Minor (reclaiming a frame) page faults: 5108
 	Voluntary context switches: 0
-	Involuntary context switches: 1
+	Involuntary context switches: 435
 	Swaps: 0
 	File system inputs: 0
-	File system outputs: 0
+	File system outputs: 8
 	Socket messages sent: 0
 	Socket messages received: 0
 	Signals delivered: 0
 	Page size (bytes): 4096
-	Exit status: 127
+	Exit status: 0
 
 teste004.pal
-/usr/bin/time: cannot run ../../mooshak_version/wordmorph: No such file or directory
-Command exited with non-zero status 127
 	Command being timed: "../../mooshak_version/wordmorph ../dic/portugues.dic teste004.pal"
-	User time (seconds): 0.00
-	System time (seconds): 0.00
-	Percent of CPU this job got: 0%
-	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.00
+	User time (seconds): 28.55
+	System time (seconds): 0.28
+	Percent of CPU this job got: 99%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:28.90
 	Average shared text size (kbytes): 0
 	Average unshared data size (kbytes): 0
 	Average stack size (kbytes): 0
 	Average total size (kbytes): 0
-	Maximum resident set size (kbytes): 1164
+	Maximum resident set size (kbytes): 897148
 	Average resident set size (kbytes): 0
 	Major (requiring I/O) page faults: 0
-	Minor (reclaiming a frame) page faults: 27
+	Minor (reclaiming a frame) page faults: 226553
 	Voluntary context switches: 1
-	Involuntary context switches: 0
+	Involuntary context switches: 763
 	Swaps: 0
-	File system inputs: 0
-	File system outputs: 0
+	File system inputs: 8
+	File system outputs: 8
 	Socket messages sent: 0
 	Socket messages received: 0
 	Signals delivered: 0
 	Page size (bytes): 4096
-	Exit status: 127
+	Exit status: 0
 
 teste005.pal
-/usr/bin/time: cannot run ../../mooshak_version/wordmorph: No such file or directory
-Command exited with non-zero status 127
 	Command being timed: "../../mooshak_version/wordmorph ../dic/portugues.dic teste005.pal"
-	User time (seconds): 0.00
-	System time (seconds): 0.00
-	Percent of CPU this job got: 0%
-	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.00
+	User time (seconds): 24.59
+	System time (seconds): 0.01
+	Percent of CPU this job got: 99%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:24.67
 	Average shared text size (kbytes): 0
 	Average unshared data size (kbytes): 0
 	Average stack size (kbytes): 0
 	Average total size (kbytes): 0
-	Maximum resident set size (kbytes): 1108
+	Maximum resident set size (kbytes): 34168
 	Average resident set size (kbytes): 0
 	Major (requiring I/O) page faults: 0
-	Minor (reclaiming a frame) page faults: 26
+	Minor (reclaiming a frame) page faults: 11505
 	Voluntary context switches: 1
-	Involuntary context switches: 0
+	Involuntary context switches: 926
 	Swaps: 0
-	File system inputs: 0
-	File system outputs: 0
+	File system inputs: 8
+	File system outputs: 8
 	Socket messages sent: 0
 	Socket messages received: 0
 	Signals delivered: 0
 	Page size (bytes): 4096
-	Exit status: 127
+	Exit status: 0
 
 teste006.pal
-/usr/bin/time: cannot run ../../mooshak_version/wordmorph: No such file or directory
-Command exited with non-zero status 127
 	Command being timed: "../../mooshak_version/wordmorph ../dic/portugues.dic teste006.pal"
-	User time (seconds): 0.00
-	System time (seconds): 0.00
-	Percent of CPU this job got: 0%
-	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.00
+	User time (seconds): 4.49
+	System time (seconds): 0.01
+	Percent of CPU this job got: 99%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:04.51
 	Average shared text size (kbytes): 0
 	Average unshared data size (kbytes): 0
 	Average stack size (kbytes): 0
 	Average total size (kbytes): 0
-	Maximum resident set size (kbytes): 1168
+	Maximum resident set size (kbytes): 34360
 	Average resident set size (kbytes): 0
 	Major (requiring I/O) page faults: 0
-	Minor (reclaiming a frame) page faults: 27
-	Voluntary context switches: 0
-	Involuntary context switches: 1
+	Minor (reclaiming a frame) page faults: 8791
+	Voluntary context switches: 1
+	Involuntary context switches: 199
 	Swaps: 0
-	File system inputs: 0
-	File system outputs: 0
+	File system inputs: 8
+	File system outputs: 16
 	Socket messages sent: 0
 	Socket messages received: 0
 	Signals delivered: 0
 	Page size (bytes): 4096
-	Exit status: 127
+	Exit status: 0
 
 teste007.pal
-/usr/bin/time: cannot run ../../mooshak_version/wordmorph: No such file or directory
-Command exited with non-zero status 127
 	Command being timed: "../../mooshak_version/wordmorph ../dic/portugues.dic teste007.pal"
-	User time (seconds): 0.00
+	User time (seconds): 1.21
 	System time (seconds): 0.00
-	Percent of CPU this job got: 0%
-	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.00
+	Percent of CPU this job got: 99%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:01.22
 	Average shared text size (kbytes): 0
 	Average unshared data size (kbytes): 0
 	Average stack size (kbytes): 0
 	Average total size (kbytes): 0
-	Maximum resident set size (kbytes): 1228
+	Maximum resident set size (kbytes): 15612
 	Average resident set size (kbytes): 0
 	Major (requiring I/O) page faults: 0
-	Minor (reclaiming a frame) page faults: 29
+	Minor (reclaiming a frame) page faults: 4119
 	Voluntary context switches: 1
-	Involuntary context switches: 0
+	Involuntary context switches: 145
 	Swaps: 0
-	File system inputs: 0
-	File system outputs: 0
+	File system inputs: 8
+	File system outputs: 16
 	Socket messages sent: 0
 	Socket messages received: 0
 	Signals delivered: 0
 	Page size (bytes): 4096
-	Exit status: 127
+	Exit status: 0
 
 teste008.pal
-/usr/bin/time: cannot run ../../mooshak_version/wordmorph: No such file or directory
-Command exited with non-zero status 127
 	Command being timed: "../../mooshak_version/wordmorph ../dic/portugues.dic teste008.pal"
-	User time (seconds): 0.00
-	System time (seconds): 0.00
-	Percent of CPU this job got: 0%
-	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.00
+	User time (seconds): 16.46
+	System time (seconds): 0.02
+	Percent of CPU this job got: 99%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:16.52
 	Average shared text size (kbytes): 0
 	Average unshared data size (kbytes): 0
 	Average stack size (kbytes): 0
 	Average total size (kbytes): 0
-	Maximum resident set size (kbytes): 1220
+	Maximum resident set size (kbytes): 55764
 	Average resident set size (kbytes): 0
 	Major (requiring I/O) page faults: 0
-	Minor (reclaiming a frame) page faults: 29
+	Minor (reclaiming a frame) page faults: 16952
 	Voluntary context switches: 1
-	Involuntary context switches: 0
+	Involuntary context switches: 682
 	Swaps: 0
-	File system inputs: 0
-	File system outputs: 0
+	File system inputs: 8
+	File system outputs: 8
 	Socket messages sent: 0
 	Socket messages received: 0
 	Signals delivered: 0
 	Page size (bytes): 4096
-	Exit status: 127
+	Exit status: 0
 
 teste009.pal
-/usr/bin/time: cannot run ../../mooshak_version/wordmorph: No such file or directory
-Command exited with non-zero status 127
 	Command being timed: "../../mooshak_version/wordmorph ../dic/portugues.dic teste009.pal"
-	User time (seconds): 0.00
-	System time (seconds): 0.00
-	Percent of CPU this job got: 0%
-	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.00
+	User time (seconds): 19.68
+	System time (seconds): 0.03
+	Percent of CPU this job got: 99%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:19.74
 	Average shared text size (kbytes): 0
 	Average unshared data size (kbytes): 0
 	Average stack size (kbytes): 0
 	Average total size (kbytes): 0
-	Maximum resident set size (kbytes): 1108
+	Maximum resident set size (kbytes): 72468
 	Average resident set size (kbytes): 0
 	Major (requiring I/O) page faults: 0
-	Minor (reclaiming a frame) page faults: 26
+	Minor (reclaiming a frame) page faults: 21140
 	Voluntary context switches: 1
-	Involuntary context switches: 0
+	Involuntary context switches: 765
 	Swaps: 0
-	File system inputs: 0
-	File system outputs: 0
+	File system inputs: 8
+	File system outputs: 24
 	Socket messages sent: 0
 	Socket messages received: 0
 	Signals delivered: 0
 	Page size (bytes): 4096
-	Exit status: 127
+	Exit status: 0
 
 teste010.pal
-/usr/bin/time: cannot run ../../mooshak_version/wordmorph: No such file or directory
-Command exited with non-zero status 127
 	Command being timed: "../../mooshak_version/wordmorph ../dic/portugues.dic teste010.pal"
-	User time (seconds): 0.00
-	System time (seconds): 0.00
-	Percent of CPU this job got: 0%
-	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.00
+	User time (seconds): 41.52
+	System time (seconds): 0.08
+	Percent of CPU this job got: 99%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:41.69
 	Average shared text size (kbytes): 0
 	Average unshared data size (kbytes): 0
 	Average stack size (kbytes): 0
 	Average total size (kbytes): 0
-	Maximum resident set size (kbytes): 1052
+	Maximum resident set size (kbytes): 152680
 	Average resident set size (kbytes): 0
 	Major (requiring I/O) page faults: 0
-	Minor (reclaiming a frame) page faults: 26
+	Minor (reclaiming a frame) page faults: 41153
 	Voluntary context switches: 1
-	Involuntary context switches: 0
+	Involuntary context switches: 678
 	Swaps: 0
-	File system inputs: 0
-	File system outputs: 0
+	File system inputs: 8
+	File system outputs: 24
 	Socket messages sent: 0
 	Socket messages received: 0
 	Signals delivered: 0
 	Page size (bytes): 4096
-	Exit status: 127
+	Exit status: 0
 
 teste011.pal
-/usr/bin/time: cannot run ../../mooshak_version/wordmorph: No such file or directory
-Command exited with non-zero status 127
 	Command being timed: "../../mooshak_version/wordmorph ../dic/portugues.dic teste011.pal"
-	User time (seconds): 0.00
+	User time (seconds): 0.58
 	System time (seconds): 0.00
-	Percent of CPU this job got: 0%
-	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.00
+	Percent of CPU this job got: 97%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.60
 	Average shared text size (kbytes): 0
 	Average unshared data size (kbytes): 0
 	Average stack size (kbytes): 0
 	Average total size (kbytes): 0
-	Maximum resident set size (kbytes): 1152
+	Maximum resident set size (kbytes): 17840
 	Average resident set size (kbytes): 0
 	Major (requiring I/O) page faults: 0
-	Minor (reclaiming a frame) page faults: 28
+	Minor (reclaiming a frame) page faults: 4194
 	Voluntary context switches: 1
-	Involuntary context switches: 0
+	Involuntary context switches: 174
 	Swaps: 0
-	File system inputs: 0
-	File system outputs: 0
+	File system inputs: 8
+	File system outputs: 72
 	Socket messages sent: 0
 	Socket messages received: 0
 	Signals delivered: 0
 	Page size (bytes): 4096
-	Exit status: 127
+	Exit status: 0
+
+teste012.pal
+	Command being timed: "../../mooshak_version/wordmorph ../dic/portugues.dic teste012.pal"
+	User time (seconds): 24.59
+	System time (seconds): 0.04
+	Percent of CPU this job got: 99%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:24.70
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 153092
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 38007
+	Voluntary context switches: 1
+	Involuntary context switches: 1147
+	Swaps: 0
+	File system inputs: 8
+	File system outputs: 56
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
 

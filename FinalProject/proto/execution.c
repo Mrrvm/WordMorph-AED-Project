@@ -116,7 +116,7 @@ int check_number_of_mutations(char *word1, char *word2, int max_mut, int *n_mut)
 	for(i=0; i < len; i++) {
     	if(word1[i] != word2[i])
     	   diff++;
-    	if(diff > max_mut)
+    	if(IS_BIGGER(diff, max_mut))
     		return 0;
     }
     /*Saves the number of different letters between the 2 words (diff)
@@ -205,7 +205,7 @@ path_element *run_dijkstra(element *got_element, int src_index, int max_mut) {
         heapify(i, n_words, hash_table, heap_vector);
     }
     i = n_words;
-    /*While queue is not empty*/
+    /*While queue is not empty */
     while(i > 0) { 
         /*Get the first element of the queue*/
         curr_heap_dic_index = get_first_heap_dic_index(hash_table, i, heap_vector);
