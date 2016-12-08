@@ -46,8 +46,6 @@ obj/
 wordmorph
 __pycache__/*
 vgcore*
-*.stat
-*.path
 
 # Compressed files
 *.tgz
