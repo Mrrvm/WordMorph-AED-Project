@@ -1,5 +1,32 @@
 # WordMorph - AED Project
 
+Project done within the subject of Algorithms and Data Structures. The objective is to find the shortest path between two words, the cost being equal to the number of letters that change to the square. 
+
+For example finding the shortest path between this 2 words (the number represents the maximum nº of number of letters that can change - number of mutations):
+
+	bola roxo 2
+
+in this dictionary:
+
+	sopa
+	roxo
+	roxa
+	bata nao
+	tal
+	rola
+	bola aio
+	sequencia
+
+The solution is:
+
+	bola 3
+	rola
+	roxa
+	roxo
+	
+The number is the total cost.
+
+The project was evaluated through mooshak, passing 19 out of 20 tests. 
 Feel free to use any code bits according to GPL3.
 
 * Simply do:
