@@ -1,6 +1,6 @@
-TARGET = tester
+TARGET = wordmorph
 CC = gcc
-CFLAGS = -Wall -Wextra  -ansi -g --pedantic
+CFLAGS = -Wall -ansi -O3
 
 .PHONY: default all clean
 

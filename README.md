@@ -1,5 +1,7 @@
 # WordMorph - AED Project
 
+Feel free to use any code bits according to GPL3.
+
 * Simply do:
 
 
@@ -34,6 +36,6 @@ to
 
 in defs.h, and use spam((a)) instead of printf(a).
 
-* To run the script for testing all test files
+* To run the script for testing all test files with time and memory flags, in /res/pal/ directory do
 
 		$ sh run_all.sh > ../results.txt 2>&1
