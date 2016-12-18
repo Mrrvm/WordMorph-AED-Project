@@ -4,7 +4,7 @@
 
 This project was done within the subject of Algorithms and Data Structures. The final objective is to find the shortest path between two words, the cost being equal to the number of letters that change to the square. 
 
-For example finding the shortest path between this 2 words (the number represents the maximum nº of number of letters that can change - number of mutations):
+For example finding the shortest path between this 2 words (the number represents the maximum number of letters that can change - number of mutations):
 
 	bola roxo 2
 
